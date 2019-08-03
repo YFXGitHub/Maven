@@ -1,0 +1,78 @@
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : aa
+Source Server Version : 50018
+Source Host           : localhost:3306
+Source Database       : day1
+
+Target Server Type    : MYSQL
+Target Server Version : 50018
+File Encoding         : 65001
+
+Date: 2019-07-27 14:37:38
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+-- ----------------------------
+-- Table structure for `cls`
+-- ----------------------------
+DROP TABLE IF EXISTS `cls`;
+CREATE TABLE `cls` (
+  `cid` int(11) NOT NULL auto_increment,
+  `cname` varchar(30) NOT NULL,
+  PRIMARY KEY  (`cid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of cls
+-- ----------------------------
+INSERT INTO cls VALUES ('1', '移动一班');
+INSERT INTO cls VALUES ('2', '移动二班看');
+INSERT INTO cls VALUES ('4', '卡世纪东方');
+INSERT INTO cls VALUES ('5', '跨京东方');
+INSERT INTO cls VALUES ('6', '卡沙拉贷款');
+
+-- ----------------------------
+-- Table structure for `stu`
+-- ----------------------------
+DROP TABLE IF EXISTS `stu`;
+CREATE TABLE `stu` (
+  `sid` int(11) NOT NULL auto_increment,
+  `sname` varchar(30) NOT NULL,
+  `sex` varchar(2) NOT NULL,
+  `age` int(11) NOT NULL,
+  `cj` int(11) NOT NULL,
+  `cid` int(11) default NULL,
+  PRIMARY KEY  (`sid`),
+  KEY `cid` (`cid`),
+  CONSTRAINT `stu_ibfk_1` FOREIGN KEY (`cid`) REFERENCES `cls` (`cid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of stu
+-- ----------------------------
+INSERT INTO stu VALUES ('1', '丽丽', '女', '34', '455', '1');
+INSERT INTO stu VALUES ('2', '东东', '男', '33', '444', '2');
+INSERT INTO stu VALUES ('3', '看看', '男', '22', '544', '5');
+INSERT INTO stu VALUES ('4', '丽丽', '女', '33', '343', '4');
+INSERT INTO stu VALUES ('5', '路口', '男', '34', '434', '2');
+INSERT INTO stu VALUES ('6', '兰兰', '女', '33', '433', '2');
+INSERT INTO stu VALUES ('7', '浏览', '男', '34', '471', '2');
+INSERT INTO stu VALUES ('8', '欧文', '男', '33', '321', '4');
+INSERT INTO stu VALUES ('9', '蓝色', '男', '32', '352', '5');
+INSERT INTO stu VALUES ('10', '李四', '男', '33', '342', '6');
+
+
+select * from userinfo limit ((page - 1)*limit),limit;
+
+select * from Cls LIMIT 0, 10;
+
+select count(cid) from Cls;
+
+select s.*, c.cname from Stu s inner join Cls c on s.cid = c.cid ORDER BY s.sid asc LIMIT 0, 1;
+
+select count(sid) from Stu;
+
+update Stu set sname = ?, sex =?, age=?, cj=?, cid=? where sid = ?;
+

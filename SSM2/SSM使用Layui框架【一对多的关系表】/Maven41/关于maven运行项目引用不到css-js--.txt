@@ -1,0 +1,20 @@
+关于maven项目引入css或者js文件 路径的问题 ？
+	
+	路径都是对的，还是无法加载！！！！
+
+	需要在web.xml里加上：	
+	<!-- 使用maven 就要引入各种样式如下： -->
+	 <servlet-mapping>  
+		<servlet-name>default </servlet-name>
+		<url-pattern>*.js</url-pattern>
+		<url-pattern>*.css</url-pattern>
+		<url-pattern>*.jpg</url-pattern>
+		<url-pattern>*.png</url-pattern>
+		<url-pattern>*.jpeg</url-pattern>
+		<url-pattern>*.svg</url-pattern>
+		<url-pattern>*.eot</url-pattern>
+		<url-pattern>*.woff</url-pattern>
+		<url-pattern>*.ttf</url-pattern>
+	</servlet-mapping>  
+--------------------- 
+

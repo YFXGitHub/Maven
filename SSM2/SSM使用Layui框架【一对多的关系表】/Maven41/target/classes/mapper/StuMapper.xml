@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="com.dao.StuMapper">
+	
+	<!-- select all -->
+	<select id="findAllStuPage" resultMap="resultAll" parameterType="java.lang.Integer">
+		select s.*, c.cname from Stu s inner join Cls c on s.cid = c.cid ORDER BY s.sid asc LIMIT #{page}, #{limit};
+	</select>
+	<!-- 查询数据的总条数 -->
+	<select id="findStuSize" resultType="java.lang.Integer">
+		select count(sid) from Stu;
+	</select>
+	
+	<!-- delete -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete from Stu where sid = #{sid};
+	</delete>
+	
+	<!-- update -->
+	<update id="udpate" parameterType="com.model.Stu">
+		update Stu set sname = #{sname}, sex =#{sex}, age=#{age}, cj=#{cj}, cid=#{cls.cid} where sid = #{sid};
+	</update>
+	
+	
+	<resultMap id="resultAll" type="com.model.Stu">
+		<id column="sid" property="sid" />
+		<result column="sname" property="sname" />
+		<result column="sex" property="sex" />
+		<result column="age" property="age" />
+		<result column="cj" property="cj" />
+		<association property="cls" javaType="com.model.Cls">  <!-- 子表中查询主表  -->
+			<id column="cid" property="cid" />
+			<result column="cname" property="cname" />
+		</association>
+	</resultMap>
+	
+	<!-- 若是主表中查询子表  那么子表的字段名要根据主表里的一致 -->
+	
+</mapper>

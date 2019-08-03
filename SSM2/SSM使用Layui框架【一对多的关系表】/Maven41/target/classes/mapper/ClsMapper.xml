@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="com.dao.ClsMapper">
+
+	<!--  分页 查询 -->
+	<select id="findPageCls" resultType="com.model.Cls" parameterType="java.lang.Integer">
+		select * from Cls LIMIT #{page}, #{limit};
+	</select>
+	
+	<!-- 分页 统计总条数 -->
+	<select id="findSize" resultType="java.lang.Integer">
+		select count(cid) from Cls;
+	</select>
+
+	<select id="findAllCls" resultType="com.model.Cls">
+		select * from cls;
+	</select>
+	
+	<select id="findClsByid" resultType="com.model.Cls" parameterType="java.lang.Integer">
+		select * from cls where cid = #{cid};
+	</select>
+	
+	<update id="update" parameterType="com.model.Cls">
+		update cls set cname = #{cname} where cid = #{cid};
+	</update>
+	
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete from cls where cid = #{cid};
+	</delete>
+</mapper>
