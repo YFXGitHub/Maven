@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="com.dao.StuMapper">
+	
+	<!-- 查询所有 -->
+	<select id="findAllStu" resultMap="resultAll">
+		select s.*, c.cname from Stu s inner join Cls c on s.cid = c.cid
+	</select>
+	
+	<!-- 根据id 查询 -->
+	<select id="findAllByid" resultMap="resultAll" parameterType="java.lang.Integer">
+		select s.*, c.cname from Stu s inner join Cls c on s.cid = c.cid where s.sid = #{sid};
+	</select>
+	
+	<!-- 修改   注意：在写修改语句一定要在数据库中写一次再粘贴过来 -->
+	<update id="update" parameterType="com.model.Stu">
+
+		update Stu set sname = #{sname}, sex = #{sex}, age = #{age} , cj = #{cj}, cid = #{cls.cid}  where sid = #{sid};
+	</update>
+	
+	<!-- delete -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete from Stu where sid = #{sid};
+	</delete>
+	
+	<resultMap id="resultAll" type="com.model.Stu">
+		<id column="sid" property="sid" />
+		<result column="sname" property="sname" />
+		<result column="sex" property="sex" />
+		<result column="age" property="age" />
+		<result column="cj" property="cj" />
+		<association property="cls" javaType="com.model.Cls">
+			<id column="cid" property="cid" />
+			<result column="cname" property="cname" />
+		</association>
+	</resultMap>
+	
+</mapper>

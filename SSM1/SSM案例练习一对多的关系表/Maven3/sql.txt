@@ -1,0 +1,33 @@
+SELECT * FROM `userinfo`;
+
+insert into userinfo values(null, 'asdfl', 'asdf', 'asdf', 'asdfas');
+
+update userinfo set usercard = '', userpwd ='', userphone = '', useraddress ='' where uid = ?;
+
+delete from userinfo where uid = ?;
+
+
+
+-- 创建 cls
+create table Cls(
+	cid int primary key auto_increment,
+	cname varchar(30) not null
+);
+
+
+-- 创建 Stu
+create table Stu(
+	sid int primary key auto_increment,
+	sname varchar(30) not null,
+	sex varchar(2) not null,
+	age int  not null,
+	cj int not null,
+	cid int,
+	FOREIGN key (cid) REFERENCES Cls (cid)
+);
+
+select s.*, c.cname from Stu s, Cls c where s.cid = c.cid;
+
+select s.*, c.cname from Stu s inner join Cls c on s.cid = c.cid
+
+update Stu set sname = '大师傅', sex = '女', age =11 , cj = 343, cid = 4  where sid = 3;

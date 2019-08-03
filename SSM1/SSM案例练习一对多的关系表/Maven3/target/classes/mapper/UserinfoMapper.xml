@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+ <mapper namespace="com.dao.UserinfoMapper">
+ 
+ 		<!--  查询所有 -->
+ 		<select id="findAllUserinfo" resultType="com.model.Userinfo">
+ 			select * from userinfo;
+ 		</select>
+ 		
+ 		<!-- 根据ID 查询所有数据 -->
+ 		<select id="findUserinfoById" resultType="com.model.Userinfo" parameterType="java.lang.Integer">
+ 			select * from userinfo where uid = #{uid};
+ 		</select>
+ 		
+ 		<!-- update -->
+ 		<update id="update" parameterType="com.model.Userinfo">
+ 			update userinfo set usercard = #{usercard}, userpwd =#{userpwd}, userphone = #{userphone}, useraddress =#{useraddress} where uid = #{uid};
+ 		</update>
+ 		
+ 		<!-- delete -->
+ 		<delete id="delete" parameterType="java.lang.Integer">
+ 			delete from userinfo where uid = #{uid};
+ 		</delete>
+ 		
+        
+ </mapper>
