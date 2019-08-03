@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>layui日期、时间1</title>
+	
+		<!--  引入layui.css  样式-->
+		  <link rel="stylesheet" href="layui/css/layui.css" />
+	</head>
+	<body>
+		
+		<h1>layui日期、时间学习</h1>
+		<a href="https://www.layui.com/demo/layer.html">Layui的官网文档学习案例</a><br />
+		<p>常规用法</p>
+		
+		 <div class="layui-inline">
+	      <label class="layui-form-label">中文版</label>
+	      <div class="layui-input-inline">
+	        <input type="text" class="layui-input" id="test1" placeholder="yyyy-MM-dd">
+	      </div>
+	    </div>
+	    
+	     <div class="layui-inline">
+	      <label class="layui-form-label">国际版</label>
+	      <div class="layui-input-inline">
+	        <input type="text" class="layui-input" id="test1-1" placeholder="yyyy-MM-dd">
+	      </div>
+	    </div>
+		
+		
+		
+		
+		<!--  引入layui.js  -->
+		<script src="layui/layui.js"utf-8"></script>
+		<script>
+			layui.use('laydate', function(){
+			  var laydate = layui.laydate;
+			  
+			  //常规用法
+			  laydate.render({
+			    elem: '#test1'
+			  });
+			  
+			  //国际版
+			  laydate.render({
+			    elem: '#test1-1'
+			    ,lang: 'en'
+			  });
+			  
+			});
+			</script>
+	</body>
+</html>

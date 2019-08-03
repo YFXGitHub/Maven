@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>layui日期、时间1</title>
+	
+			<!--  引入layui.css  样式-->
+		  <link rel="stylesheet" href="layui/css/layui.css" />
+	</head>
+	<body>
+		
+		<h1>layui日期、时间学习</h1>
+		<a href="https://www.layui.com/demo/layer.html">Layui的官网文档学习案例</a><br />
+		
+		<p>其它选择器</p>
+		
+		 <div class="layui-inline">
+	      <label class="layui-form-label">年选择器</label>
+	      <div class="layui-input-inline">
+	        <input type="text" class="layui-input" id="test2" placeholder="yyyy">
+	      </div>
+	    </div>
+	    <div class="layui-inline">
+	      <label class="layui-form-label">年月选择器</label>
+	      <div class="layui-input-inline">
+	        <input type="text" class="layui-input" id="test3" placeholder="yyyy-MM">
+	      </div>
+	    </div>
+	    <div class="layui-inline">
+	      <label class="layui-form-label">时间选择器</label>
+	      <div class="layui-input-inline">
+	        <input type="text" class="layui-input" id="test4" placeholder="HH:mm:ss">
+	      </div>
+	    </div>
+	    <div class="layui-inline">
+	      <label class="layui-form-label">日期时间选择器</label>
+	      <div class="layui-input-inline">
+	        <input type="text" class="layui-input" id="test5" placeholder="yyyy-MM-dd HH:mm:ss">
+	      </div>
+	    </div>
+		
+		<script src="layui/layui.js"utf-8"></script>
+		<script>
+			layui.use('laydate', function(){
+			  var laydate = layui.laydate;
+			  
+			  //年选择器
+			  laydate.render({
+			    elem: '#test2'
+			    ,type: 'year'
+			  });
+			  
+			  //年月选择器
+			  laydate.render({
+			    elem: '#test3'
+			    ,type: 'month'
+			  });
+			  
+			  //时间选择器
+			  laydate.render({
+			    elem: '#test4'
+			    ,type: 'time'
+			  });
+			  
+			  //日期时间选择器
+			  laydate.render({
+			    elem: '#test5'
+			    ,type: 'datetime'
+			  });
+			  
+			  
+			});
+		</script>
+		
+	</body>
+</html>

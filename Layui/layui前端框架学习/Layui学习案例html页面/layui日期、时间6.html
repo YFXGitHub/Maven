@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>layui日期、时间的主题</title>
+	
+		<!--  引入layui.css  样式-->
+		  <link rel="stylesheet" href="layui/css/layui.css" />
+	</head>
+	<body>
+		
+		<h1>其它主题</h1>
+		<a href="https://www.layui.com/demo/layer.html">Layui的官网文档学习案例</a><br />
+		
+		
+		 <div class="layui-inline">
+	      <label class="layui-form-label">墨绿主题</label>
+	      <div class="layui-input-inline">
+	        <input type="text" class="layui-input" id="test29" placeholder="yyyy-MM-dd">
+	      </div>
+	    </div>
+	    <div class="layui-inline">
+	      <label class="layui-form-label">自定义颜色主题</label>
+	      <div class="layui-input-inline">
+	        <input type="text" class="layui-input" id="test30" placeholder="yyyy-MM-dd">
+	      </div>
+	    </div>
+	    <div class="layui-inline">
+	      <label class="layui-form-label">格子主题</label>
+	      <div class="layui-input-inline">
+	        <input type="text" class="layui-input" id="test31" placeholder="yyyy-MM-dd">
+	      </div>
+	    </div>
+		
+		
+		
+		<br />
+		<br />
+		<h1>为时间、日期设置初始值！</h1>
+		<div class="layui-inline">
+	      <label class="layui-form-label">初始赋值</label>
+	      <div class="layui-input-inline">
+	        <input type="text" class="layui-input" id="test19" placeholder="yyyy-MM-dd">
+	      </div>
+	    </div>
+		
+		
+		<br />
+		<br />
+		<h1>为时间、日期设置弹出样式 没有底边栏！</h1>
+		 <div class="layui-inline">
+	      <label class="layui-form-label">不出现底部栏</label>
+	      <div class="layui-input-inline">
+	        <input type="text" class="layui-input" id="test22" placeholder="yyyy-MM-dd">
+	      </div>
+	    </div>
+		
+		
+		<script src="layui/layui.js"utf-8"></script>
+		
+		<script>
+			layui.use('laydate', function(){
+			  var laydate = layui.laydate;
+			  
+			  //墨绿主题
+			  laydate.render({
+			    elem: '#test29'
+			    ,theme: 'molv'
+			  });
+			  
+			  //自定义颜色
+			  laydate.render({
+			    elem: '#test30'
+			    ,theme: '#393D49'
+			  });
+			  
+			  //格子主题
+			  laydate.render({
+			    elem: '#test31'
+			    ,theme: 'grid'
+			  });
+			  
+			  
+			   //初始赋值
+			  laydate.render({
+			    elem: '#test19'
+			    ,value: new Date()  //value: '1989-10-14'
+			    ,isInitValue: true
+			  });
+			  
+			  
+			  //不出现底部栏
+			  laydate.render({
+			    elem: '#test22'
+			    ,showBottom: false
+			  });
+			
+			});
+		</script>
+	</body>
+</html>

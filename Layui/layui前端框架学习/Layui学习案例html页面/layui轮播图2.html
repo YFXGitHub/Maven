@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>layui轮播图</title>
+		
+		<!--  引入layui.css  样式-->
+		 <link rel="stylesheet" href="layui/css/layui.css"  media="all">
+	</head>
+	<body>
+		
+		<h1>layui轮播图</h1>
+		<a href="https://www.layui.com/demo/layer.html">Layui的官网文档学习案例</a><br />
+		
+		<div class="layui-carousel" id="test2" style="margin-top: 15px;">
+		  <div carousel-item="">
+			<div >条目1</div>
+			<div class="layui-bg-red">条目2</div>
+			<div>条目2</div>
+			<div class="layui-bg-orange">条目3</div>
+		  </div>
+		</div>
+		
+		
+		
+		
+		<script src="layui/layui.js" charset="utf-8"></script>
+		<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+		<script>
+			layui.use(['carousel', 'form'], function(){
+			  var carousel = layui.carousel
+			  ,form = layui.form;
+			  
+			  //改变下时间间隔、动画类型、高度
+			  carousel.render({
+			    elem: '#test2'
+			    ,interval: 1800    // 控制间隔的秒数
+			    ,anim: 'fade'		//控制 轮播的样式 此时为‘淡入淡出’
+			    ,height: '350px'	//控制轮播图的高度
+			    ,width:"900px"		//控制轮播图的宽度
+			  });
+			  
+			});
+		</script>
+		
+	</body>
+</html>

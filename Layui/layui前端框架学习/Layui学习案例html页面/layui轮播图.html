@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>layui轮播图</title>
+		
+		<!--  引入layui.css  样式-->
+		 <link rel="stylesheet" href="layui/css/layui.css"  media="all">
+	</head>
+	<body>
+			<h1>layui轮播图</h1>
+			<a href="https://www.layui.com/demo/layer.html">Layui的官网文档学习案例</a><br />
+			
+			<p>常规轮播</p>
+			<div class="layui-carousel" id="test1" lay-filter="test1">
+			  <div carousel-item="">
+			    <div class="layui-bg-blue">条目1</div>
+			    <div class="layui-bg-red">条目2</div>
+			    <div class="layui-bg-orange">条目3</div>
+			    <div class="layui-bg-cyan">条目4</div>
+			    <div class="layui-bg-green">条目5</div>
+			  </div>
+			</div> 
+			
+			
+			
+			<script src="layui/layui.js" charset="utf-8"></script>
+			
+			<script>
+				layui.use(['carousel', 'form'], function(){
+				  var carousel = layui.carousel
+				  ,form = layui.form;
+				  
+				  //常规轮播
+				  carousel.render({
+				    elem: '#test1'
+				    ,arrow: 'always'
+				  });
+				  
+				});
+			</script>
+	</body>
+</html>

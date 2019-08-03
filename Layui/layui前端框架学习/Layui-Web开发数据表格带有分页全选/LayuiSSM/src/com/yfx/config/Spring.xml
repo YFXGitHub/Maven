@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd">
+	
+	<!-- 扫描包,将指定包下的含有特殊注解的对象(如@Component,@Service等...)交给Spring IOC容器管理 -->
+    <context:component-scan base-package="com.yfx.service" />
+	
+	<!-- 配置 读取properties文件 jdbc.properties -->
+    <context:property-placeholder location="classpath:com/yfx/config/jdbc.properties" />
+    
+    <!-- 配置连接池 -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${driver}"></property>
+		<property name="url" value="${url}"></property>
+		<property name="username" value="${user}"></property>
+		<property name="password" value="${pwd}"></property>
+	</bean>
+	
+	<!-- 配置sqlSession属性 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!--  typeAliasesPackage：它一般对应我们的实体类所在的包，这个时候会自动取对应包中不包括包名的
+			简单类名作为包括包名的别名。多个package之间可以用逗号或者分号等来进行分隔。(value的值一定要是包的全名) -->
+		<property name="typeAliasesPackage" value="com.yfx.mapper"></property>
+		<!-- 这个属性是必须的 -->
+		<property name="dataSource" ref="dataSource"></property>
+		<!-- mappLocations: 它表示我们存放Mapper.xml文件的位置 -->
+		<property name="mapperLocations" value="classpath:com/yfx/mapper/*.xml"></property>
+	</bean>
+	
+	
+	<!--  自动扫描 将Mapper接口生成代理注入到Spring Mybatis在与Spring集成的时候可以配置MapperFactoryBean来生成Mapper接口的代理 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.yfx.mapper"></property>
+	</bean>   
+
+ <!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->  
+    <bean id="transactionManager"  
+        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
+        <property name="dataSource" ref="dataSource" />  
+    </bean>  
+	
+</beans>

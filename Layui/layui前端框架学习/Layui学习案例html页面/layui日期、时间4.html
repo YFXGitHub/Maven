@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>layui日期、时间1</title>
+	
+		<!--  引入layui.css  样式-->
+		  <link rel="stylesheet" href="layui/css/layui.css" />
+	</head>
+	<body>
+		<h1>layui日期、时间4自定义格式</h1>
+		<a href="https://www.layui.com/demo/layer.html">Layui的官网文档学习案例</a><br />
+		<p>自定义格式</p>
+		<div class="layui-inline">
+	      <label class="layui-form-label">请选择日期</label>
+	      <div class="layui-input-inline">
+	        <input type="text" class="layui-input" id="test11" placeholder="yyyy年MM月dd日">
+	      </div>
+	    </div>
+	    <div class="layui-inline">
+	      <label class="layui-form-label">请选择日期</label>
+	      <div class="layui-input-inline">
+	        <input type="text" class="layui-input" id="test12" placeholder="dd/MM/yyyy">
+	      </div>
+	    </div>
+	    <div class="layui-inline">
+	      <label class="layui-form-label">请选择月份</label>
+	      <div class="layui-input-inline">
+	        <input type="text" class="layui-input" id="test13" placeholder="yyyyMMdd">
+	      </div>
+	    </div>
+	    <div class="layui-inline">
+	      <label class="layui-form-label">请选择时间</label>
+	      <div class="layui-input-inline">
+	        <input type="text" class="layui-input" id="test14" placeholder="H点m分">
+	      </div>
+	    </div>
+	    <div class="layui-inline">
+	      <label class="layui-form-label">请选择范围</label>
+	      <div class="layui-input-inline">
+	        <input type="text" class="layui-input" id="test15" placeholder=" ~ ">
+	      </div>
+	    </div>
+	    <div class="layui-inline">
+	      <label class="layui-form-label">请选择范围</label>
+	      <div class="layui-input-inline">
+	        <input type="text" class="layui-input" id="test16" placeholder="开始 到 结束">
+	      </div>
+	    </div>
+		
+		
+		
+		
+		<script src="layui/layui.js"utf-8"></script>
+		<script>
+			layui.use('laydate', function(){
+			  var laydate = layui.laydate;
+			  
+			  //自定义格式
+			  laydate.render({
+			    elem: '#test11'
+			    ,format: 'yyyy年MM月dd日'
+			  });
+			  laydate.render({
+			    elem: '#test12'
+			    ,format: 'dd/MM/yyyy'
+			  });
+			  laydate.render({
+			    elem: '#test13'
+			    ,format: 'yyyyMMdd'
+			  });
+			  laydate.render({
+			    elem: '#test14'
+			    ,type: 'time'
+			    ,format: 'H点m分'
+			  });
+			  laydate.render({
+			    elem: '#test15'
+			    ,type: 'month'
+			    ,range: '~'
+			    ,format: 'yyyy-MM'
+			  });
+			  laydate.render({
+			    elem: '#test16'
+			    ,type: 'datetime'
+			    ,range: '到'
+			    ,format: 'yyyy年M月d日H时m分s秒'
+			  });
+			  
+			 
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>layui进度条</title>
+		 
+		 <!--  引入layui.css  样式-->
+		 <link rel="stylesheet" href="layui/css/layui.css"  media="all">
+	</head>
+	<body>
+		
+		<h1>layui 中的 进度条的学习！！！！</h1>
+		<a href="https://www.layui.com/demo/layer.html">Layui的官网文档学习案例</a><br />
+		
+		<!-- 默认风格的进度条 -->
+		<p>默认风格的进度条</p>
+			<!-- 默认风格的进度条   1 长-->
+			<div class="layui-progress">
+			  <div class="layui-progress-bar" lay-percent="40%"></div>
+			</div>
+			<!-- 默认风格的进度条 2 短-->
+			<div style="margin-top: 15px; width:300px">
+			  <div class="layui-progress">
+			    <div class="layui-progress-bar" lay-percent="70%"></div>
+			  </div>
+			</div>
+
+			<br>
+			温馨提示：进度条的宽度是100%适配于它的父级元素，如上面的进度条是在一个300px的父容器中。
+			<br /><br />
+			
+		<p>更多颜色选取</p>
+			<!-- 更多颜色选取   红色-->
+			<div class="layui-progress">
+			  <div class="layui-progress-bar layui-bg-red" lay-percent="20%"></div>
+			</div>
+			<br>
+			
+			<!-- 更多颜色选取   黄色-->
+			<div class="layui-progress">
+			  <div class="layui-progress-bar layui-bg-orange" lay-percent="30%"></div>
+			</div>
+			<br>
+			 
+			 <!-- 更多颜色选取   青色-->
+			<div class="layui-progress">
+			  <div class="layui-progress-bar layui-bg-green" lay-percent="40%"></div>
+			</div>
+			<br>
+			 
+			 <!-- 更多颜色选取   蓝色-->
+			<div class="layui-progress">
+			  <div class="layui-progress-bar layui-bg-blue" lay-percent="50%"></div>
+			</div>
+			<br>
+			 
+			 <!-- 更多颜色选取   黑色-->
+			<div class="layui-progress">
+			  <div class="layui-progress-bar layui-bg-cyan" lay-percent="60%"></div>
+			</div>
+			<br><br>
+		
+		<p>大尺寸进度条</p>
+			<!--大尺寸进度条  -->
+			<div class="layui-progress layui-progress-big">
+			  <div class="layui-progress-bar" lay-percent="20%"></div>
+			</div>
+			   
+			<br>
+			<div class="layui-progress layui-progress-big">
+			  <div class="layui-progress-bar layui-bg-green" lay-percent="35%"></div>
+			</div>
+			<br>
+			<div class="layui-progress layui-progress-big">
+			  <div class="layui-progress-bar layui-bg-cyan" lay-percent="75%"></div>
+			</div>
+			<br><br>
+			
+		<p>显示进度比文本</p>
+		   <!-- 显示进度比文本 -->
+		   <div class="layui-progress" lay-showpercent="true">
+			  <div class="layui-progress-bar layui-bg-blue" lay-percent="20%"></div>
+			</div>
+			<br>
+			 
+			<div class="layui-progress" lay-showpercent="true">
+			  <div class="layui-progress-bar layui-bg-red" lay-percent="5 / 10"></div>
+			</div>
+			<br>
+			 
+			<div class="layui-progress layui-progress-big" lay-showpercent="true">
+			  <div class="layui-progress-bar" lay-percent="70%"></div>
+			</div>
+			<br><br>
+		
+		
+		<script src="layui/layui.js" charset="utf-8"></script>
+		<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+		<script>
+			layui.use('element', function(){
+			  var $ = layui.jquery
+			 
+			});
+		</script>
+
+	</body>
+</html>
+		<!--   最初的js 样式  ？？？？？？？？？？？？？？
+			<script src="layui/layui.js" charset="utf-8"></script>
+		 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的
+		<script>
+			layui.use('element', function(){
+			  var $ = layui.jquery
+			  ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+			  
+			  //触发事件
+			  var active = {
+			    setPercent: function(){
+			      //设置50%进度
+			      element.progress('demo', '50%')
+			    }
+			    ,loading: function(othis){
+			      var DISABLED = 'layui-btn-disabled';
+			      if(othis.hasClass(DISABLED)) return;
+			    
+			      //模拟loading
+			      var n = 0, timer = setInterval(function(){
+			        n = n + Math.random()*10|0;  
+			        if(n>100){
+			          n = 100;
+			          clearInterval(timer);
+			          othis.removeClass(DISABLED);
+			        }
+			        element.progress('demo', n+'%');
+			      }, 300+Math.random()*1000);
+			      
+			      othis.addClass(DISABLED);
+			    }
+			  };
+  
+			  $('.site-demo-active').on('click', function(){
+			    var othis = $(this), type = $(this).data('type');
+			    active[type] ? active[type].call(this, othis) : '';
+			  });
+			});
+		</script>
+
+			
+			
+			
+		-->

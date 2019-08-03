@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>layui弹出层</title>
+		
+		<!--  引入layui.css  样式-->
+		 <link rel="stylesheet" href="layui/css/layui.css"  media="all">
+	</head>
+	<body>
+		<a href="https://www.layui.com/demo/layer.html">Layui的官网文档学习案例</a><br />
+		
+		<button class="layui-btn" id="btn1">点我！按钮1</button>
+		<button class="layui-btn" id="btn2">点我！按钮2</button>
+		<button class="layui-btn" id="btn3">点我！按钮3  询问框</button>
+		<button class="layui-btn" id="btn4">点我！按钮4  弹出表单框</button>
+		<button class="layui-btn" id="btn5">点我！按钮5  弹出表单框</button>
+		
+		<form>user:<input type="text" /><br/>pwd:<input type="password" /><br/><button type="submit">提交</button></form>
+		
+		<h1>h1!</h1>
+		<script src="layui/layui.js" charset="utf-8"></script>
+		<script>
+			layui.use(['layer', 'jquery', 'form'], function(){
+				var layer = layui.layer;
+				var $ = layui.jquery;
+				
+				//按钮1
+				$("#btn1").click(function(){
+					layer.msg("asldkfjasdf ");
+				});
+				
+				//按钮2
+				$("#btn2").click(function(){
+					layer.alert("tanttan",{icon:3});	//icon 图标 0~6
+				});
+				
+				//按钮3  询问框
+				$("#btn3").click(function(){
+					layer.confirm("是否删除！", {icon:2, title:"提示信息"}, function(index){
+						alert("ok!");  	//点击确定时：触发
+						layer.close(index);		//点击确定时：关闭弹出层！
+					});
+				});
+				
+				//按钮4 弹出表单框
+				$("#btn4").click(function(){
+					layer.open({
+						type:"0",				//0  就是指  提示框！
+						title:"弹出表单",			//标题
+						skin:"layui-layer-lan",	//标题的背景色
+						area:["500px", "300px"],	//设置宽，高！
+						//offset:"auto",   默认页面居中显示！
+						shade:[0.8, '#2F4056'],		//遮皁
+						shadeClose:true,			//点击遮皁 关闭
+						//time:5000,				//表示5秒后关闭！
+						anim:6,						//弹出动画 0~6！
+						content:"<form>user:<input type='text' /><br/>pwd:<input type='password' /><br/><button type=‘submit'>提交</button></form>"  //content:"提示！" 也可写入标签
+					});
+				});
+				
+				//按钮5 弹出表单框
+				//layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）。 若你采用layer.open({type: 1})方式调用，则type为必填项（信息框除外）
+				$("#btn5").click(function(){
+					layer.open({
+						type:"1",				//0  就是指  提示框！
+						title:"弹出表单",			//标题
+						skin:"layui-layer-lan",	//标题的背景色
+						area:["800px", "400px"],	//设置宽，高！
+						//offset:"auto",   默认页面居中显示！
+						shade:[0.8, '#2F4056'],		//遮皁
+						shadeClose:true,			//点击遮皁 关闭
+						//time:5000,				//表示5秒后关闭！
+						anim:0,						//弹出动画 0~6！
+						content:$("#context")  //content:"提示！" 也可写入标签
+					});
+				});
+				
+			});
+	
+		</script>
+	</body>
+	
+	<div id="context" style="display: none;">
+		<div>
+				<form class="layui-form" action="">		<!-- layui-form 表单  -->
+					  <div class="layui-form-item">   <!-- layui-form-item 表示一行 -->
+					    <label class="layui-form-label">输入框</label>
+					    <div class="layui-input-block">
+					      <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+					    </div>
+					  </div>
+					  <div class="layui-form-item">
+					    <label class="layui-form-label">密码框</label>
+					    <div class="layui-input-inline">
+					      <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+					    </div>
+					    <div class="layui-form-mid layui-word-aux">辅助文字</div>
+					  </div>
+					  <div class="layui-form-item">
+					    <label class="layui-form-label">选择框</label>
+					    <div class="layui-input-block">
+					      <select name="city" lay-verify="required">
+					        <option value=""></option>
+					        <option value="0">北京</option>
+					        <option value="1">上海</option>
+					        <option value="2">广州</option>
+					        <option value="3">深圳</option>
+					        <option value="4">杭州</option>
+					      </select>
+					    </div>
+					  </div>
+					  <div class="layui-form-item">
+					    <label class="layui-form-label">复选框</label>
+					    <div class="layui-input-block">
+					      <input type="checkbox" name="like[write]" title="写作">
+					      <input type="checkbox" name="like[read]" title="阅读" checked>
+					      <input type="checkbox" name="like[dai]" title="发呆">
+					    </div>
+					  </div>
+					  <div class="layui-form-item">
+					    <label class="layui-form-label">开关</label>
+					    <div class="layui-input-block">
+					      <input type="checkbox" name="switch" lay-skin="switch">
+					    </div>
+					  </div>
+					  <div class="layui-form-item">
+					    <label class="layui-form-label">单选框</label>
+					    <div class="layui-input-block">
+					      <input type="radio" name="sex" value="男" title="男">
+					      <input type="radio" name="sex" value="女" title="女" checked>
+					    </div>
+					  </div>
+					  <div class="layui-form-item layui-form-text">
+					    <label class="layui-form-label">文本域</label>
+					    <div class="layui-input-block">
+					      <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+					    </div>
+					  </div>
+					  <div class="layui-form-item">
+					    <div class="layui-input-block">
+					      <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+					      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					      
+					    </div>
+					  </div>
+				</form>
+		</div>
+	</div>
+</html>
