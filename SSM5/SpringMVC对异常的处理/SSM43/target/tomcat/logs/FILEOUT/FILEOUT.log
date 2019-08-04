@@ -1,0 +1,738 @@
+2019-08-04 09:24:09.467|INFO|org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:307)|Root WebApplicationContext: initialization started
+2019-08-04 09:24:09.633|INFO|org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:573)|Refreshing Root WebApplicationContext: startup date [Sun Aug 04 09:24:09 CST 2019]; root of context hierarchy
+2019-08-04 09:24:09.723|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-context.xml]
+2019-08-04 09:24:10.122|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]
+2019-08-04 09:24:10.533|WARN|org.mybatis.spring.mapper.ClassPathMapperScanner.doScan(ClassPathMapperScanner.java:155)|No MyBatis mapper was found in '[yfx.dao]' package. Please check your configuration.
+2019-08-04 09:24:10.569|INFO|org.springframework.core.io.support.PropertiesLoaderSupport.loadProperties(PropertiesLoaderSupport.java:172)|Loading properties file from class path resource [jdbc.properties]
+2019-08-04 09:24:10.593|INFO|org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.<init>(AutowiredAnnotationBeanPostProcessor.java:153)|JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2019-08-04 09:24:10.793|INFO|org.springframework.jdbc.datasource.DriverManagerDataSource.setDriverClassName(DriverManagerDataSource.java:133)|Loaded JDBC driver: com.mysql.jdbc.Driver
+2019-08-04 09:24:10.906|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:358)|Property 'configLocation' not specified, using default MyBatis Configuration
+2019-08-04 09:24:11.090|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:379)|Scanned package: 'yfx.model' for aliases
+2019-08-04 09:24:12.049|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:473)|Property 'mapperLocations' was not specified or no matching resources found
+2019-08-04 09:24:12.324|WARN|org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:544)|Exception encountered during context initialization - cancelling refresh attempt
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping#0': Initialization of bean failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.web.servlet.handler.MappedInterceptor#1': Cannot create inner bean 'yfx.interceptor.LoginInterceptor#0' of type [yfx.interceptor.LoginInterceptor] while setting constructor argument; nested exception is org.springframework.beans.factory.CannotLoadBeanClassException: Cannot find class [yfx.interceptor.LoginInterceptor] for bean with name 'yfx.interceptor.LoginInterceptor#0' defined in file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]; nested exception is java.lang.ClassNotFoundException: yfx.interceptor.LoginInterceptor
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:305)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:301)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:772)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:834)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:537)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:446)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:328)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:107)
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4939)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5434)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1559)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1549)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.web.servlet.handler.MappedInterceptor#1': Cannot create inner bean 'yfx.interceptor.LoginInterceptor#0' of type [yfx.interceptor.LoginInterceptor] while setting constructor argument; nested exception is org.springframework.beans.factory.CannotLoadBeanClassException: Cannot find class [yfx.interceptor.LoginInterceptor] for bean with name 'yfx.interceptor.LoginInterceptor#0' defined in file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]; nested exception is java.lang.ClassNotFoundException: yfx.interceptor.LoginInterceptor
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveInnerBean(BeanDefinitionValueResolver.java:313)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:122)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveConstructorArguments(ConstructorResolver.java:634)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:140)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1143)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1046)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:510)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:305)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:301)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeansOfType(DefaultListableBeanFactory.java:534)
+	at org.springframework.context.support.AbstractApplicationContext.getBeansOfType(AbstractApplicationContext.java:1161)
+	at org.springframework.beans.factory.BeanFactoryUtils.beansOfTypeIncludingAncestors(BeanFactoryUtils.java:310)
+	at org.springframework.web.servlet.handler.AbstractHandlerMapping.detectMappedInterceptors(AbstractHandlerMapping.java:272)
+	at org.springframework.web.servlet.handler.AbstractHandlerMapping.initApplicationContext(AbstractHandlerMapping.java:247)
+	at org.springframework.context.support.ApplicationObjectSupport.initApplicationContext(ApplicationObjectSupport.java:120)
+	at org.springframework.web.context.support.WebApplicationObjectSupport.initApplicationContext(WebApplicationObjectSupport.java:76)
+	at org.springframework.context.support.ApplicationObjectSupport.setApplicationContext(ApplicationObjectSupport.java:74)
+	at org.springframework.context.support.ApplicationContextAwareProcessor.invokeAwareInterfaces(ApplicationContextAwareProcessor.java:119)
+	at org.springframework.context.support.ApplicationContextAwareProcessor.postProcessBeforeInitialization(ApplicationContextAwareProcessor.java:94)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsBeforeInitialization(AbstractAutowireCapableBeanFactory.java:408)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1570)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:545)
+	... 20 more
+Caused by: org.springframework.beans.factory.CannotLoadBeanClassException: Cannot find class [yfx.interceptor.LoginInterceptor] for bean with name 'yfx.interceptor.LoginInterceptor#0' defined in file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]; nested exception is java.lang.ClassNotFoundException: yfx.interceptor.LoginInterceptor
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveBeanClass(AbstractBeanFactory.java:1351)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:455)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveInnerBean(BeanDefinitionValueResolver.java:299)
+	... 44 more
+Caused by: java.lang.ClassNotFoundException: yfx.interceptor.LoginInterceptor
+	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1702)
+	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1547)
+	at org.springframework.util.ClassUtils.forName(ClassUtils.java:250)
+	at org.springframework.beans.factory.support.AbstractBeanDefinition.resolveBeanClass(AbstractBeanDefinition.java:394)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doResolveBeanClass(AbstractBeanFactory.java:1396)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveBeanClass(AbstractBeanFactory.java:1343)
+	... 46 more
+2019-08-04 09:24:12.774|ERROR|org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:353)|Context initialization failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping#0': Initialization of bean failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.web.servlet.handler.MappedInterceptor#1': Cannot create inner bean 'yfx.interceptor.LoginInterceptor#0' of type [yfx.interceptor.LoginInterceptor] while setting constructor argument; nested exception is org.springframework.beans.factory.CannotLoadBeanClassException: Cannot find class [yfx.interceptor.LoginInterceptor] for bean with name 'yfx.interceptor.LoginInterceptor#0' defined in file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]; nested exception is java.lang.ClassNotFoundException: yfx.interceptor.LoginInterceptor
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:305)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:301)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:772)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:834)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:537)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:446)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:328)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:107)
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4939)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5434)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1559)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1549)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.web.servlet.handler.MappedInterceptor#1': Cannot create inner bean 'yfx.interceptor.LoginInterceptor#0' of type [yfx.interceptor.LoginInterceptor] while setting constructor argument; nested exception is org.springframework.beans.factory.CannotLoadBeanClassException: Cannot find class [yfx.interceptor.LoginInterceptor] for bean with name 'yfx.interceptor.LoginInterceptor#0' defined in file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]; nested exception is java.lang.ClassNotFoundException: yfx.interceptor.LoginInterceptor
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveInnerBean(BeanDefinitionValueResolver.java:313)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:122)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveConstructorArguments(ConstructorResolver.java:634)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:140)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1143)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1046)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:510)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:305)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:301)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeansOfType(DefaultListableBeanFactory.java:534)
+	at org.springframework.context.support.AbstractApplicationContext.getBeansOfType(AbstractApplicationContext.java:1161)
+	at org.springframework.beans.factory.BeanFactoryUtils.beansOfTypeIncludingAncestors(BeanFactoryUtils.java:310)
+	at org.springframework.web.servlet.handler.AbstractHandlerMapping.detectMappedInterceptors(AbstractHandlerMapping.java:272)
+	at org.springframework.web.servlet.handler.AbstractHandlerMapping.initApplicationContext(AbstractHandlerMapping.java:247)
+	at org.springframework.context.support.ApplicationObjectSupport.initApplicationContext(ApplicationObjectSupport.java:120)
+	at org.springframework.web.context.support.WebApplicationObjectSupport.initApplicationContext(WebApplicationObjectSupport.java:76)
+	at org.springframework.context.support.ApplicationObjectSupport.setApplicationContext(ApplicationObjectSupport.java:74)
+	at org.springframework.context.support.ApplicationContextAwareProcessor.invokeAwareInterfaces(ApplicationContextAwareProcessor.java:119)
+	at org.springframework.context.support.ApplicationContextAwareProcessor.postProcessBeforeInitialization(ApplicationContextAwareProcessor.java:94)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsBeforeInitialization(AbstractAutowireCapableBeanFactory.java:408)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1570)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:545)
+	... 20 more
+Caused by: org.springframework.beans.factory.CannotLoadBeanClassException: Cannot find class [yfx.interceptor.LoginInterceptor] for bean with name 'yfx.interceptor.LoginInterceptor#0' defined in file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]; nested exception is java.lang.ClassNotFoundException: yfx.interceptor.LoginInterceptor
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveBeanClass(AbstractBeanFactory.java:1351)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:455)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveInnerBean(BeanDefinitionValueResolver.java:299)
+	... 44 more
+Caused by: java.lang.ClassNotFoundException: yfx.interceptor.LoginInterceptor
+	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1702)
+	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1547)
+	at org.springframework.util.ClassUtils.forName(ClassUtils.java:250)
+	at org.springframework.beans.factory.support.AbstractBeanDefinition.resolveBeanClass(AbstractBeanDefinition.java:394)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doResolveBeanClass(AbstractBeanFactory.java:1396)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveBeanClass(AbstractBeanFactory.java:1343)
+	... 46 more
+2019-08-04 09:38:42.508|INFO|org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:307)|Root WebApplicationContext: initialization started
+2019-08-04 09:38:42.665|INFO|org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:573)|Refreshing Root WebApplicationContext: startup date [Sun Aug 04 09:38:42 CST 2019]; root of context hierarchy
+2019-08-04 09:38:42.756|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-context.xml]
+2019-08-04 09:38:43.043|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]
+2019-08-04 09:38:43.460|WARN|org.mybatis.spring.mapper.ClassPathMapperScanner.doScan(ClassPathMapperScanner.java:155)|No MyBatis mapper was found in '[yfx.dao]' package. Please check your configuration.
+2019-08-04 09:38:43.484|INFO|org.springframework.core.io.support.PropertiesLoaderSupport.loadProperties(PropertiesLoaderSupport.java:172)|Loading properties file from class path resource [jdbc.properties]
+2019-08-04 09:38:43.496|INFO|org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.<init>(AutowiredAnnotationBeanPostProcessor.java:153)|JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2019-08-04 09:38:43.684|INFO|org.springframework.jdbc.datasource.DriverManagerDataSource.setDriverClassName(DriverManagerDataSource.java:133)|Loaded JDBC driver: com.mysql.jdbc.Driver
+2019-08-04 09:38:43.783|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:358)|Property 'configLocation' not specified, using default MyBatis Configuration
+2019-08-04 09:38:43.932|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:379)|Scanned package: 'yfx.model' for aliases
+2019-08-04 09:38:44.370|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:473)|Property 'mapperLocations' was not specified or no matching resources found
+2019-08-04 09:38:44.639|WARN|org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:544)|Exception encountered during context initialization - cancelling refresh attempt
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping#0': Initialization of bean failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.web.servlet.handler.MappedInterceptor#1': Cannot create inner bean 'yfx.interceptor.LoginInterceptor#0' of type [yfx.interceptor.LoginInterceptor] while setting constructor argument; nested exception is org.springframework.beans.factory.CannotLoadBeanClassException: Cannot find class [yfx.interceptor.LoginInterceptor] for bean with name 'yfx.interceptor.LoginInterceptor#0' defined in file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]; nested exception is java.lang.ClassNotFoundException: yfx.interceptor.LoginInterceptor
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:305)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:301)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:772)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:834)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:537)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:446)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:328)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:107)
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4939)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5434)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1559)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1549)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.web.servlet.handler.MappedInterceptor#1': Cannot create inner bean 'yfx.interceptor.LoginInterceptor#0' of type [yfx.interceptor.LoginInterceptor] while setting constructor argument; nested exception is org.springframework.beans.factory.CannotLoadBeanClassException: Cannot find class [yfx.interceptor.LoginInterceptor] for bean with name 'yfx.interceptor.LoginInterceptor#0' defined in file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]; nested exception is java.lang.ClassNotFoundException: yfx.interceptor.LoginInterceptor
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveInnerBean(BeanDefinitionValueResolver.java:313)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:122)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveConstructorArguments(ConstructorResolver.java:634)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:140)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1143)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1046)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:510)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:305)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:301)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeansOfType(DefaultListableBeanFactory.java:534)
+	at org.springframework.context.support.AbstractApplicationContext.getBeansOfType(AbstractApplicationContext.java:1161)
+	at org.springframework.beans.factory.BeanFactoryUtils.beansOfTypeIncludingAncestors(BeanFactoryUtils.java:310)
+	at org.springframework.web.servlet.handler.AbstractHandlerMapping.detectMappedInterceptors(AbstractHandlerMapping.java:272)
+	at org.springframework.web.servlet.handler.AbstractHandlerMapping.initApplicationContext(AbstractHandlerMapping.java:247)
+	at org.springframework.context.support.ApplicationObjectSupport.initApplicationContext(ApplicationObjectSupport.java:120)
+	at org.springframework.web.context.support.WebApplicationObjectSupport.initApplicationContext(WebApplicationObjectSupport.java:76)
+	at org.springframework.context.support.ApplicationObjectSupport.setApplicationContext(ApplicationObjectSupport.java:74)
+	at org.springframework.context.support.ApplicationContextAwareProcessor.invokeAwareInterfaces(ApplicationContextAwareProcessor.java:119)
+	at org.springframework.context.support.ApplicationContextAwareProcessor.postProcessBeforeInitialization(ApplicationContextAwareProcessor.java:94)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsBeforeInitialization(AbstractAutowireCapableBeanFactory.java:408)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1570)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:545)
+	... 20 more
+Caused by: org.springframework.beans.factory.CannotLoadBeanClassException: Cannot find class [yfx.interceptor.LoginInterceptor] for bean with name 'yfx.interceptor.LoginInterceptor#0' defined in file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]; nested exception is java.lang.ClassNotFoundException: yfx.interceptor.LoginInterceptor
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveBeanClass(AbstractBeanFactory.java:1351)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:455)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveInnerBean(BeanDefinitionValueResolver.java:299)
+	... 44 more
+Caused by: java.lang.ClassNotFoundException: yfx.interceptor.LoginInterceptor
+	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1702)
+	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1547)
+	at org.springframework.util.ClassUtils.forName(ClassUtils.java:250)
+	at org.springframework.beans.factory.support.AbstractBeanDefinition.resolveBeanClass(AbstractBeanDefinition.java:394)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doResolveBeanClass(AbstractBeanFactory.java:1396)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveBeanClass(AbstractBeanFactory.java:1343)
+	... 46 more
+2019-08-04 09:38:44.647|ERROR|org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:353)|Context initialization failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping#0': Initialization of bean failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.web.servlet.handler.MappedInterceptor#1': Cannot create inner bean 'yfx.interceptor.LoginInterceptor#0' of type [yfx.interceptor.LoginInterceptor] while setting constructor argument; nested exception is org.springframework.beans.factory.CannotLoadBeanClassException: Cannot find class [yfx.interceptor.LoginInterceptor] for bean with name 'yfx.interceptor.LoginInterceptor#0' defined in file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]; nested exception is java.lang.ClassNotFoundException: yfx.interceptor.LoginInterceptor
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:305)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:301)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:772)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:834)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:537)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:446)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:328)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:107)
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4939)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5434)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1559)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1549)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.web.servlet.handler.MappedInterceptor#1': Cannot create inner bean 'yfx.interceptor.LoginInterceptor#0' of type [yfx.interceptor.LoginInterceptor] while setting constructor argument; nested exception is org.springframework.beans.factory.CannotLoadBeanClassException: Cannot find class [yfx.interceptor.LoginInterceptor] for bean with name 'yfx.interceptor.LoginInterceptor#0' defined in file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]; nested exception is java.lang.ClassNotFoundException: yfx.interceptor.LoginInterceptor
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveInnerBean(BeanDefinitionValueResolver.java:313)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:122)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveConstructorArguments(ConstructorResolver.java:634)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:140)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1143)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1046)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:510)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:305)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:301)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeansOfType(DefaultListableBeanFactory.java:534)
+	at org.springframework.context.support.AbstractApplicationContext.getBeansOfType(AbstractApplicationContext.java:1161)
+	at org.springframework.beans.factory.BeanFactoryUtils.beansOfTypeIncludingAncestors(BeanFactoryUtils.java:310)
+	at org.springframework.web.servlet.handler.AbstractHandlerMapping.detectMappedInterceptors(AbstractHandlerMapping.java:272)
+	at org.springframework.web.servlet.handler.AbstractHandlerMapping.initApplicationContext(AbstractHandlerMapping.java:247)
+	at org.springframework.context.support.ApplicationObjectSupport.initApplicationContext(ApplicationObjectSupport.java:120)
+	at org.springframework.web.context.support.WebApplicationObjectSupport.initApplicationContext(WebApplicationObjectSupport.java:76)
+	at org.springframework.context.support.ApplicationObjectSupport.setApplicationContext(ApplicationObjectSupport.java:74)
+	at org.springframework.context.support.ApplicationContextAwareProcessor.invokeAwareInterfaces(ApplicationContextAwareProcessor.java:119)
+	at org.springframework.context.support.ApplicationContextAwareProcessor.postProcessBeforeInitialization(ApplicationContextAwareProcessor.java:94)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsBeforeInitialization(AbstractAutowireCapableBeanFactory.java:408)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1570)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:545)
+	... 20 more
+Caused by: org.springframework.beans.factory.CannotLoadBeanClassException: Cannot find class [yfx.interceptor.LoginInterceptor] for bean with name 'yfx.interceptor.LoginInterceptor#0' defined in file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]; nested exception is java.lang.ClassNotFoundException: yfx.interceptor.LoginInterceptor
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveBeanClass(AbstractBeanFactory.java:1351)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:455)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveInnerBean(BeanDefinitionValueResolver.java:299)
+	... 44 more
+Caused by: java.lang.ClassNotFoundException: yfx.interceptor.LoginInterceptor
+	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1702)
+	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1547)
+	at org.springframework.util.ClassUtils.forName(ClassUtils.java:250)
+	at org.springframework.beans.factory.support.AbstractBeanDefinition.resolveBeanClass(AbstractBeanDefinition.java:394)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doResolveBeanClass(AbstractBeanFactory.java:1396)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveBeanClass(AbstractBeanFactory.java:1343)
+	... 46 more
+2019-08-04 09:42:53.731|INFO|org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:307)|Root WebApplicationContext: initialization started
+2019-08-04 09:42:53.887|INFO|org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:573)|Refreshing Root WebApplicationContext: startup date [Sun Aug 04 09:42:53 CST 2019]; root of context hierarchy
+2019-08-04 09:42:53.966|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-context.xml]
+2019-08-04 09:45:56.604|INFO|org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:307)|Root WebApplicationContext: initialization started
+2019-08-04 09:45:56.877|INFO|org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:573)|Refreshing Root WebApplicationContext: startup date [Sun Aug 04 09:45:56 CST 2019]; root of context hierarchy
+2019-08-04 09:45:57.006|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-context.xml]
+2019-08-04 09:45:57.469|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]
+2019-08-04 09:45:58.091|WARN|org.mybatis.spring.mapper.ClassPathMapperScanner.doScan(ClassPathMapperScanner.java:155)|No MyBatis mapper was found in '[yfx.dao]' package. Please check your configuration.
+2019-08-04 09:45:58.125|INFO|org.springframework.core.io.support.PropertiesLoaderSupport.loadProperties(PropertiesLoaderSupport.java:172)|Loading properties file from class path resource [jdbc.properties]
+2019-08-04 09:45:58.142|INFO|org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.<init>(AutowiredAnnotationBeanPostProcessor.java:153)|JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2019-08-04 09:45:58.458|INFO|org.springframework.jdbc.datasource.DriverManagerDataSource.setDriverClassName(DriverManagerDataSource.java:133)|Loaded JDBC driver: com.mysql.jdbc.Driver
+2019-08-04 09:45:58.614|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:358)|Property 'configLocation' not specified, using default MyBatis Configuration
+2019-08-04 09:45:58.852|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:379)|Scanned package: 'yfx.model' for aliases
+2019-08-04 09:45:59.374|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:473)|Property 'mapperLocations' was not specified or no matching resources found
+2019-08-04 09:45:59.789|WARN|org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:544)|Exception encountered during context initialization - cancelling refresh attempt
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping#0': Initialization of bean failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.web.servlet.handler.MappedInterceptor#1': Cannot create inner bean 'yfx.interceptor.LoginInterceptor#0' of type [yfx.interceptor.LoginInterceptor] while setting constructor argument; nested exception is org.springframework.beans.factory.CannotLoadBeanClassException: Cannot find class [yfx.interceptor.LoginInterceptor] for bean with name 'yfx.interceptor.LoginInterceptor#0' defined in file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]; nested exception is java.lang.ClassNotFoundException: yfx.interceptor.LoginInterceptor
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:305)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:301)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:772)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:834)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:537)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:446)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:328)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:107)
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4939)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5434)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1559)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1549)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.web.servlet.handler.MappedInterceptor#1': Cannot create inner bean 'yfx.interceptor.LoginInterceptor#0' of type [yfx.interceptor.LoginInterceptor] while setting constructor argument; nested exception is org.springframework.beans.factory.CannotLoadBeanClassException: Cannot find class [yfx.interceptor.LoginInterceptor] for bean with name 'yfx.interceptor.LoginInterceptor#0' defined in file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]; nested exception is java.lang.ClassNotFoundException: yfx.interceptor.LoginInterceptor
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveInnerBean(BeanDefinitionValueResolver.java:313)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:122)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveConstructorArguments(ConstructorResolver.java:634)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:140)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1143)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1046)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:510)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:305)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:301)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeansOfType(DefaultListableBeanFactory.java:534)
+	at org.springframework.context.support.AbstractApplicationContext.getBeansOfType(AbstractApplicationContext.java:1161)
+	at org.springframework.beans.factory.BeanFactoryUtils.beansOfTypeIncludingAncestors(BeanFactoryUtils.java:310)
+	at org.springframework.web.servlet.handler.AbstractHandlerMapping.detectMappedInterceptors(AbstractHandlerMapping.java:272)
+	at org.springframework.web.servlet.handler.AbstractHandlerMapping.initApplicationContext(AbstractHandlerMapping.java:247)
+	at org.springframework.context.support.ApplicationObjectSupport.initApplicationContext(ApplicationObjectSupport.java:120)
+	at org.springframework.web.context.support.WebApplicationObjectSupport.initApplicationContext(WebApplicationObjectSupport.java:76)
+	at org.springframework.context.support.ApplicationObjectSupport.setApplicationContext(ApplicationObjectSupport.java:74)
+	at org.springframework.context.support.ApplicationContextAwareProcessor.invokeAwareInterfaces(ApplicationContextAwareProcessor.java:119)
+	at org.springframework.context.support.ApplicationContextAwareProcessor.postProcessBeforeInitialization(ApplicationContextAwareProcessor.java:94)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsBeforeInitialization(AbstractAutowireCapableBeanFactory.java:408)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1570)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:545)
+	... 20 more
+Caused by: org.springframework.beans.factory.CannotLoadBeanClassException: Cannot find class [yfx.interceptor.LoginInterceptor] for bean with name 'yfx.interceptor.LoginInterceptor#0' defined in file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]; nested exception is java.lang.ClassNotFoundException: yfx.interceptor.LoginInterceptor
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveBeanClass(AbstractBeanFactory.java:1351)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:455)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveInnerBean(BeanDefinitionValueResolver.java:299)
+	... 44 more
+Caused by: java.lang.ClassNotFoundException: yfx.interceptor.LoginInterceptor
+	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1702)
+	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1547)
+	at org.springframework.util.ClassUtils.forName(ClassUtils.java:250)
+	at org.springframework.beans.factory.support.AbstractBeanDefinition.resolveBeanClass(AbstractBeanDefinition.java:394)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doResolveBeanClass(AbstractBeanFactory.java:1396)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveBeanClass(AbstractBeanFactory.java:1343)
+	... 46 more
+2019-08-04 09:45:59.800|ERROR|org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:353)|Context initialization failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping#0': Initialization of bean failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.web.servlet.handler.MappedInterceptor#1': Cannot create inner bean 'yfx.interceptor.LoginInterceptor#0' of type [yfx.interceptor.LoginInterceptor] while setting constructor argument; nested exception is org.springframework.beans.factory.CannotLoadBeanClassException: Cannot find class [yfx.interceptor.LoginInterceptor] for bean with name 'yfx.interceptor.LoginInterceptor#0' defined in file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]; nested exception is java.lang.ClassNotFoundException: yfx.interceptor.LoginInterceptor
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:305)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:301)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:772)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:834)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:537)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:446)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:328)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:107)
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4939)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5434)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1559)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1549)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.web.servlet.handler.MappedInterceptor#1': Cannot create inner bean 'yfx.interceptor.LoginInterceptor#0' of type [yfx.interceptor.LoginInterceptor] while setting constructor argument; nested exception is org.springframework.beans.factory.CannotLoadBeanClassException: Cannot find class [yfx.interceptor.LoginInterceptor] for bean with name 'yfx.interceptor.LoginInterceptor#0' defined in file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]; nested exception is java.lang.ClassNotFoundException: yfx.interceptor.LoginInterceptor
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveInnerBean(BeanDefinitionValueResolver.java:313)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:122)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveConstructorArguments(ConstructorResolver.java:634)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:140)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1143)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1046)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:510)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:305)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:301)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeansOfType(DefaultListableBeanFactory.java:534)
+	at org.springframework.context.support.AbstractApplicationContext.getBeansOfType(AbstractApplicationContext.java:1161)
+	at org.springframework.beans.factory.BeanFactoryUtils.beansOfTypeIncludingAncestors(BeanFactoryUtils.java:310)
+	at org.springframework.web.servlet.handler.AbstractHandlerMapping.detectMappedInterceptors(AbstractHandlerMapping.java:272)
+	at org.springframework.web.servlet.handler.AbstractHandlerMapping.initApplicationContext(AbstractHandlerMapping.java:247)
+	at org.springframework.context.support.ApplicationObjectSupport.initApplicationContext(ApplicationObjectSupport.java:120)
+	at org.springframework.web.context.support.WebApplicationObjectSupport.initApplicationContext(WebApplicationObjectSupport.java:76)
+	at org.springframework.context.support.ApplicationObjectSupport.setApplicationContext(ApplicationObjectSupport.java:74)
+	at org.springframework.context.support.ApplicationContextAwareProcessor.invokeAwareInterfaces(ApplicationContextAwareProcessor.java:119)
+	at org.springframework.context.support.ApplicationContextAwareProcessor.postProcessBeforeInitialization(ApplicationContextAwareProcessor.java:94)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsBeforeInitialization(AbstractAutowireCapableBeanFactory.java:408)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1570)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:545)
+	... 20 more
+Caused by: org.springframework.beans.factory.CannotLoadBeanClassException: Cannot find class [yfx.interceptor.LoginInterceptor] for bean with name 'yfx.interceptor.LoginInterceptor#0' defined in file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]; nested exception is java.lang.ClassNotFoundException: yfx.interceptor.LoginInterceptor
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveBeanClass(AbstractBeanFactory.java:1351)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:455)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveInnerBean(BeanDefinitionValueResolver.java:299)
+	... 44 more
+Caused by: java.lang.ClassNotFoundException: yfx.interceptor.LoginInterceptor
+	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1702)
+	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1547)
+	at org.springframework.util.ClassUtils.forName(ClassUtils.java:250)
+	at org.springframework.beans.factory.support.AbstractBeanDefinition.resolveBeanClass(AbstractBeanDefinition.java:394)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doResolveBeanClass(AbstractBeanFactory.java:1396)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveBeanClass(AbstractBeanFactory.java:1343)
+	... 46 more
+2019-08-04 09:47:35.894|INFO|org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:307)|Root WebApplicationContext: initialization started
+2019-08-04 09:47:36.160|INFO|org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:573)|Refreshing Root WebApplicationContext: startup date [Sun Aug 04 09:47:36 CST 2019]; root of context hierarchy
+2019-08-04 09:47:36.293|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-context.xml]
+2019-08-04 09:47:36.736|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]
+2019-08-04 09:47:37.371|WARN|org.mybatis.spring.mapper.ClassPathMapperScanner.doScan(ClassPathMapperScanner.java:155)|No MyBatis mapper was found in '[yfx.dao]' package. Please check your configuration.
+2019-08-04 09:47:37.402|INFO|org.springframework.core.io.support.PropertiesLoaderSupport.loadProperties(PropertiesLoaderSupport.java:172)|Loading properties file from class path resource [jdbc.properties]
+2019-08-04 09:47:37.419|INFO|org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.<init>(AutowiredAnnotationBeanPostProcessor.java:153)|JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2019-08-04 09:47:37.681|INFO|org.springframework.jdbc.datasource.DriverManagerDataSource.setDriverClassName(DriverManagerDataSource.java:133)|Loaded JDBC driver: com.mysql.jdbc.Driver
+2019-08-04 09:47:37.834|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:358)|Property 'configLocation' not specified, using default MyBatis Configuration
+2019-08-04 09:47:38.075|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:379)|Scanned package: 'yfx.model' for aliases
+2019-08-04 09:47:38.601|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:473)|Property 'mapperLocations' was not specified or no matching resources found
+2019-08-04 09:47:39.390|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: Root WebApplicationContext: startup date [Sun Aug 04 09:47:36 CST 2019]; root of context hierarchy
+2019-08-04 09:47:39.520|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: Root WebApplicationContext: startup date [Sun Aug 04 09:47:36 CST 2019]; root of context hierarchy
+2019-08-04 09:47:39.797|INFO|org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:347)|Root WebApplicationContext: initialization completed in 3898 ms
+2019-08-04 09:47:40.179|INFO|org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:488)|FrameworkServlet 'springMVC': initialization started
+2019-08-04 09:47:40.188|INFO|org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:573)|Refreshing WebApplicationContext for namespace 'springMVC-servlet': startup date [Sun Aug 04 09:47:40 CST 2019]; parent: Root WebApplicationContext
+2019-08-04 09:47:40.192|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-context.xml]
+2019-08-04 09:47:40.276|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]
+2019-08-04 09:47:40.345|WARN|org.mybatis.spring.mapper.ClassPathMapperScanner.doScan(ClassPathMapperScanner.java:155)|No MyBatis mapper was found in '[yfx.dao]' package. Please check your configuration.
+2019-08-04 09:47:40.351|INFO|org.springframework.core.io.support.PropertiesLoaderSupport.loadProperties(PropertiesLoaderSupport.java:172)|Loading properties file from class path resource [jdbc.properties]
+2019-08-04 09:47:40.359|INFO|org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.<init>(AutowiredAnnotationBeanPostProcessor.java:153)|JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2019-08-04 09:47:40.382|INFO|org.springframework.jdbc.datasource.DriverManagerDataSource.setDriverClassName(DriverManagerDataSource.java:133)|Loaded JDBC driver: com.mysql.jdbc.Driver
+2019-08-04 09:47:40.397|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:358)|Property 'configLocation' not specified, using default MyBatis Configuration
+2019-08-04 09:47:40.402|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:379)|Scanned package: 'yfx.model' for aliases
+2019-08-04 09:47:40.417|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:473)|Property 'mapperLocations' was not specified or no matching resources found
+2019-08-04 09:47:40.501|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: WebApplicationContext for namespace 'springMVC-servlet': startup date [Sun Aug 04 09:47:40 CST 2019]; parent: Root WebApplicationContext
+2019-08-04 09:47:40.533|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: WebApplicationContext for namespace 'springMVC-servlet': startup date [Sun Aug 04 09:47:40 CST 2019]; parent: Root WebApplicationContext
+2019-08-04 09:47:40.702|INFO|org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:507)|FrameworkServlet 'springMVC': initialization completed in 522 ms
+2019-08-04 10:00:23.091|INFO|org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:307)|Root WebApplicationContext: initialization started
+2019-08-04 10:00:23.368|INFO|org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:573)|Refreshing Root WebApplicationContext: startup date [Sun Aug 04 10:00:23 CST 2019]; root of context hierarchy
+2019-08-04 10:00:23.511|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-context.xml]
+2019-08-04 10:00:23.943|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]
+2019-08-04 10:00:24.674|WARN|org.mybatis.spring.mapper.ClassPathMapperScanner.doScan(ClassPathMapperScanner.java:155)|No MyBatis mapper was found in '[yfx.dao]' package. Please check your configuration.
+2019-08-04 10:00:24.723|INFO|org.springframework.core.io.support.PropertiesLoaderSupport.loadProperties(PropertiesLoaderSupport.java:172)|Loading properties file from class path resource [jdbc.properties]
+2019-08-04 10:00:24.740|INFO|org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.<init>(AutowiredAnnotationBeanPostProcessor.java:153)|JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2019-08-04 10:00:25.008|INFO|org.springframework.jdbc.datasource.DriverManagerDataSource.setDriverClassName(DriverManagerDataSource.java:133)|Loaded JDBC driver: com.mysql.jdbc.Driver
+2019-08-04 10:00:25.165|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:358)|Property 'configLocation' not specified, using default MyBatis Configuration
+2019-08-04 10:00:25.447|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:379)|Scanned package: 'yfx.model' for aliases
+2019-08-04 10:00:25.970|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:473)|Property 'mapperLocations' was not specified or no matching resources found
+2019-08-04 10:00:26.446|INFO|org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:532)|Mapped "{[/test1]}" onto public java.lang.String yfx.controller.TestController.Test1(int)
+2019-08-04 10:00:26.812|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: Root WebApplicationContext: startup date [Sun Aug 04 10:00:23 CST 2019]; root of context hierarchy
+2019-08-04 10:00:26.970|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: Root WebApplicationContext: startup date [Sun Aug 04 10:00:23 CST 2019]; root of context hierarchy
+2019-08-04 10:00:27.262|INFO|org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:347)|Root WebApplicationContext: initialization completed in 4165 ms
+2019-08-04 10:00:27.375|INFO|org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:488)|FrameworkServlet 'springMVC': initialization started
+2019-08-04 10:00:27.382|INFO|org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:573)|Refreshing WebApplicationContext for namespace 'springMVC-servlet': startup date [Sun Aug 04 10:00:27 CST 2019]; parent: Root WebApplicationContext
+2019-08-04 10:00:27.387|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-context.xml]
+2019-08-04 10:00:27.476|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]
+2019-08-04 10:00:27.558|WARN|org.mybatis.spring.mapper.ClassPathMapperScanner.doScan(ClassPathMapperScanner.java:155)|No MyBatis mapper was found in '[yfx.dao]' package. Please check your configuration.
+2019-08-04 10:00:27.564|INFO|org.springframework.core.io.support.PropertiesLoaderSupport.loadProperties(PropertiesLoaderSupport.java:172)|Loading properties file from class path resource [jdbc.properties]
+2019-08-04 10:00:27.571|INFO|org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.<init>(AutowiredAnnotationBeanPostProcessor.java:153)|JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2019-08-04 10:00:27.597|INFO|org.springframework.jdbc.datasource.DriverManagerDataSource.setDriverClassName(DriverManagerDataSource.java:133)|Loaded JDBC driver: com.mysql.jdbc.Driver
+2019-08-04 10:00:27.612|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:358)|Property 'configLocation' not specified, using default MyBatis Configuration
+2019-08-04 10:00:27.617|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:379)|Scanned package: 'yfx.model' for aliases
+2019-08-04 10:00:27.634|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:473)|Property 'mapperLocations' was not specified or no matching resources found
+2019-08-04 10:00:27.679|INFO|org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:532)|Mapped "{[/test1]}" onto public java.lang.String yfx.controller.TestController.Test1(int)
+2019-08-04 10:00:27.731|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: WebApplicationContext for namespace 'springMVC-servlet': startup date [Sun Aug 04 10:00:27 CST 2019]; parent: Root WebApplicationContext
+2019-08-04 10:00:27.789|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: WebApplicationContext for namespace 'springMVC-servlet': startup date [Sun Aug 04 10:00:27 CST 2019]; parent: Root WebApplicationContext
+2019-08-04 10:00:27.978|INFO|org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:507)|FrameworkServlet 'springMVC': initialization completed in 602 ms
+2019-08-04 10:03:43.788|INFO|org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:307)|Root WebApplicationContext: initialization started
+2019-08-04 10:03:44.083|INFO|org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:573)|Refreshing Root WebApplicationContext: startup date [Sun Aug 04 10:03:44 CST 2019]; root of context hierarchy
+2019-08-04 10:03:44.214|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-context.xml]
+2019-08-04 10:03:44.660|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]
+2019-08-04 10:03:45.404|WARN|org.mybatis.spring.mapper.ClassPathMapperScanner.doScan(ClassPathMapperScanner.java:155)|No MyBatis mapper was found in '[yfx.dao]' package. Please check your configuration.
+2019-08-04 10:03:45.440|INFO|org.springframework.core.io.support.PropertiesLoaderSupport.loadProperties(PropertiesLoaderSupport.java:172)|Loading properties file from class path resource [jdbc.properties]
+2019-08-04 10:03:45.458|INFO|org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.<init>(AutowiredAnnotationBeanPostProcessor.java:153)|JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2019-08-04 10:03:45.747|INFO|org.springframework.jdbc.datasource.DriverManagerDataSource.setDriverClassName(DriverManagerDataSource.java:133)|Loaded JDBC driver: com.mysql.jdbc.Driver
+2019-08-04 10:03:45.898|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:358)|Property 'configLocation' not specified, using default MyBatis Configuration
+2019-08-04 10:03:46.118|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:379)|Scanned package: 'yfx.model' for aliases
+2019-08-04 10:03:46.650|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:473)|Property 'mapperLocations' was not specified or no matching resources found
+2019-08-04 10:03:47.130|INFO|org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:532)|Mapped "{[/test1]}" onto public java.lang.String yfx.controller.TestController.Test1(int)
+2019-08-04 10:03:47.503|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: Root WebApplicationContext: startup date [Sun Aug 04 10:03:44 CST 2019]; root of context hierarchy
+2019-08-04 10:03:47.633|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: Root WebApplicationContext: startup date [Sun Aug 04 10:03:44 CST 2019]; root of context hierarchy
+2019-08-04 10:03:47.947|INFO|org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:347)|Root WebApplicationContext: initialization completed in 4151 ms
+2019-08-04 10:03:48.043|INFO|org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:488)|FrameworkServlet 'springMVC': initialization started
+2019-08-04 10:03:48.051|INFO|org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:573)|Refreshing WebApplicationContext for namespace 'springMVC-servlet': startup date [Sun Aug 04 10:03:48 CST 2019]; parent: Root WebApplicationContext
+2019-08-04 10:03:48.056|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-context.xml]
+2019-08-04 10:03:48.140|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]
+2019-08-04 10:03:48.454|WARN|org.mybatis.spring.mapper.ClassPathMapperScanner.doScan(ClassPathMapperScanner.java:155)|No MyBatis mapper was found in '[yfx.dao]' package. Please check your configuration.
+2019-08-04 10:03:48.460|INFO|org.springframework.core.io.support.PropertiesLoaderSupport.loadProperties(PropertiesLoaderSupport.java:172)|Loading properties file from class path resource [jdbc.properties]
+2019-08-04 10:03:48.468|INFO|org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.<init>(AutowiredAnnotationBeanPostProcessor.java:153)|JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2019-08-04 10:03:48.490|INFO|org.springframework.jdbc.datasource.DriverManagerDataSource.setDriverClassName(DriverManagerDataSource.java:133)|Loaded JDBC driver: com.mysql.jdbc.Driver
+2019-08-04 10:03:48.505|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:358)|Property 'configLocation' not specified, using default MyBatis Configuration
+2019-08-04 10:03:48.509|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:379)|Scanned package: 'yfx.model' for aliases
+2019-08-04 10:03:48.525|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:473)|Property 'mapperLocations' was not specified or no matching resources found
+2019-08-04 10:03:48.566|INFO|org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:532)|Mapped "{[/test1]}" onto public java.lang.String yfx.controller.TestController.Test1(int)
+2019-08-04 10:03:48.610|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: WebApplicationContext for namespace 'springMVC-servlet': startup date [Sun Aug 04 10:03:48 CST 2019]; parent: Root WebApplicationContext
+2019-08-04 10:03:48.649|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: WebApplicationContext for namespace 'springMVC-servlet': startup date [Sun Aug 04 10:03:48 CST 2019]; parent: Root WebApplicationContext
+2019-08-04 10:03:48.862|INFO|org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:507)|FrameworkServlet 'springMVC': initialization completed in 818 ms
+2019-08-04 10:04:01.977|WARN|org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver.logException(AbstractHandlerExceptionResolver.java:186)|Handler execution resulted in exception: / by zero
+2019-08-04 10:06:40.812|INFO|org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:307)|Root WebApplicationContext: initialization started
+2019-08-04 10:06:41.098|INFO|org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:573)|Refreshing Root WebApplicationContext: startup date [Sun Aug 04 10:06:41 CST 2019]; root of context hierarchy
+2019-08-04 10:06:41.227|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-context.xml]
+2019-08-04 10:06:41.671|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]
+2019-08-04 10:06:42.392|WARN|org.mybatis.spring.mapper.ClassPathMapperScanner.doScan(ClassPathMapperScanner.java:155)|No MyBatis mapper was found in '[yfx.dao]' package. Please check your configuration.
+2019-08-04 10:06:42.428|INFO|org.springframework.core.io.support.PropertiesLoaderSupport.loadProperties(PropertiesLoaderSupport.java:172)|Loading properties file from class path resource [jdbc.properties]
+2019-08-04 10:06:42.446|INFO|org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.<init>(AutowiredAnnotationBeanPostProcessor.java:153)|JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2019-08-04 10:06:42.736|INFO|org.springframework.jdbc.datasource.DriverManagerDataSource.setDriverClassName(DriverManagerDataSource.java:133)|Loaded JDBC driver: com.mysql.jdbc.Driver
+2019-08-04 10:06:42.890|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:358)|Property 'configLocation' not specified, using default MyBatis Configuration
+2019-08-04 10:06:43.125|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:379)|Scanned package: 'yfx.model' for aliases
+2019-08-04 10:06:43.678|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:473)|Property 'mapperLocations' was not specified or no matching resources found
+2019-08-04 10:06:44.142|INFO|org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:532)|Mapped "{[/test1]}" onto public java.lang.String yfx.controller.TestController.Test1(int)
+2019-08-04 10:06:44.542|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: Root WebApplicationContext: startup date [Sun Aug 04 10:06:41 CST 2019]; root of context hierarchy
+2019-08-04 10:06:44.688|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: Root WebApplicationContext: startup date [Sun Aug 04 10:06:41 CST 2019]; root of context hierarchy
+2019-08-04 10:06:45.064|INFO|org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:347)|Root WebApplicationContext: initialization completed in 4246 ms
+2019-08-04 10:06:45.166|INFO|org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:488)|FrameworkServlet 'springMVC': initialization started
+2019-08-04 10:06:45.175|INFO|org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:573)|Refreshing WebApplicationContext for namespace 'springMVC-servlet': startup date [Sun Aug 04 10:06:45 CST 2019]; parent: Root WebApplicationContext
+2019-08-04 10:06:45.180|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-context.xml]
+2019-08-04 10:06:45.270|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]
+2019-08-04 10:06:45.373|WARN|org.mybatis.spring.mapper.ClassPathMapperScanner.doScan(ClassPathMapperScanner.java:155)|No MyBatis mapper was found in '[yfx.dao]' package. Please check your configuration.
+2019-08-04 10:06:45.380|INFO|org.springframework.core.io.support.PropertiesLoaderSupport.loadProperties(PropertiesLoaderSupport.java:172)|Loading properties file from class path resource [jdbc.properties]
+2019-08-04 10:06:45.387|INFO|org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.<init>(AutowiredAnnotationBeanPostProcessor.java:153)|JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2019-08-04 10:06:45.410|INFO|org.springframework.jdbc.datasource.DriverManagerDataSource.setDriverClassName(DriverManagerDataSource.java:133)|Loaded JDBC driver: com.mysql.jdbc.Driver
+2019-08-04 10:06:45.443|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:358)|Property 'configLocation' not specified, using default MyBatis Configuration
+2019-08-04 10:06:45.447|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:379)|Scanned package: 'yfx.model' for aliases
+2019-08-04 10:06:45.462|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:473)|Property 'mapperLocations' was not specified or no matching resources found
+2019-08-04 10:06:45.502|INFO|org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:532)|Mapped "{[/test1]}" onto public java.lang.String yfx.controller.TestController.Test1(int)
+2019-08-04 10:06:45.553|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: WebApplicationContext for namespace 'springMVC-servlet': startup date [Sun Aug 04 10:06:45 CST 2019]; parent: Root WebApplicationContext
+2019-08-04 10:06:45.594|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: WebApplicationContext for namespace 'springMVC-servlet': startup date [Sun Aug 04 10:06:45 CST 2019]; parent: Root WebApplicationContext
+2019-08-04 10:06:45.743|INFO|org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:507)|FrameworkServlet 'springMVC': initialization completed in 574 ms
+2019-08-04 10:06:53.669|WARN|org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver.logException(AbstractHandlerExceptionResolver.java:186)|Handler execution resulted in exception: / by zero
+2019-08-04 10:10:23.283|INFO|org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:307)|Root WebApplicationContext: initialization started
+2019-08-04 10:10:23.559|INFO|org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:573)|Refreshing Root WebApplicationContext: startup date [Sun Aug 04 10:10:23 CST 2019]; root of context hierarchy
+2019-08-04 10:10:23.696|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-context.xml]
+2019-08-04 10:10:24.159|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]
+2019-08-04 10:10:24.894|WARN|org.mybatis.spring.mapper.ClassPathMapperScanner.doScan(ClassPathMapperScanner.java:155)|No MyBatis mapper was found in '[yfx.dao]' package. Please check your configuration.
+2019-08-04 10:10:24.927|INFO|org.springframework.core.io.support.PropertiesLoaderSupport.loadProperties(PropertiesLoaderSupport.java:172)|Loading properties file from class path resource [jdbc.properties]
+2019-08-04 10:10:24.945|INFO|org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.<init>(AutowiredAnnotationBeanPostProcessor.java:153)|JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2019-08-04 10:10:25.224|INFO|org.springframework.jdbc.datasource.DriverManagerDataSource.setDriverClassName(DriverManagerDataSource.java:133)|Loaded JDBC driver: com.mysql.jdbc.Driver
+2019-08-04 10:10:25.382|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:358)|Property 'configLocation' not specified, using default MyBatis Configuration
+2019-08-04 10:10:25.625|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:379)|Scanned package: 'yfx.model' for aliases
+2019-08-04 10:10:26.152|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:473)|Property 'mapperLocations' was not specified or no matching resources found
+2019-08-04 10:10:26.629|INFO|org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:532)|Mapped "{[/test1]}" onto public java.lang.String yfx.controller.TestController.Test1(int)
+2019-08-04 10:10:27.038|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: Root WebApplicationContext: startup date [Sun Aug 04 10:10:23 CST 2019]; root of context hierarchy
+2019-08-04 10:10:27.179|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: Root WebApplicationContext: startup date [Sun Aug 04 10:10:23 CST 2019]; root of context hierarchy
+2019-08-04 10:10:27.470|INFO|org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:347)|Root WebApplicationContext: initialization completed in 4179 ms
+2019-08-04 10:10:27.586|INFO|org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:488)|FrameworkServlet 'springMVC': initialization started
+2019-08-04 10:10:27.593|INFO|org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:573)|Refreshing WebApplicationContext for namespace 'springMVC-servlet': startup date [Sun Aug 04 10:10:27 CST 2019]; parent: Root WebApplicationContext
+2019-08-04 10:10:27.604|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-context.xml]
+2019-08-04 10:10:27.703|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]
+2019-08-04 10:10:27.789|WARN|org.mybatis.spring.mapper.ClassPathMapperScanner.doScan(ClassPathMapperScanner.java:155)|No MyBatis mapper was found in '[yfx.dao]' package. Please check your configuration.
+2019-08-04 10:10:27.795|INFO|org.springframework.core.io.support.PropertiesLoaderSupport.loadProperties(PropertiesLoaderSupport.java:172)|Loading properties file from class path resource [jdbc.properties]
+2019-08-04 10:10:27.803|INFO|org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.<init>(AutowiredAnnotationBeanPostProcessor.java:153)|JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2019-08-04 10:10:27.825|INFO|org.springframework.jdbc.datasource.DriverManagerDataSource.setDriverClassName(DriverManagerDataSource.java:133)|Loaded JDBC driver: com.mysql.jdbc.Driver
+2019-08-04 10:10:27.840|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:358)|Property 'configLocation' not specified, using default MyBatis Configuration
+2019-08-04 10:10:27.844|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:379)|Scanned package: 'yfx.model' for aliases
+2019-08-04 10:10:27.861|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:473)|Property 'mapperLocations' was not specified or no matching resources found
+2019-08-04 10:10:27.902|INFO|org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:532)|Mapped "{[/test1]}" onto public java.lang.String yfx.controller.TestController.Test1(int)
+2019-08-04 10:10:27.966|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: WebApplicationContext for namespace 'springMVC-servlet': startup date [Sun Aug 04 10:10:27 CST 2019]; parent: Root WebApplicationContext
+2019-08-04 10:10:28.061|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: WebApplicationContext for namespace 'springMVC-servlet': startup date [Sun Aug 04 10:10:27 CST 2019]; parent: Root WebApplicationContext
+2019-08-04 10:10:28.274|INFO|org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:507)|FrameworkServlet 'springMVC': initialization completed in 687 ms
+2019-08-04 10:13:21.126|INFO|org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:307)|Root WebApplicationContext: initialization started
+2019-08-04 10:13:21.407|INFO|org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:573)|Refreshing Root WebApplicationContext: startup date [Sun Aug 04 10:13:21 CST 2019]; root of context hierarchy
+2019-08-04 10:13:21.566|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-context.xml]
+2019-08-04 10:13:22.162|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]
+2019-08-04 10:13:23.009|WARN|org.mybatis.spring.mapper.ClassPathMapperScanner.doScan(ClassPathMapperScanner.java:155)|No MyBatis mapper was found in '[yfx.dao]' package. Please check your configuration.
+2019-08-04 10:13:23.046|INFO|org.springframework.core.io.support.PropertiesLoaderSupport.loadProperties(PropertiesLoaderSupport.java:172)|Loading properties file from class path resource [jdbc.properties]
+2019-08-04 10:13:23.061|INFO|org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.<init>(AutowiredAnnotationBeanPostProcessor.java:153)|JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2019-08-04 10:13:23.334|INFO|org.springframework.jdbc.datasource.DriverManagerDataSource.setDriverClassName(DriverManagerDataSource.java:133)|Loaded JDBC driver: com.mysql.jdbc.Driver
+2019-08-04 10:13:23.496|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:358)|Property 'configLocation' not specified, using default MyBatis Configuration
+2019-08-04 10:13:23.725|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:379)|Scanned package: 'yfx.model' for aliases
+2019-08-04 10:13:24.243|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:473)|Property 'mapperLocations' was not specified or no matching resources found
+2019-08-04 10:13:24.737|INFO|org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:532)|Mapped "{[/test1]}" onto public java.lang.String yfx.controller.TestController.Test1(int)
+2019-08-04 10:13:25.138|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: Root WebApplicationContext: startup date [Sun Aug 04 10:13:21 CST 2019]; root of context hierarchy
+2019-08-04 10:13:25.306|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: Root WebApplicationContext: startup date [Sun Aug 04 10:13:21 CST 2019]; root of context hierarchy
+2019-08-04 10:13:25.445|INFO|org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver.initExceptionHandlerAdviceCache(ExceptionHandlerExceptionResolver.java:267)|Detected @ExceptionHandler methods in testController
+2019-08-04 10:13:25.768|INFO|org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:347)|Root WebApplicationContext: initialization completed in 4635 ms
+2019-08-04 10:13:25.896|INFO|org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:488)|FrameworkServlet 'springMVC': initialization started
+2019-08-04 10:13:25.907|INFO|org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:573)|Refreshing WebApplicationContext for namespace 'springMVC-servlet': startup date [Sun Aug 04 10:13:25 CST 2019]; parent: Root WebApplicationContext
+2019-08-04 10:13:25.911|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-context.xml]
+2019-08-04 10:13:26.028|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]
+2019-08-04 10:13:26.144|WARN|org.mybatis.spring.mapper.ClassPathMapperScanner.doScan(ClassPathMapperScanner.java:155)|No MyBatis mapper was found in '[yfx.dao]' package. Please check your configuration.
+2019-08-04 10:13:26.150|INFO|org.springframework.core.io.support.PropertiesLoaderSupport.loadProperties(PropertiesLoaderSupport.java:172)|Loading properties file from class path resource [jdbc.properties]
+2019-08-04 10:13:26.157|INFO|org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.<init>(AutowiredAnnotationBeanPostProcessor.java:153)|JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2019-08-04 10:13:26.181|INFO|org.springframework.jdbc.datasource.DriverManagerDataSource.setDriverClassName(DriverManagerDataSource.java:133)|Loaded JDBC driver: com.mysql.jdbc.Driver
+2019-08-04 10:13:26.200|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:358)|Property 'configLocation' not specified, using default MyBatis Configuration
+2019-08-04 10:13:26.204|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:379)|Scanned package: 'yfx.model' for aliases
+2019-08-04 10:13:26.221|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:473)|Property 'mapperLocations' was not specified or no matching resources found
+2019-08-04 10:13:26.272|INFO|org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:532)|Mapped "{[/test1]}" onto public java.lang.String yfx.controller.TestController.Test1(int)
+2019-08-04 10:13:26.347|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: WebApplicationContext for namespace 'springMVC-servlet': startup date [Sun Aug 04 10:13:25 CST 2019]; parent: Root WebApplicationContext
+2019-08-04 10:13:26.384|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: WebApplicationContext for namespace 'springMVC-servlet': startup date [Sun Aug 04 10:13:25 CST 2019]; parent: Root WebApplicationContext
+2019-08-04 10:13:26.433|INFO|org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver.initExceptionHandlerAdviceCache(ExceptionHandlerExceptionResolver.java:267)|Detected @ExceptionHandler methods in testController
+2019-08-04 10:13:26.556|INFO|org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:507)|FrameworkServlet 'springMVC': initialization completed in 656 ms
+2019-08-04 10:13:29.016|WARN|org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver.logException(AbstractHandlerExceptionResolver.java:186)|Handler execution resulted in exception: / by zero
+2019-08-04 11:09:48.307|INFO|org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:307)|Root WebApplicationContext: initialization started
+2019-08-04 11:09:48.597|INFO|org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:573)|Refreshing Root WebApplicationContext: startup date [Sun Aug 04 11:09:48 CST 2019]; root of context hierarchy
+2019-08-04 11:09:48.746|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-context.xml]
+2019-08-04 11:09:49.184|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]
+2019-08-04 11:09:49.914|WARN|org.mybatis.spring.mapper.ClassPathMapperScanner.doScan(ClassPathMapperScanner.java:155)|No MyBatis mapper was found in '[yfx.dao]' package. Please check your configuration.
+2019-08-04 11:09:49.951|INFO|org.springframework.core.io.support.PropertiesLoaderSupport.loadProperties(PropertiesLoaderSupport.java:172)|Loading properties file from class path resource [jdbc.properties]
+2019-08-04 11:09:49.968|INFO|org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.<init>(AutowiredAnnotationBeanPostProcessor.java:153)|JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2019-08-04 11:09:50.257|INFO|org.springframework.jdbc.datasource.DriverManagerDataSource.setDriverClassName(DriverManagerDataSource.java:133)|Loaded JDBC driver: com.mysql.jdbc.Driver
+2019-08-04 11:09:50.410|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:358)|Property 'configLocation' not specified, using default MyBatis Configuration
+2019-08-04 11:09:50.645|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:379)|Scanned package: 'yfx.model' for aliases
+2019-08-04 11:09:51.180|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:473)|Property 'mapperLocations' was not specified or no matching resources found
+2019-08-04 11:09:51.641|INFO|org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:532)|Mapped "{[/test1]}" onto public java.lang.String yfx.controller.TestController.Test1(int)
+2019-08-04 11:09:51.646|INFO|org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:532)|Mapped "{[/test2]}" onto public java.lang.String yfx.controller.TestController.Test2(java.lang.String)
+2019-08-04 11:09:52.041|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: Root WebApplicationContext: startup date [Sun Aug 04 11:09:48 CST 2019]; root of context hierarchy
+2019-08-04 11:09:52.189|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: Root WebApplicationContext: startup date [Sun Aug 04 11:09:48 CST 2019]; root of context hierarchy
+2019-08-04 11:09:52.265|INFO|org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver.initExceptionHandlerAdviceCache(ExceptionHandlerExceptionResolver.java:267)|Detected @ExceptionHandler methods in testController
+2019-08-04 11:09:52.505|INFO|org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:347)|Root WebApplicationContext: initialization completed in 4191 ms
+2019-08-04 11:09:52.601|INFO|org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:488)|FrameworkServlet 'springMVC': initialization started
+2019-08-04 11:09:52.610|INFO|org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:573)|Refreshing WebApplicationContext for namespace 'springMVC-servlet': startup date [Sun Aug 04 11:09:52 CST 2019]; parent: Root WebApplicationContext
+2019-08-04 11:09:52.617|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-context.xml]
+2019-08-04 11:09:52.711|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]
+2019-08-04 11:09:53.042|WARN|org.mybatis.spring.mapper.ClassPathMapperScanner.doScan(ClassPathMapperScanner.java:155)|No MyBatis mapper was found in '[yfx.dao]' package. Please check your configuration.
+2019-08-04 11:09:53.048|INFO|org.springframework.core.io.support.PropertiesLoaderSupport.loadProperties(PropertiesLoaderSupport.java:172)|Loading properties file from class path resource [jdbc.properties]
+2019-08-04 11:09:53.055|INFO|org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.<init>(AutowiredAnnotationBeanPostProcessor.java:153)|JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2019-08-04 11:09:53.077|INFO|org.springframework.jdbc.datasource.DriverManagerDataSource.setDriverClassName(DriverManagerDataSource.java:133)|Loaded JDBC driver: com.mysql.jdbc.Driver
+2019-08-04 11:09:53.092|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:358)|Property 'configLocation' not specified, using default MyBatis Configuration
+2019-08-04 11:09:53.096|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:379)|Scanned package: 'yfx.model' for aliases
+2019-08-04 11:09:53.112|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:473)|Property 'mapperLocations' was not specified or no matching resources found
+2019-08-04 11:09:53.153|INFO|org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:532)|Mapped "{[/test1]}" onto public java.lang.String yfx.controller.TestController.Test1(int)
+2019-08-04 11:09:53.156|INFO|org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:532)|Mapped "{[/test2]}" onto public java.lang.String yfx.controller.TestController.Test2(java.lang.String)
+2019-08-04 11:09:53.202|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: WebApplicationContext for namespace 'springMVC-servlet': startup date [Sun Aug 04 11:09:52 CST 2019]; parent: Root WebApplicationContext
+2019-08-04 11:09:53.239|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: WebApplicationContext for namespace 'springMVC-servlet': startup date [Sun Aug 04 11:09:52 CST 2019]; parent: Root WebApplicationContext
+2019-08-04 11:09:53.284|INFO|org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver.initExceptionHandlerAdviceCache(ExceptionHandlerExceptionResolver.java:267)|Detected @ExceptionHandler methods in testController
+2019-08-04 11:09:53.420|INFO|org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:507)|FrameworkServlet 'springMVC': initialization completed in 818 ms
+2019-08-04 11:14:47.526|INFO|org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:307)|Root WebApplicationContext: initialization started
+2019-08-04 11:14:47.830|INFO|org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:573)|Refreshing Root WebApplicationContext: startup date [Sun Aug 04 11:14:47 CST 2019]; root of context hierarchy
+2019-08-04 11:14:47.965|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-context.xml]
+2019-08-04 11:14:48.413|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]
+2019-08-04 11:14:49.132|WARN|org.mybatis.spring.mapper.ClassPathMapperScanner.doScan(ClassPathMapperScanner.java:155)|No MyBatis mapper was found in '[yfx.dao]' package. Please check your configuration.
+2019-08-04 11:14:49.162|INFO|org.springframework.core.io.support.PropertiesLoaderSupport.loadProperties(PropertiesLoaderSupport.java:172)|Loading properties file from class path resource [jdbc.properties]
+2019-08-04 11:14:49.180|INFO|org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.<init>(AutowiredAnnotationBeanPostProcessor.java:153)|JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2019-08-04 11:14:49.473|INFO|org.springframework.jdbc.datasource.DriverManagerDataSource.setDriverClassName(DriverManagerDataSource.java:133)|Loaded JDBC driver: com.mysql.jdbc.Driver
+2019-08-04 11:14:49.632|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:358)|Property 'configLocation' not specified, using default MyBatis Configuration
+2019-08-04 11:14:49.891|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:379)|Scanned package: 'yfx.model' for aliases
+2019-08-04 11:14:50.420|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:473)|Property 'mapperLocations' was not specified or no matching resources found
+2019-08-04 11:14:50.899|INFO|org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:532)|Mapped "{[/test1]}" onto public java.lang.String yfx.controller.TestController.Test1(int)
+2019-08-04 11:14:50.903|INFO|org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:532)|Mapped "{[/test2]}" onto public java.lang.String yfx.controller.TestController.Test2()
+2019-08-04 11:14:51.292|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: Root WebApplicationContext: startup date [Sun Aug 04 11:14:47 CST 2019]; root of context hierarchy
+2019-08-04 11:14:51.464|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: Root WebApplicationContext: startup date [Sun Aug 04 11:14:47 CST 2019]; root of context hierarchy
+2019-08-04 11:14:51.531|INFO|org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver.initExceptionHandlerAdviceCache(ExceptionHandlerExceptionResolver.java:267)|Detected @ExceptionHandler methods in testController
+2019-08-04 11:14:51.779|INFO|org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:347)|Root WebApplicationContext: initialization completed in 4246 ms
+2019-08-04 11:14:52.101|INFO|org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:488)|FrameworkServlet 'springMVC': initialization started
+2019-08-04 11:14:52.108|INFO|org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:573)|Refreshing WebApplicationContext for namespace 'springMVC-servlet': startup date [Sun Aug 04 11:14:52 CST 2019]; parent: Root WebApplicationContext
+2019-08-04 11:14:52.113|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-context.xml]
+2019-08-04 11:14:52.198|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]
+2019-08-04 11:14:52.302|WARN|org.mybatis.spring.mapper.ClassPathMapperScanner.doScan(ClassPathMapperScanner.java:155)|No MyBatis mapper was found in '[yfx.dao]' package. Please check your configuration.
+2019-08-04 11:14:52.309|INFO|org.springframework.core.io.support.PropertiesLoaderSupport.loadProperties(PropertiesLoaderSupport.java:172)|Loading properties file from class path resource [jdbc.properties]
+2019-08-04 11:14:52.316|INFO|org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.<init>(AutowiredAnnotationBeanPostProcessor.java:153)|JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2019-08-04 11:14:52.358|INFO|org.springframework.jdbc.datasource.DriverManagerDataSource.setDriverClassName(DriverManagerDataSource.java:133)|Loaded JDBC driver: com.mysql.jdbc.Driver
+2019-08-04 11:14:52.371|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:358)|Property 'configLocation' not specified, using default MyBatis Configuration
+2019-08-04 11:14:52.375|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:379)|Scanned package: 'yfx.model' for aliases
+2019-08-04 11:14:52.394|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:473)|Property 'mapperLocations' was not specified or no matching resources found
+2019-08-04 11:14:52.442|INFO|org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:532)|Mapped "{[/test1]}" onto public java.lang.String yfx.controller.TestController.Test1(int)
+2019-08-04 11:14:52.444|INFO|org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:532)|Mapped "{[/test2]}" onto public java.lang.String yfx.controller.TestController.Test2()
+2019-08-04 11:14:52.494|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: WebApplicationContext for namespace 'springMVC-servlet': startup date [Sun Aug 04 11:14:52 CST 2019]; parent: Root WebApplicationContext
+2019-08-04 11:14:52.532|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: WebApplicationContext for namespace 'springMVC-servlet': startup date [Sun Aug 04 11:14:52 CST 2019]; parent: Root WebApplicationContext
+2019-08-04 11:14:52.571|INFO|org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver.initExceptionHandlerAdviceCache(ExceptionHandlerExceptionResolver.java:267)|Detected @ExceptionHandler methods in testController
+2019-08-04 11:14:52.704|INFO|org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:507)|FrameworkServlet 'springMVC': initialization completed in 602 ms
+2019-08-04 11:20:23.220|INFO|org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:307)|Root WebApplicationContext: initialization started
+2019-08-04 11:20:23.571|INFO|org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:573)|Refreshing Root WebApplicationContext: startup date [Sun Aug 04 11:20:23 CST 2019]; root of context hierarchy
+2019-08-04 11:20:23.730|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-context.xml]
+2019-08-04 11:20:24.365|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]
+2019-08-04 11:20:25.226|WARN|org.mybatis.spring.mapper.ClassPathMapperScanner.doScan(ClassPathMapperScanner.java:155)|No MyBatis mapper was found in '[yfx.dao]' package. Please check your configuration.
+2019-08-04 11:20:25.282|INFO|org.springframework.core.io.support.PropertiesLoaderSupport.loadProperties(PropertiesLoaderSupport.java:172)|Loading properties file from class path resource [jdbc.properties]
+2019-08-04 11:20:25.301|INFO|org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.<init>(AutowiredAnnotationBeanPostProcessor.java:153)|JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2019-08-04 11:20:25.737|INFO|org.springframework.jdbc.datasource.DriverManagerDataSource.setDriverClassName(DriverManagerDataSource.java:133)|Loaded JDBC driver: com.mysql.jdbc.Driver
+2019-08-04 11:20:25.947|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:358)|Property 'configLocation' not specified, using default MyBatis Configuration
+2019-08-04 11:20:26.253|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:379)|Scanned package: 'yfx.model' for aliases
+2019-08-04 11:20:26.946|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:473)|Property 'mapperLocations' was not specified or no matching resources found
+2019-08-04 11:20:27.455|INFO|org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:532)|Mapped "{[/test1]}" onto public java.lang.String yfx.controller.TestController.Test1(int)
+2019-08-04 11:20:27.461|INFO|org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:532)|Mapped "{[/test2]}" onto public java.lang.String yfx.controller.TestController.Test2()
+2019-08-04 11:20:27.887|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: Root WebApplicationContext: startup date [Sun Aug 04 11:20:23 CST 2019]; root of context hierarchy
+2019-08-04 11:20:28.041|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: Root WebApplicationContext: startup date [Sun Aug 04 11:20:23 CST 2019]; root of context hierarchy
+2019-08-04 11:20:28.123|INFO|org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver.initExceptionHandlerAdviceCache(ExceptionHandlerExceptionResolver.java:267)|Detected @ExceptionHandler methods in testController
+2019-08-04 11:20:28.386|INFO|org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:347)|Root WebApplicationContext: initialization completed in 5159 ms
+2019-08-04 11:20:28.481|INFO|org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:488)|FrameworkServlet 'springMVC': initialization started
+2019-08-04 11:20:28.489|INFO|org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:573)|Refreshing WebApplicationContext for namespace 'springMVC-servlet': startup date [Sun Aug 04 11:20:28 CST 2019]; parent: Root WebApplicationContext
+2019-08-04 11:20:28.495|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-context.xml]
+2019-08-04 11:20:28.599|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]
+2019-08-04 11:20:28.683|WARN|org.mybatis.spring.mapper.ClassPathMapperScanner.doScan(ClassPathMapperScanner.java:155)|No MyBatis mapper was found in '[yfx.dao]' package. Please check your configuration.
+2019-08-04 11:20:28.689|INFO|org.springframework.core.io.support.PropertiesLoaderSupport.loadProperties(PropertiesLoaderSupport.java:172)|Loading properties file from class path resource [jdbc.properties]
+2019-08-04 11:20:28.696|INFO|org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.<init>(AutowiredAnnotationBeanPostProcessor.java:153)|JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2019-08-04 11:20:28.731|INFO|org.springframework.jdbc.datasource.DriverManagerDataSource.setDriverClassName(DriverManagerDataSource.java:133)|Loaded JDBC driver: com.mysql.jdbc.Driver
+2019-08-04 11:20:28.745|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:358)|Property 'configLocation' not specified, using default MyBatis Configuration
+2019-08-04 11:20:28.750|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:379)|Scanned package: 'yfx.model' for aliases
+2019-08-04 11:20:28.766|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:473)|Property 'mapperLocations' was not specified or no matching resources found
+2019-08-04 11:20:28.808|INFO|org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:532)|Mapped "{[/test1]}" onto public java.lang.String yfx.controller.TestController.Test1(int)
+2019-08-04 11:20:28.810|INFO|org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:532)|Mapped "{[/test2]}" onto public java.lang.String yfx.controller.TestController.Test2()
+2019-08-04 11:20:28.859|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: WebApplicationContext for namespace 'springMVC-servlet': startup date [Sun Aug 04 11:20:28 CST 2019]; parent: Root WebApplicationContext
+2019-08-04 11:20:28.917|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: WebApplicationContext for namespace 'springMVC-servlet': startup date [Sun Aug 04 11:20:28 CST 2019]; parent: Root WebApplicationContext
+2019-08-04 11:20:28.952|INFO|org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver.initExceptionHandlerAdviceCache(ExceptionHandlerExceptionResolver.java:267)|Detected @ExceptionHandler methods in testController
+2019-08-04 11:20:29.080|INFO|org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:507)|FrameworkServlet 'springMVC': initialization completed in 598 ms
+2019-08-04 11:20:31.542|WARN|org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver.logException(AbstractHandlerExceptionResolver.java:186)|Handler execution resulted in exception: / by zero
+2019-08-04 11:21:35.285|INFO|org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:307)|Root WebApplicationContext: initialization started
+2019-08-04 11:21:35.586|INFO|org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:573)|Refreshing Root WebApplicationContext: startup date [Sun Aug 04 11:21:35 CST 2019]; root of context hierarchy
+2019-08-04 11:21:35.725|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-context.xml]
+2019-08-04 11:21:36.188|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]
+2019-08-04 11:21:36.941|WARN|org.mybatis.spring.mapper.ClassPathMapperScanner.doScan(ClassPathMapperScanner.java:155)|No MyBatis mapper was found in '[yfx.dao]' package. Please check your configuration.
+2019-08-04 11:21:36.996|INFO|org.springframework.core.io.support.PropertiesLoaderSupport.loadProperties(PropertiesLoaderSupport.java:172)|Loading properties file from class path resource [jdbc.properties]
+2019-08-04 11:21:37.013|INFO|org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.<init>(AutowiredAnnotationBeanPostProcessor.java:153)|JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2019-08-04 11:21:37.289|INFO|org.springframework.jdbc.datasource.DriverManagerDataSource.setDriverClassName(DriverManagerDataSource.java:133)|Loaded JDBC driver: com.mysql.jdbc.Driver
+2019-08-04 11:21:37.446|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:358)|Property 'configLocation' not specified, using default MyBatis Configuration
+2019-08-04 11:21:37.701|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:379)|Scanned package: 'yfx.model' for aliases
+2019-08-04 11:21:38.236|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:473)|Property 'mapperLocations' was not specified or no matching resources found
+2019-08-04 11:21:38.735|INFO|org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:532)|Mapped "{[/test1]}" onto public java.lang.String yfx.controller.TestController.Test1(int)
+2019-08-04 11:21:38.739|INFO|org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:532)|Mapped "{[/test2]}" onto public java.lang.String yfx.controller.TestController.Test2()
+2019-08-04 11:21:39.120|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: Root WebApplicationContext: startup date [Sun Aug 04 11:21:35 CST 2019]; root of context hierarchy
+2019-08-04 11:21:39.266|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: Root WebApplicationContext: startup date [Sun Aug 04 11:21:35 CST 2019]; root of context hierarchy
+2019-08-04 11:21:39.334|INFO|org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver.initExceptionHandlerAdviceCache(ExceptionHandlerExceptionResolver.java:267)|Detected @ExceptionHandler methods in testController
+2019-08-04 11:21:39.563|INFO|org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:347)|Root WebApplicationContext: initialization completed in 4271 ms
+2019-08-04 11:21:39.673|INFO|org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:488)|FrameworkServlet 'springMVC': initialization started
+2019-08-04 11:21:39.682|INFO|org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:573)|Refreshing WebApplicationContext for namespace 'springMVC-servlet': startup date [Sun Aug 04 11:21:39 CST 2019]; parent: Root WebApplicationContext
+2019-08-04 11:21:39.688|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-context.xml]
+2019-08-04 11:21:39.795|INFO|org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)|Loading XML bean definitions from file [D:\Program Files\eclipse\eclipse-Maven1\SSM43\target\classes\spring\spring-mvc.xml]
+2019-08-04 11:21:39.890|WARN|org.mybatis.spring.mapper.ClassPathMapperScanner.doScan(ClassPathMapperScanner.java:155)|No MyBatis mapper was found in '[yfx.dao]' package. Please check your configuration.
+2019-08-04 11:21:39.896|INFO|org.springframework.core.io.support.PropertiesLoaderSupport.loadProperties(PropertiesLoaderSupport.java:172)|Loading properties file from class path resource [jdbc.properties]
+2019-08-04 11:21:39.903|INFO|org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.<init>(AutowiredAnnotationBeanPostProcessor.java:153)|JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2019-08-04 11:21:39.927|INFO|org.springframework.jdbc.datasource.DriverManagerDataSource.setDriverClassName(DriverManagerDataSource.java:133)|Loaded JDBC driver: com.mysql.jdbc.Driver
+2019-08-04 11:21:39.948|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:358)|Property 'configLocation' not specified, using default MyBatis Configuration
+2019-08-04 11:21:39.952|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:379)|Scanned package: 'yfx.model' for aliases
+2019-08-04 11:21:39.970|DEBUG|org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:473)|Property 'mapperLocations' was not specified or no matching resources found
+2019-08-04 11:21:40.015|INFO|org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:532)|Mapped "{[/test1]}" onto public java.lang.String yfx.controller.TestController.Test1(int)
+2019-08-04 11:21:40.017|INFO|org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:532)|Mapped "{[/test2]}" onto public java.lang.String yfx.controller.TestController.Test2()
+2019-08-04 11:21:40.065|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: WebApplicationContext for namespace 'springMVC-servlet': startup date [Sun Aug 04 11:21:39 CST 2019]; parent: Root WebApplicationContext
+2019-08-04 11:21:40.103|INFO|org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)|Looking for @ControllerAdvice: WebApplicationContext for namespace 'springMVC-servlet': startup date [Sun Aug 04 11:21:39 CST 2019]; parent: Root WebApplicationContext
+2019-08-04 11:21:40.372|INFO|org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver.initExceptionHandlerAdviceCache(ExceptionHandlerExceptionResolver.java:267)|Detected @ExceptionHandler methods in testController
+2019-08-04 11:21:40.487|INFO|org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:507)|FrameworkServlet 'springMVC': initialization completed in 812 ms
+2019-08-04 11:21:49.888|WARN|org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver.logException(AbstractHandlerExceptionResolver.java:186)|Handler execution resulted in exception: / by zero
+2019-08-04 11:21:52.615|WARN|org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver.logException(AbstractHandlerExceptionResolver.java:186)|Handler execution resulted in exception: null
+2019-08-04 11:21:57.030|WARN|org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver.logException(AbstractHandlerExceptionResolver.java:186)|Handler execution resulted in exception: / by zero
+2019-08-04 11:22:05.530|WARN|org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver.logException(AbstractHandlerExceptionResolver.java:186)|Handler execution resulted in exception: null
