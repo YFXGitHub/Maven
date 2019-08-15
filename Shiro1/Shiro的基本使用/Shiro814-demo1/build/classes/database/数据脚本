@@ -1,0 +1,103 @@
+-- 创建用户表
+create table user (
+  id int primary key auto_increment,
+  name varchar(100),
+  password varchar(100)
+);
+
+-- 创建角色表 
+create table role (
+  id int primary key auto_increment,
+  name varchar(100)
+);
+ 
+-- 创建权限表
+create table permission (
+  id int primary key auto_increment,
+  name varchar(100)
+);
+ 
+-- 创建用户和角色 关系多对多表
+create table user_role (
+  uid int,
+  rid int,
+  FOREIGN key(uid) REFERENCES user(id),
+	FOREIGN key(rid) REFERENCES role(id)
+);
+
+-- 创建角色和权限 关系多对多表 
+create table role_permission (
+  rid int,
+  pid int,
+	FOREIGN key(rid) REFERENCES role(id),
+	FOREIGN key(pid) REFERENCES permission(id)
+);
+
+INSERT INTO `user` VALUES (null,'aaa','123');
+INSERT INTO `user` VALUES (null,'bbb','321');
+
+INSERT INTO `role` VALUES (null,'admin');
+INSERT INTO `role` VALUES (null,'productManager');
+INSERT INTO `role` VALUES (null,'orderManager');
+
+INSERT INTO `permission` VALUES (null,'addProduct');
+INSERT INTO `permission` VALUES (null,'deleteProduct');
+INSERT INTO `permission` VALUES (null,'editProduct');
+INSERT INTO `permission` VALUES (null,'updateProduct');
+INSERT INTO `permission` VALUES (null,'listProduct');
+INSERT INTO `permission` VALUES (null,'addOrder');
+INSERT INTO `permission` VALUES (null,'deleteOrder');
+INSERT INTO `permission` VALUES (null,'editOrder');
+INSERT INTO `permission` VALUES (null,'updateOrder');
+INSERT INTO `permission` VALUES (null,'listOrder');
+
+
+select * from user;
+select * from role;
+select * from permission;
+
+# 查询账号的密码
+select password from user where name = 'bbb';
+
+
+INSERT INTO `role_permission` VALUES (1,1);
+INSERT INTO `role_permission` VALUES (1,2);
+INSERT INTO `role_permission` VALUES (1,3);
+INSERT INTO `role_permission` VALUES (1,4);
+INSERT INTO `role_permission` VALUES (1,5);
+INSERT INTO `role_permission` VALUES (1,6);
+INSERT INTO `role_permission` VALUES (1,7);
+INSERT INTO `role_permission` VALUES (1,8);
+INSERT INTO `role_permission` VALUES (1,9);
+INSERT INTO `role_permission` VALUES (1,10);
+INSERT INTO `role_permission` VALUES (2,1);
+INSERT INTO `role_permission` VALUES (2,2);
+INSERT INTO `role_permission` VALUES (2,3);
+INSERT INTO `role_permission` VALUES (2,4);
+INSERT INTO `role_permission` VALUES (2,5);
+INSERT INTO `role_permission` VALUES (3,6);
+INSERT INTO `role_permission` VALUES (3,7);
+INSERT INTO `role_permission` VALUES (3,8);
+INSERT INTO `role_permission` VALUES (3,9);
+INSERT INTO `role_permission` VALUES (3,10);
+
+INSERT INTO `user_role` VALUES (1,1);
+INSERT INTO `user_role` VALUES (2,2);
+
+
+# 查询一个用户下拥有几个角色
+select u.*,r.* from user u, user_role ur, role r where u.id=ur.uid and r.id=ur.rid and u.name='aaa';
+
+# 查询一个用户下拥有几个角色
+select r.name from user u left join user_role ur on u.id = ur.uid left join Role r on r.id = ur.rid where u.name = 'aaa'
+
+
+# 查询一个角色下拥有几个权限
+select r.*, p.* from role r, role_permission rp, permission p where r.id=rp.rid and p.id=rp.pid and r.name='admin';
+
+
+# 查询一个用户下拥有几个权限
+select p.name from user u, role r, permission p, user_role ur, role_permission rp where u.id=ur.uid and r.id=ur.rid and r.id=rp.rid and p.id=rp.pid and u.name='bbb';
+
+# 查询一个用户下拥有几个权限
+select p.name from user u left join user_role ru on u.id = ru.uid left join role r on r.id = ru.rid left join role_permission rp on r.id = rp.rid left join permission p on p.id = rp.pid where u.name ='bbb'

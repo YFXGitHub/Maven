@@ -1,0 +1,694 @@
+（1）securityManager：这个属性是必须的，没什么好说的，就这样配置就好。 
+（2）loginUrl：没有登录的用户请求需要登录的页面时自动跳转到登录页面，可配置也可不配置。 
+（3）successUrl：登录成功默认跳转页面，不配置则跳转至”/”，一般可以不配置，直接通过代码进行处理。 
+（4）unauthorizedUrl：没有权限默认跳转的页面。 
+（5）filterChainDefinitions，对于过滤器就有必要详细说明一下：
+
+其权限过滤器及配置释义：
+
+	anon:
+	
+	例子/admins/**=anon 没有参数，表示可以匿名使用。
+	
+	authc:
+	
+	例如/admins/user/**=authc表示需要认证(登录)才能使用，没有参数
+	
+	roles(角色)：
+	
+	例子/admins/user/**=roles[admin],参数可以写多个，参数之间用逗号分割，当有多个参数时，例如admins/user/**=roles["admin,guest"],每个参数通过才算通过，相当于hasAllRoles()方法。
+	
+	perms（权限）：
+	
+	例子/admins/user/**=perms[add],参数可以写多个，例如/admins/user/**=perms["add, modify"]，当有多个参数时必须每个参数都通过才通过，想当于isPermitedAll()方法。
+	
+	rest：
+	
+	例子/admins/user/**=rest[user],根据请求的方法，相当于/admins/user/**=perms[user:method] ,其中method为post，get，delete等。
+	
+	port：
+	
+	例子/admins/user/**=port[8081],当请求的url的端口不是8081是跳转到schemal://serverName:8081?queryString,其中schmal是协议http或https等，serverName是你访问的host,8081是url配置里port的端口，queryString
+	
+	是你访问的url里的？后面的参数。
+	
+	authcBasic：
+	
+	例如/admins/user/**=authcBasic没有参数.表示httpBasic认证
+	
+	ssl:
+	
+	例子/admins/user/**=ssl没有参数，表示安全的url请求，协议为https
+	
+	user:
+	
+	例如/admins/user/**=user没有参数表示必须存在用户，当登入操作时不做检查
+
+
+4)举几个例子 
+	/admin=authc,roles[admin] 表示用户必需已通过认证,并拥有admin角色才可以正常发起’/admin’请求 
+	/edit=authc,perms[admin:edit] 表示用户必需已通过认证,并拥有admin:edit权限才可以正常发起’/edit’请求 
+	/home=user 表示用户不一定需要已经通过认证,只需要曾经被Shiro记住过登录状态就可以正常发起’/home’请求
+	
+	5)各默认过滤器常用如下(注意URL Pattern里用到的是两颗星,这样才能实现任意层次的全匹配) 
+	/admins/**=anon 无参,表示可匿名使用,可以理解为匿名用户或游客 
+	/admins/user/**=authc 无参,表示需认证才能使用 
+	/admins/user/**=authcBasic 无参,表示httpBasic认证 
+	/admins/user/**=user 无参,表示必须存在用户,当登入操作时不做检查 
+	/admins/user/**=ssl 无参,表示安全的URL请求,协议为https 
+	/admins/user/*=perms[user:add:] 
+	参数可写多个,多参时必须加上引号,且参数之间用逗号分割,如/admins/user/*=perms[“user:add:,user:modify:*”] 
+	当有多个参数时必须每个参数都通过才算通过,相当于isPermitedAll()方法 
+	/admins/user/**=port[8081] 
+	当请求的URL端口不是8081时,跳转到schemal://serverName:8081?queryString 
+	其中schmal是协议http或https等,serverName是你访问的Host,8081是Port端口,queryString是你访问的URL里的?后面的参数 
+	/admins/user/**=rest[user] 
+	根据请求的方法,相当于/admins/user/**=perms[user:method],其中method为post,get,delete等 
+	/admins/user/**=roles[admin] 
+	参数可写多个,多个时必须加上引号,且参数之间用逗号分割,如/admins/user/**=roles[“admin,guest”] 
+	当有多个参数时必须每个参数都通过才算通过,相当于hasAllRoles()方法
+--------------------- 
+	认证
+		作用： 将login方法传递过来的token对象中的数据与数据库进行比对。
+		加密：
+
+		把一个字符串加密为 MD5 ：替换当前 Realm 的 credentialsMatcher 属性. 直接使用 HashedCredentialsMatcher 对象，如在 Shiro.xml 中配置：
+		<bean id="jdbcRealm" class="com.atguigu.shiro.realms.ShiroRealm">
+		    <property name="credentialsMatcher">
+		    	<bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+		    		<property name="hashAlgorithmName" value="MD5"></property>
+		    		<property name="hashIterations" value="1024"></property><!-- 加密次数 -->
+		    	</bean>
+		    </property>
+		</bean>
+		
+		使用 MD5 盐值加密:
+		1). 在 doGetAuthenticationInfo 方法返回值创建 SimpleAuthenticationInfo 对象的时候, 需要使用
+		SimpleAuthenticationInfo(principal, credentials, credentialsSalt, realmName) 构造器。
+		2). 使用 ByteSource.Util.bytes() 来计算盐值。
+		3). 盐值需要唯一: 一般使用随机字符串或 user id。
+		4). 使用 new SimpleHash(hashAlgorithmName, credentials, salt, hashIterations); 来计算盐值加密后的密码的值。
+		Realm：
+
+		public class MyRealm extends AuthenticatingRealm {
+			@Override
+			protected AuthenticationInfo doGetAuthenticationInfo(
+					AuthenticationToken token) throws AuthenticationException {
+				
+				//1. 把 AuthenticationToken 转换为 UsernamePasswordToken 
+				UsernamePasswordToken upToken = (UsernamePasswordToken) token;
+				
+				//2. 从 UsernamePasswordToken 中来获取 username
+				String username = upToken.getUsername();
+				
+				//3. 调用数据库的方法, 从数据库中查询 username 对应的用户记录
+				System.out.println("从数据库中获取 username: " + username + " 所对应的用户信息.");
+				
+				//4. 若用户不存在, 则可以抛出 UnknownAccountException 异常
+				if("unknown".equals(username)){
+					throw new UnknownAccountException("用户不存在!");
+				}
+				
+				//5. 根据用户信息的情况, 决定是否需要抛出其他的 AuthenticationException 异常. 
+				if("monster".equals(username)){
+					throw new LockedAccountException("用户被锁定");
+				}
+				
+				//6. 根据用户的情况, 来构建 AuthenticationInfo 对象并返回. 通常使用的实现类为: SimpleAuthenticationInfo
+				//以下信息是从数据库中获取的.
+				//1). principal: 认证的实体信息. 可以是 username, 也可以是数据表对应的用户的实体类对象. 
+				Object principal = username;
+				//2). credentials: 密码. 
+				Object credentials = null; //"fc1709d0a95a6be30bc5926fdb7f22f4";
+				if("admin".equals(username)){
+					credentials = "ce2f6417c7e1d32c1d81a797ee0b499f87c5de06";
+				}else if("user".equals(username)){
+					credentials = "073d4c3ae812935f23cb3f2a71943f49e082a718";
+				}
+				
+				//3). realmName: 当前 realm 对象的 name. 调用父类的 getName() 方法即可
+				String realmName = getName();
+				//4). 盐值. 
+				ByteSource credentialsSalt = ByteSource.Util.bytes(username);
+				
+				SimpleAuthenticationInfo info = null; //new SimpleAuthenticationInfo(principal, credentials, realmName);
+				info = new SimpleAuthenticationInfo(principal , credentials, credentialsSalt, realmName);
+				return info;
+			}
+		
+			public static void main(String[] args) {//用于我们测试时计算username+123456加密后的值
+				String hashAlgorithmName = "SHA1";
+				Object credentials = "123456";
+				Object salt = ByteSource.Util.bytes("admin");//user
+				int hashIterations = 1024;
+				
+				Object result = new SimpleHash(hashAlgorithmName, credentials, salt, hashIterations);
+				System.out.println(result);
+			}
+		}
+
+		多Realm情况
+		不用数据库使用不同加密方式，如：
+
+		<bean id="secondRealm" class="com.atguigu.shiro.realms.SecondRealm">
+	    	<property name="credentialsMatcher">
+	    		<bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+	    			<property name="hashAlgorithmName" value="SHA1"></property>
+	    			<property name="hashIterations" value="1024"></property>
+	    		</bean>
+	    	</property>
+	    </bean>
+	    
+	   	 需要使用 ModularRealmAuthenticator 来管理，修改 Shiro.xml 配置文件：
+		添加 authenticator bean，配置 authenticationStrategy 属性，即认证策略，有三种：
+		FirstSuccessfulStrategy->只要有一个Realm认证成功即可，返回第一个认证成功的认证信息
+		AtLeastOneSuccessfulStrategy->只要有一个Realm认证成功即可，返回所有认证成功的认证信息
+		AllSuccessfulStrategy->所有Realm认证成功才算成功，返回所有认证成功的认证信息
+		<bean id="authenticator" class="org.apache.shiro.authc.pam.ModularRealmAuthenticator">
+	    	<property name="authenticationStrategy">
+	    		<!-- 默认使用AtLeastOneSuccessfulStrategy -->
+	    		<bean class="org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy"/>
+	    	</property>
+	    </bean>
+
+		securityManager bean 里添加：
+		<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+	        <property name="cacheManager" ref="cacheManager"/>
+	        <property name="authenticator" ref="authenticator"></property>
+	        
+	        <property name="realms">
+	        	<list>
+	    			<ref bean="jdbcRealm"/>
+	    			<ref bean="secondRealm"/>
+	    		</list>
+	        </property>
+	    </bean>
+
+
+--------------------- 
+
+ 	 // 安全操作，Subject是当前登录的用户
+        Subject currentUser = SecurityUtils.getSubject();
+	  //尝试进行登录用户，如果登录失败了，我们进行一些处理
+        if (!currentUser.isAuthenticated()) {//如果用户没有登录过
+            //new UsernamePasswordToken(用户名,密码)
+            UsernamePasswordToken token =
+                    new UsernamePasswordToken("test", "123456");
+            token.setRememberMe(true);//是否记住用户
+  	
+  		//登出
+                currentUser.logout();
+--------------------- 
+	判断用户拥有某个角色
+	        // 查看用户是否有指定的角色
+                if (currentUser.hasRole("admin")) {
+                    log.info("您有admin角色");
+                } else {
+                    log.info("您没有admin角色");
+                }
+--------------------- 
+	判断用户拥有某个权限
+	    // 查看用户是否有某个权限
+                if (currentUser.isPermitted("perm1")) {
+                    log.info("您有perm1权限");
+                } else {
+                    log.info("您没有perm1权限");
+                }
+--------------------- 
+	 session处理(这里只是简单介绍)
+		shiro提供的有会话管理功能，在web环境下可以用shiro提供的session功能代替原生web中的session
+		SecurityUtils.getSubject().getSession().setAttribute(obj,obj);
+		SecurityUtils.getSubject().getSession().getAttribute(obj,obj);
+--------------------- 
+	《shiro支持三种方式的授权：》
+	
+		1.编程式：通过写if/else授权代码块完成：
+		Subject subject = SecurityUtils.getSubject();
+		if(subject.hasRole(“admin”)){
+			//有权限
+		}else{
+			//无权限
+		}
+		
+		2.注解方式:通过在执行的java 方法上放置相应的注解完成；
+		@RequiresRoles(“admin”)
+		public void hello(){
+			//有权限
+		}
+		
+		3.jsp标签： 在jsp页面通过相应的标签完成：
+		<shiro:hasRole name="admin">
+		<!— 有权限—>
+		</shiro:hasRole>
+		
+		jsp页面：
+
+		<shiro:hasRole name="ROLE_ADMIN">
+		    <li class="user"><a href="${ctx}/admin/user">用户</a></li>
+		</shiro:hasRole>
+		<shiro:hasAnyRoles name="ROLE_ADMIN,ROLE_SERVICE">
+		    <li class="complaint"><a href="${ctx}/admin/complaint/list">服务</a></li>
+		</shiro:hasAnyRoles>
+		<shiro:hasRole name="ROLE_ADMIN">
+		    <li class="system"><a href="${ctx}/admin/repairType/index">系统设置</a></li>
+		</shiro:hasRole>
+		　　
+		
+		在使用Shiro标签库前，首先需要在JSP引入shiro标签： 
+		<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+		　　
+		
+		1、介绍Shiro的标签guest标签 ：验证当前用户是否为“访客”，即未认证（包含未记住）的用户。
+		<shiro:guest> 
+		Hi there!  Please <a href="login.jsp">Login</a> or <a href="signup.jsp">Signup</a> today! 
+		</shiro:guest>
+		　　
+		2、user标签 ：认证通过或已记住的用户。
+		
+		<shiro:user> 
+		    Welcome back John!  Not John? Click <a href="login.jsp">here<a> to login. 
+		</shiro:user>
+		　　
+		3、authenticated标签 ：已认证通过的用户。不包含已记住的用户，这是与user标签的区别所在。
+		<shiro:authenticated> 
+		    <a href="updateAccount.jsp">Update your contact information</a>. 
+		</shiro:authenticated>
+		　　
+		4、notAuthenticated标签 ：未认证通过用户，与authenticated标签相对应。与guest标签的区别是，该标签包含已记住用户。 
+		<shiro:notAuthenticated> 
+		    Please <a href="login.jsp">login</a> in order to update your credit card information. 
+		</shiro:notAuthenticated>
+		
+		5、principal 标签 ：输出当前用户信息，通常为登录帐号信息。
+		Hello, <shiro:principal/>, how are you today?
+		
+		6、hasRole标签 ：验证当前用户是否属于该角色。
+		
+		<shiro:hasRole name="administrator"> 
+		    <a href="admin.jsp">Administer the system</a> 
+		</shiro:hasRole>
+		　　
+		7、lacksRole标签 ：与hasRole标签逻辑相反，当用户不属于该角色时验证通过。
+		<shiro:lacksRole name="administrator"> 
+		    Sorry, you are not allowed to administer the system. 
+		</shiro:lacksRole>
+		　　
+		8、hasAnyRole标签 ：验证当前用户是否属于以下任意一个角色。 
+		<shiro:hasAnyRoles name="developer, project manager, administrator"> 
+		    You are either a developer, project manager, or administrator. 
+		</shiro:lacksRole>
+		　　
+		9、hasPermission标签 ：验证当前用户是否拥有指定权限。
+		<shiro:hasPermission name="user:create"> 
+		    <a href="createUser.jsp">Create a new User</a> 
+		</shiro:hasPermission>
+		10、lacksPermission标签 ：与hasPermission标签逻辑相反，当前用户没有制定权限时，验证通过。
+		
+		<shiro:hasPermission name="user:create"> 
+		    <a href="createUser.jsp">Create a new User</a> 
+		</shiro:hasPermission>
+
+--------------------- 
+	// 用户认证状态
+	Boolean isAuthenticated = subject.isAuthenticated();
+	System.out.println(“用户认证状态：” + isAuthenticated);
+	// 用户授权检测 基于角色授权
+	// 是否有某一个角色
+	System.out.println(“用户是否拥有一个角色：” + subject.hasRole(“role1”));
+	// 是否有多个角色
+	System.out.println(“用户是否拥有多个角色：” + subject.hasAllRoles(Arrays.asList(“role1”, “role2”)));
+	// subject.checkRole(“role1”);授权检测，失败则抛出异常
+	// subject.checkRoles(Arrays.asList(“role1”, “role2”));
+	 // 检查权限
+    System.out.println("是否拥有某一个权限：" + subject.isPermitted("user:delete"));
+    System.out.println("是否拥有多个权限：" + subject.isPermittedAll("user:create:1",    "user:delete"));
+
+    //检查权限,若没有权限则上抛异常
+    subject.checkPermission("sys:user:delete");
+    subject.checkPermissions("user:create:1","user:delete");
+--------------------- 
+	// 授权
+	@Override
+	protected AuthorizationInfo doGetAuthorizationInfo(
+	PrincipalCollection principals) {
+	// 获取身份信息
+	String username = (String) principals.getPrimaryPrincipal();
+	// 根据身份信息从数据库中查询权限数据
+	//…这里使用静态数据模拟，实际需要开发者自己执行sql查询判断
+--------------------- 
+	授权：
+	 	Set<String> roleNames = new HashSet<String>();  
+        Set<String> permissions = new HashSet<String>();  
+        roleNames.add("administrator");//添加角色
+        permissions.add("newPage.jhtml");  //添加权限
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo(roleNames);  
+        info.setStringPermissions(permissions);  
+        return info;  
+--------------------- 
+	《spring整合shiro使用注解方式配置》
+		第一步：在spring配置文件中开启shiro注解支持
+	
+	    <!-- 开启shiro的注解支持 -->
+		<bean id="defaultAdvisorAutoProxyCreator" class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator">
+			<!-- 必须改为true，即使用cglib方式为Action创建代理对象。默认值为false，使用JDK创建代理对象，会造成问题 -->
+			<property name="proxyTargetClass" value="true"></property>
+		</bean>
+		
+		<!-- 使用shiro框架提供的切面类，用于创建代理对象 -->
+		<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor"></bean>
+		第二步：在Action的方法上使用shiro注解
+		
+		@RequiresPermissions("staff-delete")  //执行这个方法，需要 当前用户有staff-delete的这个权限
+			public String deleteBatch(){
+				staffService.deleteBatch(ids);
+				return LIST;
+			}
+
+--------------------- 
+	shiro注解
+ 
+	Shiro 提供了相应的注解用于权限控制，如果使用这些注解就需要使用AOP 的功能来进行
+	判断，如Spring AOP；Shiro 提供了Spring AOP 集成用于权限注解的解析和验证。
+	 
+	　　@RequiresAuthentication
+	　　表示当前Subject已经通过login 进行了身份验证；即Subject. isAuthenticated()返回true。
+	 
+	　　@RequiresUser
+	　　表示当前Subject已经身份验证或者通过记住我登录的。
+	 
+	　　@RequiresGuest
+	　　表示当前Subject没有身份验证或通过记住我登录过，即是游客身份。
+	 
+	　　@RequiresRoles(value={“admin”, “user”}, logical= Logical.AND)
+	　　@RequiresRoles(value={“admin”})
+	　　@RequiresRoles({“admin“})
+	　　表示当前Subject需要角色admin 和user。
+	 
+	　　@RequiresPermissions (value={“user:a”, “user:b”}, logical= Logical.OR)
+	　　表示当前Subject需要权限user:a或user:b。
+	Shiro的认证注解处理是有内定的处理顺序的，如果有个多个注解的话，前面的通过了会继续检查后面的，若不通过则直接返回，处理顺序依次为（与实际声明顺序无关）：
+	
+	RequiresRoles  : 注解时： 若用户没有此角色就会抛出异常 
+		解决方法：
+		如果用了SpringMVC的话，设置的shiro的跳转貌似是没用的，这时候要在springMVC 里面配置，捕获异常并跳转：
+		<!-- 捕获无权限的异常进行跳转 -->
+		<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">	
+		<props>	
+		        	<prop key="org.apache.shiro.authz.UnauthorizedException">
+		        	/unauthorized	
+		        	</prop>	
+		
+		</props>	
+		</property>
+		</bean>
+		在controller中写一个方法，映射路径：
+			@RequestMapping("/unauthorized")
+			public String unauthorized() {
+				return "/403.html";
+			}
+		
+	RequiresPermissions 
+	RequiresAuthentication 
+	RequiresUser 
+	RequiresGuest
+	
+	例如：你同时声明了RequiresRoles和RequiresPermissions，那就要求拥有此角色的同时还得拥有相应的权限。
+	
+	 
+	1) RequiresRoles
+	
+	可以用在Controller或者方法上。可以多个roles，多个roles时默认逻辑为 AND也就是所有具备所有role才能访问。
+	 
+	
+	复制代码
+	//属于user角色
+	@RequiresRoles("user")
+	
+	//必须同时属于user和admin角色
+	@RequiresRoles({"user","admin"})
+	
+	//属于user或者admin之一;修改logical为OR 即可
+	@RequiresRoles(value={"user","admin"},logical=Logical.OR)
+	复制代码
+	2) RequiresPermissions
+	
+	复制代码
+	/符合index:hello权限要求
+	@RequiresPermissions("index:hello")
+	
+	//必须同时复核index:hello和index:world权限要求
+	@RequiresPermissions({"index:hello","index:world"})
+	
+	//符合index:hello或index:world权限要求即可
+	@RequiresPermissions(value={"index:hello","index:world"},logical=Logical.OR)
+	复制代码
+	3) RequiresAuthentication，RequiresUser，RequiresGuest
+	
+	这三个的使用方法一样
+	既可以用在controller中，也可以用在service中
+	建议将shiro注解放入controller，因为如果service层使用了spring的事物注解，那么shiro注解将无效
+	jsp中Shiro使用的标签
+
+		需要在jsp页面中引入标签
+		<%@ taglib uri="http://shiro.apache.org/tags" prefix="shiro" %>
+		标签：
+		<shiro:authenticated>    登录之后
+		<shiro:notAuthenticated>    不在登录状态时
+		<shiro:guest>    用户在没有RememberMe时
+		<shiro:user>    用户在RememberMe时
+		<shiro:hasAnyRoles name="abc,123" >    在有abc或者123角色时
+		<shiro:hasRole name="abc">    拥有角色abc
+		<shiro:lacksRole name="abc">    没有角色abc
+		<shiro:hasPermission name="abc">    拥有权限资源abc <shiro:lacksPermission name="abc">    没有abc权限资源
+		<shiro:principal>    显示用户身份名称
+		<shiro:principal property="username"/>     显示用户身份中的属性值
+
+------------------------------------------
+		会话管理
+			
+			常用 API：
+				Subject.getSession()：获取会话
+				Subject.getId()：获取当前会话的唯一标识
+				Subject.getHost()：获取当前Subject的主机地址
+				session.getTimeout()、session.setTimeout()：获取、设置当前session的过期时间
+				session.getStartTimestamp()、session.getLastAccesTime()：获取会话的启动时间和最后访问时间
+				session.touch、session.stop：更新会话最后访问时间、销毁会话
+				session.setAttribute(key,val)、session.getAttribute(key)、session.removeAttribute(key)：设置、获取、删除会话属性
+		会话监听器
+			SessionListener：
+			onStart(Session)
+			onStop(Session)
+			onException(Session)
+--------------------- 
+	
+	【自定义Realm】
+		/**
+		 * 自定义Realm
+		 * @author longwentao
+		 *
+		 */
+		public class UserShiroRealm extends AuthorizingRealm{
+			
+			private IUserService userService;
+			
+			public void setUserService(IUserService userService) {
+				this.userService = userService;
+			}
+		
+			@Override
+			protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+				String username = (String)principals.getPrimaryPrincipal();
+				if(username == null) {
+					throw new BugException("未登录");
+				}
+				SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+				Set<String> roles = new HashSet<String>();
+				Set<String> stringPermissions = new HashSet<String>();
+				roles.add("USER");
+				stringPermissions.add("USER:DELETE");//角色:权限
+				
+				info.setRoles(roles);//角色可以通过数据库查询得到
+				info.setStringPermissions(stringPermissions);//权限可以通过数据库查询得到
+				
+				return info;
+			}
+		
+			@Override
+			protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken autToken) throws AuthenticationException {
+		
+				UsernamePasswordToken userPwdToken = (UsernamePasswordToken) autToken;
+				String userName = userPwdToken.getUsername();
+		
+				UserVO user = userService.selectUserByUserName(userName);
+				if (null == user) {
+					throw new BugException("未知账号");
+				}
+				
+				SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user.getUserName(),
+						user.getPassword().toCharArray(), getName());
+		
+				return authenticationInfo;
+			}
+		}
+		
+	【自定义凭证(密码)匹配器】
+		/**
+			 * 自定义凭证(密码)匹配器
+			 * @author longwentao
+			 *
+			 */
+			public class BugCredentialsMatcher extends SimpleCredentialsMatcher {
+			
+				@Override
+				public boolean doCredentialsMatch(AuthenticationToken token, AuthenticationInfo info) {
+					// 对前台传入的明文数据加密，根据自定义加密规则加密
+					Object tokencredential = new SimpleByteSource((char[]) token.getCredentials());
+					// 从数据库获取的加密数据
+					Object accunt = new SimpleByteSource((char[]) info.getCredentials());
+					// 返回对比结果
+					return equals(accunt, tokencredential);
+				}
+			}
+
+	【自定义登录验证过滤器】
+		此过滤器主要用于校验用户访问某个URL时，是否已经提前登录过，如果登录过，则允许访问，否则拒绝访问；
+		此过滤器继承了AuthorizationFilter，并重写了isAccessAllowed方法和onAccessDenied方法，代码如下
+
+		/**
+		 * 自定义登录验证过滤器
+		 * @author longwentao
+		 *
+		 */
+		public class LoginCheckPermissionFilter extends AuthorizationFilter {
+			private final static Logger logger = LoggerFactory.getLogger(LoginCheckPermissionFilter.class);
+		
+			@Override
+			protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object arg2) throws Exception {
+				HttpServletRequest req = (HttpServletRequest) request;
+				String url = req.getRequestURI();
+				try {
+					Subject subject = SecurityUtils.getSubject();
+		
+					return subject.isPermitted(url);
+				} catch (Exception e) {
+					logger.error("Check perssion error", e);
+				}
+				return false;
+			}
+		
+			@Override
+			protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws IOException {
+				Subject subject = getSubject(request, response);
+				if (subject.getPrincipal() == null) {
+					saveRequestAndRedirectToLogin(request, response);
+				} else {
+					return true;
+				}
+				return false;
+			}
+		}
+
+	
+   <!-- 自定义域 -->
+    <bean id="userShiroRealm" class="com.bug.realm.UserShiroRealm">
+    	<property name="userService" ref="userService"/>
+    	<property name="credentialsMatcher" ref="credentialsMatcher"/>
+    	<property name="cachingEnabled" value="true"/>
+    </bean>
+    
+     <!-- 自定义凭证(密码)匹配器 -->
+    <bean id="credentialsMatcher" class="com.bug.credentials.BugCredentialsMatcher"></bean>
+    
+    <!-- 自定义登录验证过滤器 -->
+    <bean id="loginCheckPermissionFilter" class="com.bug.filter.LoginCheckPermissionFilter"></bean>
+--------------------- 
+
+	
+	3.10_ 重写过滤器
+		/doadd.html = authc,perms[perm1,perm2]
+		shiro默认的拦截是要满足所有的条件，但有时我们只要满足其中的一个，用于拥有perm1或perm2任何一个条件就可以访问/doadd.html。这时我们可以重写过滤器，将and变成or
+
+		package util;
+		import javax.servlet.ServletRequest;
+		import javax.servlet.ServletResponse;
+		import org.apache.shiro.subject.Subject;
+		import org.apache.shiro.web.filter.authz.AuthorizationFilter;
+		
+		public class MyShiroPermFilter extends AuthorizationFilter {
+		    @Override
+		    protected boolean isAccessAllowed
+		            (ServletRequest req, ServletResponse resp, Object mappedValue) 
+		                 throws Exception {
+		        Subject subject = getSubject(req, resp);
+		        String[] permsArray = (String[]) mappedValue;
+		
+		        if (permsArray == null || permsArray.length == 0) { //没有权限限制
+		            return true;
+		        }
+		        for (int i = 0; i < permsArray.length; i++) {
+		            //如果是角色，就是subject.hasRole()
+		            //若当前用户是permsArray中的任何一个，则有权限访问
+		            if (subject.isPermitted(permsArray[i])) {
+		                return true;
+		            }
+		        }
+		        return false;
+		    }
+		}
+
+	此处需要引入servlet的jar包：
+		
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>javax.servlet-api</artifactId>
+		    <version>3.1.0</version>
+		</dependency>
+		在spring中的配置，在id=”shiroFilter”的bean中加入过滤拦截：
+		
+		<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		    <property name="securityManager" ref="securityManager"/>
+		    <property name="loginUrl" value="/gologin.html"/>
+		    <property name="successUrl" value="/index.html"/>
+		    <property name="unauthorizedUrl" value="/error.jsp"/>
+		    <property name="filterChainDefinitionMap" ref="myChainDefinitions"/>
+		    <!--修改后的过滤规则，从and变成or-->
+		    <property name="filters">
+		        <map>
+		            <entry key="perms">
+		                <bean class="util.MyShiroPermFilter"/>
+		            </entry>
+		        </map>
+		    </property>
+		</bean>
+ 
+
+	3.11_rememberMe属性
+		rememberMe可以在浏览器中设置cookie，在spring配置中可以设置cookie的属性，如过期时间、cookie名字、加密的秘钥等：
+		
+		<bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+		    <constructor-arg value="rememberMeShiro"/><!-- 浏览器中cookie的名字 -->
+		    <property name="httpOnly" value="true"/><!--document对象中就看不到cookie了-->
+		    <property name="maxAge" value="2592000"/><!-- 30天 -->
+		</bean>
+		
+		<!-- rememberMe管理器 -->
+		<bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+		    <!--秘钥要16位，24位或32位的Base64。这个解密后是1234567890abcdef-->
+		    <property name="cipherKey" value="#{T(org.apache.shiro.codec.Base64).decode('MTIzNDU2Nzg5MGFiY2RlZg==')}"/>
+		    <property name="cookie" ref="rememberMeCookie"/>
+		</bean>
+		在securityManager中加入rememberMe中加入配置：
+		
+		<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		    <property name="realm" ref="myShiroRealm"/>
+		    <!--加入rememberMe的设置-->
+		    <property name="rememberMeManager" ref="rememberMeManager"/>
+		</bean>
+--------------------- 
+
+
+
+
+
+	
