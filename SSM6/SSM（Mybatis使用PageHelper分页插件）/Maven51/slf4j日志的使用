@@ -1,0 +1,22 @@
+注解slf4j的日志该用哪个级别
+slf4j的日志级别分为五种
+　　info、debug、error、warn、trane
+常用的是这是三个。
+        info  一般处理业务逻辑的时候使用，就跟 system.err打印一样，用于说明此处是干什么的。slf4j使用的时候是可以动态的传参的，使用占位符 {} 。后边一次加参数，会挨个对应进去。
+        debug: 一般放于程序的某个关键点的地方，用于打印一个变量值或者一个方法返回的信息之类的信息
+        error： 用户程序报错，必须解决的时候使用此级别打印日志。
+不常用的有：
+        warn：警告，不会影响程序的运行，但是值得注意。
+        trane:  一般不会使用，在日志里边也不会打印出来，好像是很低的一个日志级别。
+ 注：异常信息不要放在最后一个参数的位置，否则会映射不进去。如果想要映射进去，就要使用getMessage()方法或者.toString()方法，这样做获取不到我们想要看到的信息，所以不建议这样使用。
+ 
+需要用到的maven坐标
+<!-- 可以使用slf4j注解 -->
+<dependency>
+<groupId>org.projectlombok</groupId>
+<artifactId>lombok</artifactId>
+</dependency>
+<dependency>
+<groupId>org.slf4j</groupId>
+<artifactId>slf4j-api</artifactId>
+</dependency>

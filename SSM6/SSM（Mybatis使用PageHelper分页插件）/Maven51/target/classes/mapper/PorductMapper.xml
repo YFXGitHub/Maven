@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="yfx.dao.PorductMapper">
+	
+	<!-- 查询所有数据 -->        
+	<select id="findPorductAll" resultType="yfx.model.Porduct"> 
+		select * from Porduct
+	</select>
+	
+	<!-- delete -->
+	<delete id="delete" parameterType="int"> 
+		delete from Porduct where pid = #{pid};
+	</delete>
+	
+	<!-- 根据id 查询 -->
+	<select id="findByid" parameterType="int" resultType="yfx.model.Porduct">
+		select * from Porduct where pid = #{pid};
+	</select>
+	
+	<!-- update -->
+	<update id="update" parameterType="yfx.model.Porduct">
+		update porduct set pname=#{pname}, pice=#{pice}, pdesc=#{pdesc}, pdate=#{pdate} where pid = #{pid}; 
+	</update>
+	
+	<!-- insert -->
+	<insert id="add" parameterType="yfx.model.Porduct">
+		insert into porduct values(null, #{pname}, #{pice}, #{pdesc}, SYSDATE());
+	</insert>
+	
+</mapper>

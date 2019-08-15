@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="yfx.dao.OrderssMapper">
+	
+	<!-- 查询所有数据 -->
+	<select id="findAll" resultMap="resultAll">
+		select o.*, p.pname from Orderss o inner join porduct p on o.pid = p.pid;
+	</select>
+	
+	<!-- 根据ID 查询数据 -->
+	<select id="findByid" parameterType="int" resultMap="resultAll">
+		select o.*, p.pname from Orderss o inner join porduct p on o.pid = p.pid where o.oid = #{oid};
+	</select>
+	
+	<!-- delete -->
+	<delete id="delete" parameterType="int">
+		delete from Orderss where oid = #{oid};
+	</delete>
+	
+	<!-- update -->
+	<update id="update" parameterType="Orderss">
+		update orderss set oNum =#{oNum}, otime=#{otime}, opeopleCount=#{opeopleCount}, oDesc=#{oDesc}, opayType=#{opayType}, ostatus=#{ostatus}, pid=#{porduct.pid} where oid=#{oid};
+	</update>
+	
+	<resultMap type="yfx.model.Orderss" id="resultAll">
+		<id column="oid" property="oid" />
+		<result column="oNum" property="oNum" />
+		<result column="otime" property="otime" />
+		<result column="opeopleCount" property="opeopleCount" />
+		<result column="oDesc" property="oDesc" />
+		<result column="opayType" property="opayType" />
+		<result column="ostatus" property="ostatus" />
+		<association property="porduct" javaType="yfx.model.Porduct">
+			<id column="pid" property="pid" />
+			<result column="pname" property="pname" />
+		</association>
+	</resultMap>
+</mapper>

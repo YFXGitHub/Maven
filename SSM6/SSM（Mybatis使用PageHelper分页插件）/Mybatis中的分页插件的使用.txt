@@ -1,0 +1,15 @@
+	@RequestMapping("/findpage")
+	public String tofindPage(Params params) {
+		System.out.println("进入分页vchajian。。。");
+		
+        		List<Porduct> findPorductAll = porductService.findPorductAll();
+        		System.out.println(findPorductAll);
+		 // 第三页 每页5条 此处使用mybatis 的分页插件
+	        	PageHelper.startPage(2, 5); // 从1，开始！ ，
+	        	PageInfo pageInfo = new PageInfo(porductService.findPorductAll());
+	        	List<Porduct> clist =(List<Porduct>) pageInfo.getList();
+		for (Porduct porduct : clist) {
+			System.out.println(porduct);
+		}
+		return "pageHandler";
+	}
