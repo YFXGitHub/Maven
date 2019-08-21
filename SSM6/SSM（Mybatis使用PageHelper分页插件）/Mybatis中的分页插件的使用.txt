@@ -1,11 +1,44 @@
+  使用mybatis分页插件
+  	1.要引入依赖
+		 <!--  mybatis/分页插件包  -->
+		<dependency>  
+			<groupId>com.github.pagehelper</groupId>  
+			<artifactId>pagehelper</artifactId>  
+			<version>5.0.0</version> 
+		</dependency>
+	2.在sping 中的SqlSessionFactory配置
+		<!-- 3.配置SqlSessionFactory对象 -->
+		<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+			<!-- 注入数据库连接池 -->
+			<property name="dataSource" ref="dataSource" />
+			<!-- 配置MyBaties全局配置文件:mybatis-config.xml -->
+			<property name="configLocation" value="classpath:mybatis-config.xml" />
+			<!-- 扫描entity包 使用别名 -->
+			<property name="typeAliasesPackage" value="com.yfx.entity" />
+			<!-- 扫描sql配置文件:mapper需要的xml文件 -->
+			<property name="mapperLocations" value="classpath:mapper/*.xml" />
+			<!-- 配置分页拦截器插件 -->
+			<property name="plugins">
+				<array>  
+					<bean class="com.github.pagehelper.PageInterceptor"> 
+						<property name="properties">   
+							<!--使用下面的方式配置参数，一行配置一个 -->  
+							<value>   params=value1   </value> 
+						</property> 
+					 </bean>
+			      </array>
+			</property>
+		</bean>
+
+	
 	@RequestMapping("/findpage")
 	public String tofindPage(Params params) {
-		System.out.println("�����ҳvchajian������");
+		System.out.println("进入分页vchajian。。。");
 		
         		List<Porduct> findPorductAll = porductService.findPorductAll();
         		System.out.println(findPorductAll);
-		 // ����ҳ ÿҳ5�� �˴�ʹ��mybatis �ķ�ҳ���
-	        	PageHelper.startPage(2, 5); // ��1����ʼ�� ��
+		 // 第三页 每页5条 此处使用mybatis 的分页插件
+	        	PageHelper.startPage(2, 5); // 从1，开始！ ，
 	        	PageInfo pageInfo = new PageInfo(porductService.findPorductAll());
 	        	List<Porduct> clist =(List<Porduct>) pageInfo.getList();
 		for (Porduct porduct : clist) {
