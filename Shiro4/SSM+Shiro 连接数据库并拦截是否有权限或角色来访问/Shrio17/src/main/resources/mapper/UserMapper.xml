@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.yfx.dao.UserMapper">
+	
+	<!-- 查询所有的用户信息  -->
+	<select id="findAll" resultType="User">
+		select * from User
+	</select>
+	
+	<!-- 根据用户名查询：当前用户的信息  -->
+	<select id="findByName" resultType="User" parameterType="string">
+		select * from User where name = #{name}
+	</select>
+	
+	<!-- 注册 添加用户信息 -->
+	<insert id="save" parameterType="User">
+		insert into User values(null, #{name}, #{password}, #{salt});
+	</insert>
+	
+	<!-- # 查询用户下 有哪些角色  -->
+	<select id="findByUserRoles" resultType="string" parameterType="string">
+		select r.name from user_role ur, user u, role r where ur.uid=u.id and ur.rid=r.id and u.name=#{name};
+		
+	</select>
+	
+	<!-- # 查询用户下有 哪些权限 -->
+	<select id="findByUserPermissions" resultType="string" parameterType="string">
+		select p.name from user u, role r, permission p, user_role ur, role_permission rp where u.id=ur.uid and r.id=ur.rid and r.id=rp.rid and p.id=rp.pid and u.name=#{name};
+
+	</select>
+	
+</mapper>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>Shrio17</display-name>
+  <welcome-file-list>
+    <welcome-file>login.jsp</welcome-file>
+  </welcome-file-list>
+  
+    <!-- 配置适配器spring -->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:spring/spring-*.xml</param-value>
+  </context-param>  
+
+  
+   <!-- SpringMVC配置文件 -->
+	<!-- 配置SpringMVC的拦截器DispatcherServlet类,用以拦截所有的URL请求 -->
+	<servlet>
+		<servlet-name>springMVC</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- 若不配置<contextConfigureLocation>节点,则SpringMVC配置文件的命名规则必须满足 文件名-servlet.xml,比如你的配置文件名为:SpringMVC,那完整的文件名必须为:SpringMVC-servlet.xml 
+			否则将无法扫描到对应的配置文件! -->
+		<init-param>
+			<!-- <contextConfigureLocation>节点配置的是SpringMVC配置文件的位置 -->
+			<param-name>contextConfigLocation</param-name>
+			<!-- "classpath:" 路径对应的是工程目录下的src文件 -->
+			<!-- 我的SpringMVC文件放在com.config包下,所以对应的路径即为: classpath:com/config/SpringMVC/springMVC-servlet.xml -->
+			<param-value>classpath:spring/spring-*.xml</param-value>
+		</init-param>
+		<!-- 这个配置是使DispatchServlet拦截器随着Web服务启动的时候启动,而不是当客户端发送请求时才启动 -->
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<!-- 配置<servlet-mapping>节点 -->
+	<servlet-mapping>
+		<!-- 注意:这里的<servlet-name>节点的值需要与<servlet>节点的值保持一致 -->
+		<servlet-name>springMVC</servlet-name>
+		<!-- 配置想要拦截的url请求格式, "/" 表示拦截所有请求 -->
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+	
+	 <!-- 解决Form表单 传递来的字符串为乱码状态  , 定义一个过滤器  -->
+   <filter>
+		 <filter-name>characterEncodingFilter</filter-name>
+		 <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		 <init-param>
+			 <param-name>encoding</param-name>
+			 <param-value>UTF-8</param-value>
+		 </init-param>
+		 <init-param>
+			 <param-name>forceRequestEncoding</param-name>
+			 <param-value>true</param-value>
+		 </init-param>
+	</filter>
+	<filter-mapping>
+		 <filter-name>characterEncodingFilter</filter-name>
+		 <url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	
+	  <!-- 配置 Shiro  拦截 访问路径  url    
+  		1. DelegatingFilterProxy 实际上是 Filter 的一个代理对象， 默认情况下，Spring 会到 IOC 容器中去找与  <filter-name>shiroFilter</filter-name> 名称一致的 filter-name ， 它内部采用的是 targetBeanName 来获取id 
+  -->
+   <filter>
+        <filter-name>shiroFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        <init-param>
+            <param-name>targetFilterLifecycle</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>shiroFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+    	<!-- 使用maven 就要引入各种样式如下： -->
+	 <servlet-mapping>  
+		<servlet-name>default </servlet-name>
+		<url-pattern>*.js</url-pattern>
+		<url-pattern>*.css</url-pattern>
+		<url-pattern>*.jpg</url-pattern>
+		<url-pattern>*.png</url-pattern>
+		<url-pattern>*.jpeg</url-pattern>
+		<url-pattern>*.svg</url-pattern>
+		<url-pattern>*.eot</url-pattern>
+		<url-pattern>*.woff</url-pattern>
+		<url-pattern>*.ttf</url-pattern>
+	</servlet-mapping>  
+    
+     
+</web-app>

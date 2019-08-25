@@ -1,0 +1,14 @@
+Shiro17 Demo：
+	由于这是一个SSM + Shiro的结合应用 ，
+		遇到的问题有  ： *.css/*.js.....等样式引用不到！ 
+			解决方法： 由于SHiro将所有的请求都会拦截，包括*.css/*.js.....等样式，要在
+			  <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">中配置如下：
+			  <!-- Shiro释放静态资源*.css/*.js.... -->
+		            	 /login_files/** = anon
+		            	 /404_files/** = anon  
+		            	 
+		            	 
+	//@RequiresRoles({"admin", "userInfoManager"})  这种方式为：用户同时拥有这个两个角色
+	//属于user或者admin之一;修改logical为OR 即可
+	@RequiresRoles(value={"admin","userInfoManager"},logical=Logical.OR)
+		            	 

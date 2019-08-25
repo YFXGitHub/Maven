@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.springframework.org/schema/beans" xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-4.0.xsd http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-4.0.xsd http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-4.0.xsd http://www.springframework.org/schema/util
+    http://www.springframework.org/schema/util/spring-util.xsd">
+	
+	
+	 
+    <!-- 1. 配置Shiro  securityManager  --> 
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="cacheManager" ref="cacheManager"/>
+        <property name="realm" ref="jdbcRealm"/> 
+    </bean>
+    
+    <!-- 用户授权信息Cache -->  
+    <bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager" />  
+    
+    <!-- 3. 自定义realm
+    	 将凭证匹配器设置到realm中，realm按照凭证匹配器要求进行散列
+        	<property name="credentialsMatcher" ref="credentialsMatcher"/>   -->
+      <bean id="jdbcRealm" class="com.yfx.realms.LoginRealm"></bean>
+     
+      <!-- url过滤器
+      	 <bean id="urlPathMatchingFilter" class="com.yfx.filter.URLPathMatchingFilter"/>
+       -->        
+   
+    
+      <!-- 凭证匹配器  使用不了？？？？？？？
+      	 <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+        <property name="hashAlgorithmName" value="md5" />
+        <property name="hashIterations" value="2" />
+        <property name="storedCredentialsHexEncoded" value="true" />
+    </bean>
+        -->
+    
+    
+     <!--  配置 LifecycleBeanPostProcessor   能自动调用配置在Spring IOC 容器中Shiro Bean 的生命周期  方法   -->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+	 
+    
+      <!--  6. 配置 shiroFilter
+    	   6.1：  注意 id 必须和web.xml 中的DelegatingFilterProxy 配置里  <filter-name>shiroFilter</filter-name> 名一致！    【否则就会报出：org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'shiroFilter' is defined 找不到 'shiroFilter' 的异常】
+     -->
+      <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        <property name="loginUrl" value="/login.jsp"/>  <!-- 登录页面  -->
+        <property name="successUrl" value="/success.jsp"/>		<!-- 登录成功页面  -->
+        <property name="unauthorizedUrl" value="/404-2.jsp"/>  <!-- 没有权限的页面 -->
+        <!-- URL 
+        	   <property name="filters">
+            <util:map>
+                <entry key="url" value-ref="urlPathMatchingFilter" />
+            </util:map>
+        </property>
+        -->
+      
+        
+       <!-- 以下配置： 哪些页面需要受保护 以及  访问这些页面需要的权限  
+       		1. anon 表示 可通过匿名的方式访问       		比如： login.jsp    意图是： 除了login.jsp能够被访问 其它 都不行 ！！               		
+       		2. authc  表示 必须认证后才可访问 		比如： （列表） 		  意图是： 想访问success.jsp 就必须先通过认证 才可以访问  ！
+       			/** = authc  表示 会拦截所有   除了  ** = anon 的路径  ；    注意： url 会采取第一次匹配优先的方式
+       		3. logout  表示  退出 并清除缓存	 -->
+        
+              <property name="filterChainDefinitions">
+		            <value>
+		            <!-- Shiro释放静态资源*.css/*.js.... -->
+		            	 /login_files/** = anon
+		            	 /404_files/** = anon  
+		            	         
+		            	 /login.jsp = anon
+		            	 /register.jsp = anon
+                		 /login = anon
+                		 /register = anon
+                		
+                		 /logout = logout  <!-- 退出，并清空用户登录的缓存 -->
+                		 
+						<!--  /** = authc -->                 		
+               			/** = authc
+                 		<!-- 所有的请求(除去配置的静态资源请求或请求地址为anon的请求)都要通过过滤器url   /** = url -->
+                		
+		            </value>
+		      </property>   
+				<!-- 通过验证在doGetAuthorizationInfo();方法 中的 用户权限所掌握的jsp页面  如： admin 就掌握admin.jsp 页面 //
+					 /admin.jsp = roles[admin]                
+                     /root.jsp = roles[root]  
+                      /shiro/adminTest = roles[admin]-->
+                    
+          
+    </bean>
+   
+	
+</beans>

@@ -1,0 +1,136 @@
+-- 创建用户表
+create table user (
+  id int primary key auto_increment,
+  name varchar(100),
+  password varchar(100),
+  salt varchar(100)				#加盐
+  );
+    
+-- 创建角色表
+create table role (
+  id int primary key auto_increment,
+  name varchar(100),
+  desc_ varchar(100)	#描述
+  );
+
+-- 创建权限表 
+create table permission (
+  id int primary key auto_increment,
+  name varchar(100),
+  desc_ varchar(100),	#描述
+  url varchar(100)		#路径
+  );
+
+-- 创建用户 和 角色关系表
+create table user_role (
+  id int primary key auto_increment,
+  uid int,
+  rid int,
+	FOREIGN key(uid) REFERENCES user(id),
+	FOREIGN key(rid) REFERENCES role(id)
+  );
+    
+-- 创建角色 和 权限关系表
+create table role_permission (
+  id int primary key auto_increment,
+  rid int,
+  pid int,
+	FOREIGN key(rid) REFERENCES role(id),
+	FOREIGN key(pid) REFERENCES permission(id) 
+  );
+
+INSERT INTO `role` VALUES (null,'admin','超级管理员');
+INSERT INTO `role` VALUES (null,'productManager','产品管理员');
+INSERT INTO `role` VALUES (null,'orderManager','订单管理员');
+
+select * from role
+
+select * from User where name = 'aaa'
+
+
+INSERT INTO `permission` VALUES (null,'addProduct','增加产品','/addProduct');
+INSERT INTO `permission` VALUES (null,'deleteProduct','删除产品','/deleteProduct');
+INSERT INTO `permission` VALUES (null,'editeProduct','编辑产品','/editeProduct');
+INSERT INTO `permission` VALUES (null,'updateProduct','修改产品','/updateProduct');
+INSERT INTO `permission` VALUES (null,'listProduct','查看产品','/listProduct');
+INSERT INTO `permission` VALUES (null,'addOrder','增加订单','/addOrder');
+INSERT INTO `permission` VALUES (null,'deleteOrder','删除订单','/deleteOrder');
+INSERT INTO `permission` VALUES (null,'editeOrder','编辑订单','/editeOrder');
+INSERT INTO `permission` VALUES (null,'updateOrder','修改订单','/updateOrder');
+INSERT INTO `permission` VALUES (null,'listOrder','查看订单','/listOrder');
+
+select * from permission;
+
+INSERT INTO `role_permission` VALUES (null,1,1);
+INSERT INTO `role_permission` VALUES (null,1,2);
+INSERT INTO `role_permission` VALUES (null,1,3);
+INSERT INTO `role_permission` VALUES (null,1,4);
+INSERT INTO `role_permission` VALUES (null,1,5);
+INSERT INTO `role_permission` VALUES (null,1,6);
+INSERT INTO `role_permission` VALUES (null,1,7);
+INSERT INTO `role_permission` VALUES (null,1,8);
+INSERT INTO `role_permission` VALUES (null,1,9);
+INSERT INTO `role_permission` VALUES (null,1,10);
+
+INSERT INTO `role_permission` VALUES (null,2,1);
+INSERT INTO `role_permission` VALUES (null,2,2);
+INSERT INTO `role_permission` VALUES (null,2,3);
+INSERT INTO `role_permission` VALUES (null,2,4);
+INSERT INTO `role_permission` VALUES (null,2,5);
+
+INSERT INTO `role_permission` VALUES (null,3,10);
+INSERT INTO `role_permission` VALUES (null,3,9);
+INSERT INTO `role_permission` VALUES (null,3,8);
+INSERT INTO `role_permission` VALUES (null,3,7);
+INSERT INTO `role_permission` VALUES (null,3,6);
+
+select * from role_permission rp, role r, permission p where rp.rid=r.id and rp.pid=p.id;
+
+INSERT INTO `user_role` VALUES (null,1,1);
+INSERT INTO `user_role` VALUES (null,2,2);
+
+select * from user_role ur, user u, role r where ur.uid=u.id and ur.rid=r.id;
+
+# 查询用户下 有哪些角色
+select r.name from user_role ur, user u, role r where ur.uid=u.id and ur.rid=r.id and u.name='aaa';
+
+# 查询用户的密码
+select * from user where name='aaa';
+
+# 查询角色下有 哪些权限
+select p.name from role_permission rp, role r, permission p where rp.rid=r.id and rp.pid=p.id and r.name='admin';
+
+# 查询用户下有 哪些权限
+select p.name from user u, role r, permission p, user_role ur, role_permission rp where u.id=ur.uid and r.id=ur.rid and r.id=rp.rid and p.id=rp.pid and u.name='aaa';
+
+
+
+
+
+为：aaa授权。。。。
+[admin]
+[listUserinfo, updateUserinfo, listOrder, editeUserinfo, editeOrder, addOrder, updateOrder, deleteOrder, deleteUserinfo, addUserinfo]
+登录的用户名：bbb--321
+验证。。。。
+为：bbb授权。。。。
+[userInfoManager]
+[listUserinfo, updateUserinfo, editeUserinfo, deleteUserinfo, addUserinfo]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
