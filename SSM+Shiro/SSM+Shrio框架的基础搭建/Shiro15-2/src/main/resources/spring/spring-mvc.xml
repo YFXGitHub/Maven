@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+	<!-- 配置SpringMVC -->
+	<!-- 1.开启SpringMVC注解模式 -->
+	<!-- 简化配置： 
+		(1)自动注册DefaultAnootationHandlerMapping,AnotationMethodHandlerAdapter 
+		(2)提供一些列：数据绑定，数字和日期的format @NumberFormat, @DateTimeFormat, xml,json默认读写支持 
+	-->
+	
+	<!-- 扫描标注spring 注解的包 -->
+	<context:component-scan base-package="com.yfx.controller" />
+	
+	<mvc:annotation-driven />
+	
+	<!-- 2.静态资源默认servlet配置
+		(1)加入对静态资源的处理：js,gif,png
+		(2)允许使用"/"做整体映射
+	 -->
+	 <mvc:default-servlet-handler/>
+	 
+	 <!-- 3.配置jsp 显示ViewResolver -->
+	 <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	 	<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+	 	<property name="prefix" value="/" />
+	 	<property name="suffix" value=".jsp" />
+	 </bean>
+	
+	 <!-- 开启shiro的注解支持  要在SpringMVC 的配置文件中才有效 -->
+	<bean id="defaultAdvisorAutoProxyCreator" class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator">
+		<!-- 必须改为true，即使用cglib方式为Action创建代理对象。默认值为false，使用JDK创建代理对象，会造成问题 -->
+		<property name="proxyTargetClass" value="true"></property>
+	</bean>
+	
+	<!-- 使用shiro框架提供的切面类，用于创建代理对象 -->
+	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor"></bean>
+	
+	<!-- SpringMVC 中的捕获异常   使用@RequiresRoles("root")捕获无权限的异常进行跳转 -->
+	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">	
+			<props>	
+				<!-- 404-2  SpringMVC 会自动为它添加 前缀 （/）和 后缀  （.jsp） -->
+	        	<prop key="org.apache.shiro.authz.UnauthorizedException">
+	        		404-2
+	        	</prop>	
+			</props>	
+		</property>
+	</bean>
+</beans>
