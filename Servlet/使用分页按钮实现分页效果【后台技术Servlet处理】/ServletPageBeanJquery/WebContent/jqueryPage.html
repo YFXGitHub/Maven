@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)http://www.jq22.com/demo/pagination201808061005/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title></title>
+<link rel="stylesheet" href="./jqueryPage_files/pagination.css"><script src="./jqueryPage_files/jquery-1.10.2.js"></script><script src="./jqueryPage_files/jquery.min.js"></script><script src="./jqueryPage_files/pagination.js"></script></head>
+
+
+
+<body style="">
+<div class="box" id="wrap1"><span class="pagination-btn" id="pagination-prev">&lt;</span><ul class="pagination-wrap"><li class="pagenum pagination-btn" data-num="1">1</li><li class="pagenum pagination-btn" data-num="2">2</li><li class="pagenum pagination-btn" data-num="3">3</li><li class="pagenum pagination-btn pagination-current" data-num="4">4</li><li class="pagenum pagination-btn" data-num="5">5</li><li class="pagenum pagination-btn" data-num="6">6</li><li class="pagination-ellipsis">...</li><li class="pagenum pagination-btn" data-num="1890">1890</li></ul><span class="pagination-btn" id="pagination-next">&gt;</span></div>
+<script type="text/javascript">
+			var onPagechange = function(page){
+			    console.log('当前点击页码',page);
+			}
+			var obj = {
+			    wrapid:'wrap1', //页面显示分页器容器id
+			    total:18891,//总条数
+			    pagesize:10,//每页显示10条
+			    currentPage:1,//当前页
+			    onPagechange:onPagechange,
+			    //btnCount:7 页数过多时，显示省略号的边界页码按钮数量，可省略，且值是大于5的奇数
+			}
+			pagination.init(obj);
+		</script>
+
+
+</body></html>
