@@ -1,0 +1,15 @@
+server:
+  port: 3
+
+person:
+  name: zhangsan
+  age: 18
+  sex: true
+  createdata: 2018-2-23
+  map:{k1: v1, k2: v2, k3: v3}
+  list:
+    - lisi
+    - zhou
+  dog:
+    name: gou
+    age: 1

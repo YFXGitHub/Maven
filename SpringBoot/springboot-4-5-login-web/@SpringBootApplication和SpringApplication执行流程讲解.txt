@@ -1,0 +1,184 @@
+@SpringBootApplication 是一个“三体”结构，实际上它是一个复合 Annotation：
+	@Target(ElementType.TYPE)
+	@Retention(RetentionPolicy.RUNTIME)
+	@Documented
+	@Inherited
+	@Configuration
+	@EnableAutoConfiguration
+	@ComponentScanpublic
+	@interface
+	SpringBootApplication{...}
+
+	虽然它的定义使用了多个 Annotation 进行元信息标注，但实际上对于 SpringBoot 应用来说，重要的只有三个 Annotation，而“三体”结构实际上指的就是这三个 Annotation：
+	@Configuration
+	@EnableAutoConfiguration
+	@ComponentScan
+
+	所以，如果我们使用如下的 SpringBoot 启动类，整个 SpringBoot 应用依然可以与之前的启动类功能对等：
+	@Configuration
+	@EnableAutoConfiguration
+	@ComponentScanpublic
+	class DemoApplication {
+		public static void main(String[] args) {
+			SpringApplication.run(DemoApplication.class, args);
+		}
+	}
+	但每次都写三个 Annotation 显然过于繁琐，所以写一个 @SpringBootApplication 这样的一站式复合 Annotation 显然更方便些。
+	@Configuration 创世纪
+	这里的 @Configuration 对我们来说并不陌生，它就是 JavaConfig 形式的 Spring IoC 容器的配置类使用的那个 @Configuration，既然 SpringBoot 应用骨子里就是一个 Spring 应用，那么，自然也需要加载某个 IoC 容器的配置，而 SpringBoot 社区推荐使用基于 JavaConfig 的配置形式，所以，很明显，这里的启动类标注了 @Configuration 之后，本身其实也是一个 IoC 容器的配置类！
+
+	很多 SpringBoot 的代码示例都喜欢在启动类上直接标注 @Configuration 或者 @SpringBootApplication，对于初接触 SpringBoot 的开发者来说，其实这种做法不便于理解，如果我们将上面的 SpringBoot 启动类拆分为两个独立的 Java 类，整个形势就明朗了：
+	@Configuration
+	@EnableAutoConfiguration
+	@ComponentScan
+	public class DemoConfiguration {
+		@Bean
+		public Controller controller() {
+			return new Controller();
+		}
+	}
+
+	public class DemoApplication {
+		public static void main(String[] args) {
+			SpringApplication.run(DemoConfiguration.class, args);
+		}
+	}
+	所以，启动类 DemoApplication 其实就是一个标准的 Standalone 类型 Java 程序的 main 函数启动类，没有什么特殊的。而 @Configuration 标注的 DemoConfiguration 定义其实也是一个普通的 JavaConfig 形式的 IoC 容器配置类。
+	@EnableAutoConfiguration 的功效
+	@EnableAutoConfiguration 其实也没啥“创意”，各位是否还记得 Spring 框架提供的各种名字为 @Enable 开头的 Annotation 定义？
+
+	比如 @EnableScheduling、@EnableCaching、@EnableMBeanExport 等，@EnableAutoConfiguration 的理念和“做事方式”其实一脉相承，简单概括一下就是，借助 @Import 的支持，收集和注册特定场景相关的 bean 定义：
+	@EnableScheduling 是通过 @Import 将 Spring 调度框架相关的 bean 定义都加载到 IoC 容器。
+	@EnableMBeanExport 是通过 @Import 将 JMX 相关的 bean 定义加载到 IoC 容器。
+
+	而 @EnableAutoConfiguration 也是借助 @Import 的帮助，将所有符合自动配置条件的 bean 定义加载到 IoC 容器，仅此而已！
+
+	@EnableAutoConfiguration 作为一个复合 Annotation，其自身定义关键信息如下：
+	@Target(ElementType.TYPE)
+	@Retention(RetentionPolicy.RUNTIME)
+	@Documented
+	@Inherited
+	@AutoConfigurationPackage
+	@Import(EnableAutoConfigurationImportSelector.class)
+	public @interface EnableAutoConfiguration {...}
+
+	其中，最关键的要属 @Import（EnableAutoConfigurationImportSelector.class），借助 EnableAutoConfigurationImportSelector，@EnableAutoConfiguration 可以帮助 SpringBoot 应用将所有符合条件的 @Configuration 配置都加载到当前 SpringBoot 创建并使用的 IoC 容器，就跟一只“八爪鱼”一样（如图 1 所示）。
+	EnableAutoConfiguration得以生效的关键组件关系图
+	图 1  EnableAutoConfiguration得以生效的关键组件关系图
+
+	借助于 Spring 框架原有的一个工具类：SpringFactoriesLoader 的支持，@EnableAutoConfiguration 可以“智能”地自动配置功效才得以大功告成！
+	SpringFactoriesLoader详解
+	SpringFactoriesLoader 属于 Spring 框架私有的一种扩展方案（类似于 Java 的 SPI 方案 java.util.ServiceLoader），其主要功能就是从指定的配置文件 META-INF/spring.factories 加载配置，spring.factories 是一个典型的 java properties 文件，配置的格式为 Key=Value 形式，只不过 Key 和 Value 都是 Java 类型的完整类名（Fully qualified name），比如：
+
+	example.MyService=example.MyServiceImpl1,example.MyServiceImpl2 然后框架就可以根据某个类型作为 Key 来查找对应的类型名称列表了：
+	public abstract class SpringFactoriesLoader {
+		// ...
+		public static <T> List<T> loadFactories(Class<T> factoryClass, ClassLoader classLoader) {
+			...
+		}
+		public static List<String> loadFactoryNames(Class<?> factoryClass, ClassLoader classLoader) {
+			...
+		}
+		// ...
+	}
+	对于 @EnableAutoConfiguration 来说，SpringFactoriesLoader 的用途稍微不同一些，其本意是为了提供 SPI 扩展的场景，而在 @EnableAutoConfiguration 的场景中，它更多是提供了一种配置查找的功能支持，即根据 @EnableAutoConfiguration 的完整类名 org.springframework.boot.autoconfigure.EnableAutoConfiguration 作为查找的 Key，获取对应的一组 @Configuration 类：
+	org.springframework.boot.autoconfigure.EnableAutoConfiguration=
+	\org.springframework.boot.autoconfigure.admin.SpringApplicationAdmin- JmxAutoConfiguration,
+	\org.springframework.boot.autoconfigure.aop.AopAutoConfiguration,
+	\org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration,
+	\org.springframework.boot.autoconfigure.MessageSourceAutoConfiguration,
+	\org.springframework.boot.autoconfigure.PropertyPlaceholderAuto- Configuration,
+	\org.springframework.boot.autoconfigure.batch.BatchAutoConfiguration,
+	\org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration,
+	\org.springframework.boot.autoconfigure.cassandra.CassandraAuto-Configuration,
+	\org.springframework.boot.autoconfigure.cloud.CloudAutoConfiguration,
+	\org.springframework.boot.autoconfigure.context.ConfigurationProperties-AutoConfiguration,
+	\org.springframework.boot.autoconfigure.dao.PersistenceException-TranslationAutoConfiguration,
+	\org.springframework.boot.autoconfigure.data.cassandra.Cassandra-DataAutoConfiguration,
+	\org.springframework.boot.autoconfigure.data.cassandra.Cassandra-RepositoriesAutoConfiguration,
+	\...
+
+	以上是从 SpringBoot 的 autoconfigure 依赖包中的 META-INF/spring.factories 配置文件中摘录的一段内容，可以很好地说明问题。
+
+	所以，@EnableAutoConfiguration 自动配置的魔法其实就变成了：从 classpath 中搜寻所有 META-INF/spring.factories 配置文件，并将其中 org.spring-framework.boot.autoconfigure.EnableAutoConfiguration 对应的配置项通过反射（Java Reflection）实例化为对应的标注了 @Configuration 的 JavaConfig 形式的 IoC 容器配置类，然后汇总为一个并加载到 IoC 容器。
+	可有可无的@ComponentScan
+	为啥说 @ComponentScan 是可有可无的？
+
+	因为原则上来说，作为 Spring 框架里的“老一辈革命家”，@ComponentScan 的功能其实就是自动扫描并加载符合条件的组件或 bean 定义，最终将这些 bean 定义加载到容器中。加载 bean 定义到 Spring 的 IoC 容器，我们可以手工单个注册，不一定非要通过批量的自动扫描完成，所以说 @ComponentScan 是可有可无的。
+
+	对于 SpringBoot 应用来说，同样如此，比如我们本章的启动类：
+	@Configuration
+	@EnableAutoConfiguration
+	@ComponentScanpublic
+	class DemoApplication {
+		public static void main(String[] args) {
+			SpringApplication.run(DemoApplication.class, args);
+		}
+	}
+	如果我们当前应用没有任何 bean 定义需要通过 @ComponentScan 加载到当前 SpringBoot 应用对应使用的 IoC 容器，那么，除去 @ComponentScan 的声明，当前 SpringBoot 应用依然可以照常运行，功能对等。
+	   
+
+
+SpringApplication.run执行流程详解
+	SpringApplication 将一个典型的 Spring 应用启动的流程“模板化”（这里是动词），在没有特殊需求的情况下，默认模板化后的执行流程就可以满足需求了但有特殊需求也没关系，SpringApplication 在合适的流程结点开放了一系列不同类型的扩展点，我们可以通过这些扩展点对 SpringBoot 程序的启动和关闭过程进行扩展。
+	最“肤浅”的扩展或者配置是 SpringApplication 通过一系列设置方法（setters）开放的定制方式，比如，我们之前的启动类的 main 方法中只有一句：
+	SpringApplication.run（DemoApplication.class，args）;
+
+	但如果我们想通过 SpringApplication 的一系列设置方法来扩展启动行为，则可以用如下方式进行：
+	public class DemoApplication {
+		public static void main(String[] args) {
+			// SpringApplication.run(DemoConfiguration.class, args);
+			SpringApplication bootstrap = new SpringApplication(Demo - Configuration.class);
+			bootstrap.setBanner(new Banner() {
+				@Override
+				public void printBanner(Environment environment, Class<?> aClass, PrintStream printStream) {
+					// 比如打印一个我们喜欢的ASCII Arts字符画
+				}
+			});
+			bootstrap.setBannerMode(Banner.Mode.CONSOLE);
+			// 其他定制设置...
+			bootstrap.run(args);
+		}
+	}
+	设置自定义 banner 最简单的方式其实是把 ASCII Art 字符画放到一个资源文件，然后通过 ResourceBanner 来加载：
+	bootstrap.setBanner(new ResourceBanner(new ClassPathResource("banner.txt")));
+
+	大部分情况下，SpringApplication 已经提供了很好的默认设置，所以，我们不再对这些表层进行探究了，因为对表层之下的东西进行探究才是我们的最终目的。
+	深入探索 SpringApplication 执行流程
+	SpringApplication 的 run 方法的实现是我们本次旅程的主要线路，该方法的主要流程大体可以归纳如下：
+
+	1）如果我们使用的是 SpringApplication 的静态 run 方法，那么，这个方法里面首先需要创建一个 SpringApplication 对象实例，然后调用这个创建好的 SpringApplication 的实例 run方 法。在 SpringApplication 实例初始化的时候，它会提前做几件事情：
+
+	根据 classpath 里面是否存在某个特征类（org.springframework.web.context.ConfigurableWebApplicationContext）来决定是否应该创建一个为 Web 应用使用的 ApplicationContext 类型，还是应该创建一个标准 Standalone 应用使用的 ApplicationContext 类型。
+
+	使用 SpringFactoriesLoader 在应用的 classpath 中查找并加载所有可用的 ApplicationContextInitializer。
+
+	使用 SpringFactoriesLoader 在应用的 classpath 中查找并加载所有可用的 ApplicationListener。
+
+	推断并设置 main 方法的定义类。
+
+	2）SpringApplication 实例初始化完成并且完成设置后，就开始执行 run 方法的逻辑了，方法执行伊始，首先遍历执行所有通过 SpringFactoriesLoader 可以查找到并加载的 SpringApplicationRunListener，调用它们的 started() 方法，告诉这些 SpringApplicationRunListener，“嘿，SpringBoot 应用要开始执行咯！”。
+
+	3）创建并配置当前 SpringBoot 应用将要使用的 Environment（包括配置要使用的 PropertySource 以及 Profile）。
+
+	4）遍历调用所有 SpringApplicationRunListener 的 environmentPrepared（）的方法，告诉它们：“当前 SpringBoot 应用使用的 Environment 准备好咯！”。
+
+	5）如果 SpringApplication的showBanner 属性被设置为 true，则打印 banner（SpringBoot 1.3.x版本，这里应该是基于 Banner.Mode 决定 banner 的打印行为）。这一步的逻辑其实可以不关心，我认为唯一的用途就是“好玩”（Just For Fun）。
+
+	6）根据用户是否明确设置了applicationContextClass 类型以及初始化阶段的推断结果，决定该为当前 SpringBoot 应用创建什么类型的 ApplicationContext 并创建完成，然后根据条件决定是否添加 ShutdownHook，决定是否使用自定义的 BeanNameGenerator，决定是否使用自定义的 ResourceLoader，当然，最重要的，将之前准备好的 Environment 设置给创建好的 ApplicationContext 使用。
+
+	7）ApplicationContext 创建好之后，SpringApplication 会再次借助 Spring-FactoriesLoader，查找并加载 classpath 中所有可用的 ApplicationContext-Initializer，然后遍历调用这些 ApplicationContextInitializer 的 initialize（applicationContext）方法来对已经创建好的 ApplicationContext 进行进一步的处理。
+
+	8）遍历调用所有 SpringApplicationRunListener 的 contextPrepared（）方法，通知它们：“SpringBoot 应用使用的 ApplicationContext 准备好啦！”
+
+	9）最核心的一步，将之前通过 @EnableAutoConfiguration 获取的所有配置以及其他形式的 IoC 容器配置加载到已经准备完毕的 ApplicationContext。
+
+	10）遍历调用所有 SpringApplicationRunListener 的 contextLoaded() 方法，告知所有 SpringApplicationRunListener，ApplicationContext "装填完毕"！
+
+	11）调用 ApplicationContext 的 refresh() 方法，完成 IoC 容器可用的最后一道工序。
+
+	12）查找当前 ApplicationContext 中是否注册有 CommandLineRunner，如果有，则遍历执行它们。
+
+	13）正常情况下，遍历执行 SpringApplicationRunListener 的 finished() 方法，告知它们：“搞定！”。（如果整个过程出现异常，则依然调用所有 SpringApplicationRunListener 的 finished() 方法，只不过这种情况下会将异常信息一并传入处理）。
+
+	至此，一个完整的 SpringBoot 应用启动完毕！

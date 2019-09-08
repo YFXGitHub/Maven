@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!-- saved from url=(0054)# -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <title>Dashboard Template · Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/bootstrapList_files/bootstrap.min.css" rel="stylesheet" th:href="@{/bootstrapList_files/bootstrap.min.css}" >
+
+
+
+    <!-- Custom styles for this template -->
+    <link href="/bootstrapList_files/dashboard.css" rel="stylesheet" th:href="@{/bootstrapList_files/dashboard.css}">
+    <style type="text/css">/* Chart.js */
+    @-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}</style></head>
+<body>
+<!-- 引入 标题栏 topbar-->
+<div th:replace="common/bar :: topbar"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- 引入 左侧边栏 leftbar-->
+        <div th:replace="common/bar :: #leftbar(ativeUrl='employeeList')"></div>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+            <h2>Section title</h2> <a class="btn btn-sm btn-success" th:href="@{/employeeAddPre}">添加</a>
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>lastName</th>
+                        <th>gender</th>
+                        <th>birth</th>
+                        <th>departmentName</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="emps:${employeeList}">
+                            <td>[[${emps.id}]]</td>
+                            <td th:text="${emps.lastName}"></td>
+                            <td th:text="${emps.gender} == 0 ? '女' : '男'"></td>
+                            <td th:text="${#dates.format(emps.birth, 'yyyy-MM-dd HH:mm')}"></td>
+                            <td>[[${emps.department.departmentName}]]</td>
+                            <td>
+                                <a th:href="@{/employeeUpdatePre/}+${emps.id}" class="btn btn-sm btn-primary">修改</a> |
+                                <a th:href="@{/employeeDelete/}+${emps.id}" class="btn btn-sm btn-danger">删除</a></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</div>
+<script src="/bootstrapList_files/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script><script src="./bootstrapList_files/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
+<script src="/bootstrapList_files/feather.min.js"></script>
+<script src="/bootstrapList_files/Chart.min.js"></script>
+<script src="/bootstrapList_files/dashboard.js"></script>
+
+</body></html>

@@ -1,0 +1,14 @@
+#配置数据源
+spring:
+  datasource:
+     url: jdbc:mysql://localhost/day5
+     username: root
+     password: a123
+     driver-class-name: com.mysql.jdbc.Driver
+  #配置 JPA
+  jpa:
+    hibernate:
+       ddl-auto: update       #表示更新并创建表结构
+    show-sql: true    #表示控制台显示sql语句
+
+

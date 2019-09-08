@@ -1,0 +1,9 @@
+server:
+  port: 3   #设置tomcat 的端口号
+  servlet:
+    context-path: /boot   #设置访问项目名
+
+
+#配置日志 在项目根目录下创建一个一文件夹logs/中创建文件名log的文件，中存放着日志打印信息！
+logging:
+  file: logs/log.log

@@ -1,0 +1,15 @@
+2019-09-03 15:05:55.259  INFO 34848 --- [main] c.y.s.boot.SpringbootHelloApplication    : Starting SpringbootHelloApplication on USER-20171022OV with PID 34848 (started by Administrator in D:\Program Files\JetBrains\IdeaProjects\Springboot_Hello)
+2019-09-03 15:05:55.277  INFO 34848 --- [main] c.y.s.boot.SpringbootHelloApplication    : No active profile set, falling back to default profiles: default
+2019-09-03 15:06:01.011  INFO 34848 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 3 (http)
+2019-09-03 15:06:01.149  INFO 34848 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-09-03 15:06:01.151  INFO 34848 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.22]
+2019-09-03 15:06:01.173  INFO 34848 --- [main] o.a.catalina.core.AprLifecycleListener   : An older version [1.2.17] of the APR based Apache Tomcat Native library is installed, while Tomcat recommends a minimum version of [1.2.23]
+2019-09-03 15:06:01.174  INFO 34848 --- [main] o.a.catalina.core.AprLifecycleListener   : Loaded APR based Apache Tomcat Native library [1.2.17] using APR version [1.6.3].
+2019-09-03 15:06:01.175  INFO 34848 --- [main] o.a.catalina.core.AprLifecycleListener   : APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2019-09-03 15:06:01.177  INFO 34848 --- [main] o.a.catalina.core.AprLifecycleListener   : APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2019-09-03 15:06:02.390  INFO 34848 --- [main] o.a.catalina.core.AprLifecycleListener   : OpenSSL successfully initialized [OpenSSL 1.0.2o  27 Mar 2018]
+2019-09-03 15:06:03.031  INFO 34848 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/boot]   : Initializing Spring embedded WebApplicationContext
+2019-09-03 15:06:03.033  INFO 34848 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 7523 ms
+2019-09-03 15:06:04.218  INFO 34848 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-09-03 15:06:05.254  INFO 34848 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 3 (http) with context path '/boot'
+2019-09-03 15:06:05.267  INFO 34848 --- [main] c.y.s.boot.SpringbootHelloApplication    : Started SpringbootHelloApplication in 12.657 seconds (JVM running for 22.936)

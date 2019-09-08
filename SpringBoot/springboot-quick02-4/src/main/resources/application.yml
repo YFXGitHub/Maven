@@ -1,0 +1,46 @@
+server:
+  port: 33
+
+# 激活profile 配置文件 ：
+spring:
+  profiles:
+    active: prod
+
+# 【---】 指文档分块
+
+---
+# 配置文件 dev ， 设置端口号 8084
+server:
+  port: 8084
+spring:
+  profiles: dev
+---
+# 配置文件 prod ， 设置端口号 8085
+server:
+  port: 8085
+spring:
+  profiles: prod
+---
+
+
+#指定激活哪个配置文件， 这里激活dev _ application-dev.properties
+#spring:
+#  profiles:
+#    active: dev
+
+
+#为Person 设值
+person:
+  name: 张三
+  age: 23
+  sex: false
+  date: 2018/1/12
+  map: {k1: v1, k2: v2}
+  list:
+    - list1
+    - list2
+  dog:
+    name: sb
+    age: 1
+
+

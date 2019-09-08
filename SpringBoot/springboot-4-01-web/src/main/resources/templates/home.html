@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--  xmlns:th="http://www.thymeleaf.org" 的作用是能够联想键    -->
+</head>
+<body>
+        <h1>home</h1>
+
+        <p th:text="${a}"></p>
+        <hr/>
+
+        <div th:text="${a}"></div>
+        <div th:utext="${a}"></div>
+
+
+        <h1 th:text="${user}" th:each="user:${b}"></h1>
+        <br/>
+
+        <h2>
+            <span th:each="user:${b}">[[${user}]]</span>
+        </h2>
+
+</body>
+</html>

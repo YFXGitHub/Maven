@@ -1,0 +1,5 @@
+
+* 若测试类    出现@RunWith 和 @Test 引入不了jar包，
+        解决方法：
+              执行File --> Project Structure -->Modules --> Dependencies --> 点击右边的 ＋ 按钮， 选择JARS Or...
+              选择IDEA的安装路径下的lib  junit:4.12 和 hamcrest-core-1.3.jar

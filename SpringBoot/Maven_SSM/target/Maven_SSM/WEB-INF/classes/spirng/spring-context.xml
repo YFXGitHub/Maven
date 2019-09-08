@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation=
+            "http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd  
+            http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd  
+            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+            http://www.springframework.org/schema/tx 
+            http://www.springframework.org/schema/tx/spring-tx.xsd 
+            http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop.xs"> 
+
+		<!-- 读取 数据库 连接池  -->
+		<context:property-placeholder location="classpath:jdbc.properties" />
+		
+		<!-- 扫描 特殊 注解的对象  @Service, @..   交给Spring IOC 管理 -->
+		<context:component-scan base-package="com.yfx.maven_ssm.service" />
+		
+		 <!-- 连接池 -->
+	   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	       <property name="driverClassName" value="${driver}"></property>
+			<property name="url" value="${url}"></property>
+			<property name="username" value="${user}"></property>
+			<property name="password" value="${pwd}"></property>
+	    </bean>
+
+		  <!-- 配置事务管理器 -->
+	    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	        <property name="dataSource" ref="dataSource"></property>
+	    </bean>
+	
+	    <!-- 使用注解来控制事务 -->
+	    <tx:annotation-driven transaction-manager="transactionManager"></tx:annotation-driven>
+		
+		<!-- 配置sqlSession属性 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!--  typeAliasesPackage：它一般对应我们的实体类所在的包，这个时候会自动取对应包中不包括包名的
+			简单类名作为包括包名的别名。多个package之间可以用逗号或者分号等来进行分隔。(value的值一定要是包的全名) -->
+		<property name="typeAliasesPackage" value="com.yfx.maven_ssm.model"></property>
+		<!-- 这个属性是必须的 -->
+		<property name="dataSource" ref="dataSource"></property>
+
+
+		<!-- mappLocations: 它表示我们存放Mapper.xml文件的位置 -->
+		<property name="mapperLocations" value="classpath:mapper/*.xml"></property>
+
+	</bean>
+	
+	<!--  自动扫描 将Mapper接口生成代理注入到Spring Mybatis在与Spring集成的时候可以配置MapperFactoryBean来生成Mapper接口的代理 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.yfx.maven_ssm.dao"></property>
+	</bean>   
+	
+</beans>

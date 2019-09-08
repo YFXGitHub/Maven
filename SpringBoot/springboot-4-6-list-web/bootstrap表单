@@ -1,0 +1,138 @@
+ <form class="form-horizontal">
+        <div class="container">
+            <div class="row" style="padding: 20px 0">
+                <h3>常用垂直表单布局</h3>
+            </div>
+            <div class="row form-group">
+                <label class="control-label col-lg-1" for="name">名称</label>
+                <div class="col-lg-5 col-md-6">
+                    <input class="form-control" name="name" id="name" type="text">
+                </div>
+            </div>
+            <div class="row form-group">
+                <label class="control-label col-lg-1">内容</label>
+                <div class="col-lg-5 col-md-6">
+                    <textarea class="form-control" rows="5"></textarea>
+                </div>
+            </div>
+            <div class="row form-group">
+                <label class="control-label col-lg-1">补充</label>
+                <div class="col-lg-5 col-md-6">
+                    <textarea class="form-control" rows="5"></textarea>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+ <form class="" role="form">
+        <div class="container">
+            <div class="row" style="padding: 20px 0">
+                <h3>常用水平表单布局</h3>
+            </div>
+            <div class="row">
+                <!--前缀-->
+                <div class="form-group col-lg-3">
+                    <div class="input-group">
+                        <span class="input-group-addon">名称</span>
+                        <input class="form-control" type="text">
+                    </div>
+                </div>
+                <div class="form-group col-lg-3">
+                    <div class="input-group">
+                        <span class="input-group-addon">内容</span>
+                        <input class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--后缀-->
+                <div class="form-group col-lg-3">
+                    <div class="input-group">
+                        <input class="form-control" type="text">
+                        <span class="input-group-addon">查询</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--下拉框-->
+                <div class="form-group col-lg-3">
+                    <div class="input-group">
+                        <span class="input-group-addon">内容类型</span>
+                        <select class="form-control">
+                            <option>default</option>
+                            <option>one</option>
+                            <option>two</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+---------------------
+复选框
+    <div class="checkbox checkbox-info">
+                                            <input id="checkbox4" type="checkbox">
+                                            <label for="checkbox4">
+                                                xuhaitao
+                                            </label>
+                                        </div>
+    ---------------------
+文件上传
+    <div id="file-pretty">
+                            <div class="form-group">
+                                <label class="font-noraml control-label">文件选择（单选）</label>
+                                <input type="file" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="font-noraml">文件选择（多选）</label>
+                                <input type="file" multiple="multiple" class="form-control">
+                            </div>
+                        </div>
+    ---------------------
+ 多选框
+       <div class="ibox-content">
+                           <h3>下拉选择</h3>
+                           <p>这个比较有名气啦，不多说</p>
+                           <div class="form-group">
+                               <label>基本示例</label>
+                               <div class="input-group">
+                                   <select data-placeholder="选择省份..." class="chosen-select" style="width:350px;" tabindex="2">
+                                       <option value="">请选择省份</option>
+                                       <option value="110000" hassubinfo="true">徐海涛</option>
+                                       <option value="110000" hassubinfo="true">北京</option>
+                                       <option value="120000" hassubinfo="true">天津</option>
+                                       <option value="130000" hassubinfo="true">河北省</option>
+                                       <option value="140000" hassubinfo="true">山西省</option>
+                                   </select>
+                               </div>
+                           </div>
+                           <div class="form-group">
+                               <label class="font-noraml">多选</label>
+
+                               <div class="input-group">
+                                   <select data-placeholder="选择省份" class="chosen-select" multiple style="width:350px;"
+                                           tabindex="4">
+                                       <option value="">请选择省份</option>
+                                       <option value="110000" hassubinfo="true">北京</option>
+                                       <option value="120000" hassubinfo="true">天津</option>
+                                       <option value="130000" hassubinfo="true">河北省</option>
+
+                                   </select>
+                               </div>
+                           </div>
+                       </div>
+       ---------------------
+   <td class="project-actions">
+              <a href="projects.html#" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> 查看 </a>
+              <a href="projects.html#" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> 编辑 </a>
+        </td>
+  ---------------------
+ <td class="project-completion">
+            <small>当前进度： 48%</small>
+            <div class="progress progress-mini">
+                <div style="width: 48%;" class="progress-bar"></div>
+            </div>
+       </td>
+---------------------
+

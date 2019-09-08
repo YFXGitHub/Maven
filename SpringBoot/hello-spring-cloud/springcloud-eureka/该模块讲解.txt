@@ -1,0 +1,49 @@
+这是一个具有Eureka 服务注册中心的模块。
+    要使用Eureka ：
+        1. 导入依赖：
+            <properties>
+                    <java.version>1.8</java.version>
+                    <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
+            </properties>
+
+             <!--Eureka 服务端的依赖 -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+            </dependency>
+
+             <dependencyManagement>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.springframework.cloud</groupId>
+                            <artifactId>spring-cloud-dependencies</artifactId>
+                            <version>${spring-cloud.version}</version>
+                            <type>pom</type>
+                            <scope>import</scope>
+                        </dependency>
+                    </dependencies>
+             </dependencyManagement>
+
+        2. 在application.properties配置文件中 配置以下信息：
+            server.port=3
+
+            #设置该服务注册中心的hostname   是springboot web项目
+            eureka.instance.hostname=localhost
+            #spring.application.name=eureka
+            #进制自己向自己注册
+            eureka.client.register-with-eureka=false
+            #不去检索其他服务，
+            eureka.client.fetch-registry=false
+            eureka.server.renewal-percent-threshold=0.45
+            #指定服务注册中的位置
+            eureka.client.service-url.defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+
+        3.在com.yfx.spring.cloud.SpringcloudEurekaApplication 主程序中配置：
+            @EnableEurekaServer         //开启EurekaServer 注册中心服务端
+
+        4.启动主程序。
+
+
+
+
+

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!-- saved from url=(0054)https://getbootstrap.com/docs/4.3/examples/dashboard/# -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <title>Orders· Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./bootstrapList_files/bootstrap.min.css" rel="stylesheet" th:href="@{/bootstrapList_files/bootstrap.min.css}" >
+
+
+
+    <!-- Custom styles for this template -->
+    <link href="./bootstrapList_files/dashboard.css" rel="stylesheet" th:href="@{/bootstrapList_files/dashboard.css}">
+    <style type="text/css">/* Chart.js */
+    @-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}</style></head>
+<body>
+<!-- 引入标题栏 topbar -->
+<div th:replace="commons/bar :: topbar"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- 引入侧边栏 leftbar -->
+        <div th:replace="commons/bar :: #leftbar(activeUri='empList')"></div>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <form method="post" th:action="@{/empUpdate}">
+                <!--发送put请求修改数据-->
+                <!-- 输入框 -->
+                <input type="hidden" name="id" th:value="${emps.id}"/>
+                <div class="form-group">
+                    <label for="textl1">用户名</label>
+                    <input type="text" name="lastName" class="form-control" id="textl1" placeholder="Username" th:value="${emps.lastName}">
+                </div>
+                <!-- 单选按钮 -->
+                <div class="form-group">
+                    <label for="radio1">性别</label>
+                    <div class="radio" id="radio1">
+                        <label class="radio-inline1">
+                            <input type="radio" name="gender" id="radio-inline1" value="0" th:checked="${emps.gender==0}"> 女
+                        </label>
+                        <label class="radio-inline2">
+                            <input type="radio" name="gender" id="radio-inline2" value="1" th:checked="${emps.gender==1}"> 男
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="date1">日期</label>
+                    <input type="date" class="form-control" name="strbirth" id="date1" th:value="${#dates.format(emps.birth, 'yyyy-MM-dd')}">
+                </div>
+                <!-- 下拉框 -->
+                <div class="form-group">
+                    <label for="select1">用户名</label>
+                    <select class="form-control" id="select1" name="department.id">
+                        <option th:selected="${emps.department.id == dep.id}" th:value="${dep.id}" th:each="dep:${deps}" th:text="${dep.departmentName}"></option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-sm btn-success">Submit</button>
+            </form>
+
+
+        </main>
+    </div>
+</div>
+<script src="./bootstrapList_files/jquery-3.3.1.slim.min.js" th:src="@{/bootstrapList_files/jquery-3.3.1.slim.min.js}"  crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script><script src="./bootstrapList_files/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
+<script src="./bootstrapList_files/feather.min.js" th:src="@{/bootstrapList_files/feather.min.js}"></script>
+<script src="./bootstrapList_files/Chart.min.js" th:src="@{/bootstrapList_files/Chart.min.js}"></script>
+<script src="./bootstrapList_files/dashboard.js" th:src="@{/bootstrapList_files/dashboard.js}"></script>
+
+</body></html>

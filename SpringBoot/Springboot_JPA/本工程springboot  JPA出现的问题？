@@ -1,0 +1,17 @@
+SpringBoot启动出现java.sql.SQLNonTransientConnectionException: CLIENT_PLUGIN_AUTH is required
+    解决方案：
+        首先打开pom.xml，找到mysql连接驱动的依赖
+        <dependency>
+        	<groupId>mysql</groupId>
+        	<artifactId>mysql-connector-java</artifactId>
+        	<scope>runtime</scope>
+        </dependency>
+        我的项目依赖是在创建项目时选择的依赖，然后在项目创建后由IDEA自动添加的依赖，如上代码就是自动添加的依赖，不过自动添加的依赖是没有版本号<version></version>的，可能是默认版本比较高，所以我这边一直出错，连接不了。然后我添加上版本号，变成如下
+
+        <dependency>
+        	<groupId>mysql</groupId>
+        	<artifactId>mysql-connector-java</artifactId>
+        	<version>5.1.37</version>
+        	<scope>runtime</scope>
+        </dependency>
+        ————————————————

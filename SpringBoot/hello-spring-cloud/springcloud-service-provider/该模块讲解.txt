@@ -1,0 +1,62 @@
+这是一个服务提供者、
+    在没有使用Eureka 服务注册时，是这样做的：
+        1.创建了一个com.yfx.spring.cloud.controller.ProviderController 服务提供类
+            @RestController
+            public class ProviderController {       //这是一个服务提供类
+
+                @GetMapping("/service")
+                public String toService(){
+
+                    return "Hello SpringCloud!";
+                }
+            }
+        --- 即可运行。。。。。。
+
+    ---------------------------------------------------------------------
+
+若使用Eureka:
+    1.pom.xml  引入依赖：
+      <!--Eureka 客户端的依赖 -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+      </dependency>
+
+       <!-- 注意在使用Eureka 的同时，也要引入此依赖 -->
+          <dependencyManagement>
+              <dependencies>
+                  <dependency>
+                      <groupId>org.springframework.cloud</groupId>
+                      <artifactId>spring-cloud-dependencies</artifactId>
+                      <version>Finchley.RELEASE</version>
+                      <type>pom</type>
+                      <scope>import</scope>
+                  </dependency>
+              </dependencies>
+          </dependencyManagement>
+
+    2.在application.properties配置文件中 配置以下信息：
+        #配置tomcat 端口
+        server.port=33
+
+        #配置服务的名称    在微服务中每个项目都应该有名称， 注意这个项目名最好与工程名一致
+        spring.application.name=springcloud-service-provider
+        #eureka Server的链接地址
+        eureka.client.service-url.defaultZone= http://localhost:3/eureka
+
+    3.注意要在主程序中添加如下配置：
+        @SpringBootApplication
+        @EnableEurekaClient     //开启EurekaClient  客户端    ！！！！
+        public class SpringcloudServiceProviderApplication {
+
+            public static void main(String[] args) {
+                SpringApplication.run(SpringcloudServiceProviderApplication.class, args);
+            }
+
+        }
+
+
+    --即可访问。。。。。。
+
+
+
