@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yfx.dao.OrdersMapper">
+	
+	<select id="findPage" resultType="Orders">
+		select * from Orders limit #{page}, #{limit}
+	</select>
+	
+	<select id="countSize" resultType="int">
+		select count(oid) from Orders
+	</select>
+	
+	<!-- 修改 -->
+	<update id="update" parameterType="Orders">
+		update orders 
+		<!-- set标签会自动删除多条件中最后的逗号 -->
+		<set>
+			<if test="oname != null and oname != ''" > oname = #{oname}, </if>
+			<if test="person != null and person != ''" > person = #{person}, </if>
+			<if test="address != null and address != ''" > address = #{address}, </if>
+			<if test="odesc != null and odesc != ''" > odesc = #{odesc}, </if>
+			<if test="date != null and date != ''" > date = #{date} </if>
+		</set>
+		where oid = #{oid}
+	</update>
+	
+		<!--  add -->
+	<insert id="add" parameterType="Orders">
+		insert into Orders values(null, #{oname}, #{person}, #{address}, #{odesc}, SYSDATE());
+	</insert>
+	
+	<!-- delete -->
+	<delete id="delete">
+		delete from Orders where oid = #{oid}
+	</delete>
+	
+	<select id="like" resultType="Orders" parameterType="string">
+		select * from orders where oname like "%"#{oname}"%"
+	</select>
+	
+</mapper>
