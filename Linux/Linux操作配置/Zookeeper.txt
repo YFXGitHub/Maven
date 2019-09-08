@@ -1,0 +1,45 @@
+Linux 删除文件夹及所有目录
+	--> 使用rm -rf 目录名字 命令即可
+	
+
+
+Zookeeper入门(五)之Linux环境下Zookeeper安装
+	{
+			1.安装
+			wget http://archive.apache.org/dist/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz
+
+			2.解压至/usr/local目录下
+			tar -xzvf zookeeper-3.4.6.tar.gz -C /usr/local
+
+			3.拷贝zookeeper配置文件
+			cd zookeeper-3.4.6
+			cd conf
+			cp zoo_sample.cfg zoo.cfg
+
+			4.编辑zoo.cfg
+			vim zoo.cfg
+
+			#zookeeper的数据存放地址和日志地址
+			dataDir=/home/hadoop/usr/local/zookeeper/data #目录自己创建，同下
+			dataLogDir=/home/hadoop/usr/local/zookeeper/logs
+			server.1=192.168.126:2888:3888
+
+			*注：server.id=hostname:port:port。第一个端口用于集合体中的 follower 以侦听 leader；第二个端口用于 Leader 选举。第一个hostname即为本服务器地址*
+
+			5.启动
+			cd ../bin
+			cd bin
+			sh zkServer.sh start //启动
+			sh zkServer.sh status //检查状态
+			sh zkServer.sh stop //停止
+
+			注意:此处会出现一个错误
+			错误信息:
+			JMX enabled by default
+			zkServer.sh: 81: /usr/local/zookeeper-3.4.6/bin/zkEnv.sh: Syntax error: "(" unexpected (expecting "fi")
+
+			解决方式:
+			Ubuntu的默认shell有问题，把dash改成bash就可以了
+
+			还有就是./zkSer.sh start启动可以避免出现这种错误信息，而且命令很简单。
+	}

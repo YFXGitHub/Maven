@@ -1,0 +1,254 @@
+链接：https://pan.baidu.com/s/1vT8Q69dhnm5Pjm9ytHkQHg 
+提取码：aizg 
+复制这段内容后打开百度网盘手机App，操作更方便哦
+
+-- 配置网卡文件
+[root@localhost network-scripts]# vi ifcfg-eth0
+
+--  Linux重新加载网卡设置
+[root@localhost network-scripts]# service network restart
+
+
+
+-- 在Linux 中下载docker
+[root@localhost admin]# yum install docker
+
+-- 启动docker   systemctl stop docker -》停止docker
+[root@localhost admin]# systemctl start docker
+-- 查看docker的 版本号
+[root@localhost admin]# docker -v
+Docker version 1.13.1, build 7f2769b/1.13.1
+-- 为了避免每次都在Linux中下载docker, 我们将它设为开启启动 
+[root@localhost admin]# systemctl enable docker
+Created symlink from /etc/systemd/system/multi-user.target.wants/docker.service to /usr/lib/systemd/system/docker.service.
+
+-- 在docker中搜索Mysql的镜像文件   就相当于在浏览其中搜索https://hub.docker.com/
+[root@localhost admin]# docker search mysql
+INDEX       NAME                                        DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED
+docker.io   docker.io/mysql                             MySQL is a widely used, open-source relati...   8505      [OK]       
+docker.io   docker.io/mariadb                           MariaDB is a community-developed fork of M...   2948      [OK]       
+docker.io   docker.io/mysql/mysql-server                Optimized MySQL Server Docker images. Crea...   628                  [OK]
+docker.io   docker.io/centurylink/mysql                 Image containing mysql. Optimized to be li...   61                   [OK]
+docker.io   docker.io/centos/mysql-57-centos7           MySQL 5.7 SQL database server                   60                   
+docker.io   docker.io/mysql/mysql-cluster               Experimental MySQL Cluster Docker images. ...   50                   
+docker.io   docker.io/deitch/mysql-backup               Automated and scheduled mysql database dum...   41                   [OK]
+docker.io   docker.io/tutum/mysql                       Base docker image to run a MySQL database ...   32                   
+docker.io   docker.io/bitnami/mysql                     Bitnami MySQL Docker Image                      31                   [OK]
+docker.io   docker.io/schickling/mysql-backup-s3        Backup MySQL to S3 (supports periodic back...   28                   [OK]
+docker.io   docker.io/linuxserver/mysql                 A Mysql container, brought to you by Linux...   21                   
+docker.io   docker.io/prom/mysqld-exporter                                                              20                   [OK]
+docker.io   docker.io/centos/mysql-56-centos7           MySQL 5.6 SQL database server                   15                   
+docker.io   docker.io/circleci/mysql                    MySQL is a widely used, open-source relati...   13                   
+docker.io   docker.io/mysql/mysql-router                MySQL Router provides transparent routing ...   12                   
+docker.io   docker.io/arey/mysql-client                 Run a MySQL client from a docker container      10                   [OK]
+docker.io   docker.io/imega/mysql-client                Size: 36 MB, alpine:3.5, Mysql client: 10....   6                    [OK]
+docker.io   docker.io/openshift/mysql-55-centos7        DEPRECATED: A Centos7 based MySQL v5.5 ima...   6                    
+docker.io   docker.io/yloeffler/mysql-backup            This image runs mysqldump to backup data u...   6                    [OK]
+docker.io   docker.io/fradelg/mysql-cron-backup         MySQL/MariaDB database backup using cron t...   4                    [OK]
+docker.io   docker.io/genschsa/mysql-employees          MySQL Employee Sample Database                  2                    [OK]
+docker.io   docker.io/ansibleplaybookbundle/mysql-apb   An APB which deploys RHSCL MySQL                1                    [OK]
+docker.io   docker.io/jelastic/mysql                    An image of the MySQL database server main...   1                    
+docker.io   docker.io/monasca/mysql-init                A minimal decoupled init container for mysql    0                    
+docker.io   docker.io/widdpim/mysql-client              Dockerized MySQL Client (5.7) including Cu...   0                    [OK]
+
+-- 下载mysql镜像
+docker pull mysql
+
+-- 删除镜像
+docker images     //先查询
+docker rmi ( IMAGE ID)
+
+-- 查看所有的镜像
+[root@localhost admin]# docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+docker.io/mysql     latest              62a9f311b99c        5 days ago          445 MB
+
+-- 运行tomcat           --name （为容器起的别名）
+[root@localhost admin]# docker run --name mytomcat -d tomcat:latest
+35b3055282a0270fd4e0f8d379a152752510be47ee9a750ad97b661d0b3cef6f
+
+-- 这种方式运行Mysql时有问题的？ 
+error: database is uninitialized and password option is not specified 
+  You need to specify one of 
+	MYSQL_ROOT_PASSWORD,
+	 MYSQL_ALLOW_EMPTY_PASSWORD ,
+	MYSQL_RANDOM_ROOT_PASSWORD, 
+	这三项要指定一项
+	正确运行的方法：
+		[root@localhost admin]# docker run --name mysql1 -e MYSQL_ROOT_PASSWORD=123456 -d mysql
+		f9b5c3df035a1c20df278c70e806b77148c20a7ab65a5b4ca1a41058c2490f02
+		[root@localhost admin]# docker ps
+	CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                 NAMES
+	f9b5c3df035a        mysql               "docker-entrypoint..."   15 seconds ago      Up 12 seconds       3306/tcp, 33060/tcp   mysql1
+
+	[root@localhost admin]# docker run -p 3306:3306 --name mysql01 -e MYSQL_ROOT_PASSWORD=123456 -d mysql
+	1d65fbe6cc869b104da84450ca93141f31b3700a50603c14024b4e69ed7f343e
+--
+ERROR 1064(42000): you have an error in you sql syntax; check th manual that corresponds to your mysql server version for the right syntax
+to near
+
+-- 查看运行的镜像、容器
+[root@localhost admin]# docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED              STATUS              PORTS               NAMES
+35b3055282a0        tomcat:latest       "catalina.sh run"   About a minute ago   Up About a minute   8080/tcp            mytomcat
+
+-- 查看所有运行的容器和已停止的容器
+[root@localhost admin]# docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                       PORTS               NAMES
+35b3055282a0        tomcat:latest       "catalina.sh run"   6 minutes ago       Exited (143) 2 minutes ago    
+
+-- 停止运行的容器    stop （容器起的别名）
+[root@localhost admin]# docker stop mytomcat
+mytomcat
+
+-- 启动容器	 start （容器起的别名）
+[root@localhost admin]# docker start mytomcat
+mytomcat
+
+-- 删除一个容器  rm （容器的别名）
+[root@localhost admin]# docker rm mytomcat
+mytomcat
+
+-- 一个镜像能够运行多个容器（也就是指：一个镜像，能够启动多次，且每次都是一个新的容器如：这里就是tomcat） --
+--  启动一个做了映射端口的tomcat    -d:后台运行   -p：将主机端口号映射到，虚拟机的端口上  此处在主机的浏览器中访问：虚拟机的ip:3  OK
+[root@localhost admin]# docker run -d -p 3:8080 tomcat
+1d0bc17152fdf94f564086a7c4ade441386e92d3313ab9119605a701730fe911
+[root@localhost admin]# docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS                 NAMES
+1d0bc17152fd        tomcat              "catalina.sh run"   10 seconds ago      Up 5 seconds        0.0.0.0:3->8080/tcp   zen_banach
+
+--临时关闭防火墙
+[root@localhost admin]# service firewalld stop
+Redirecting to /bin/systemctl stop firewalld.service
+
+-- 查看防火墙的状态
+[root@localhost admin]# service firewalld status
+
+-- 查看tomcat 的日志  logs(容器的名称)
+[root@localhost admin]# docker logs zen_banach
+
+
+19990304.
+
+
+
+-- 查找安装的组件
+[root@bogon admin]# rpm -qa | grep -i mysql
+mysql-community-server-5.6.45-2.el7.x86_64
+mysql-community-common-5.6.45-2.el7.x86_64
+mysql-community-libs-5.6.45-2.el7.x86_64
+mysql-community-release-el7-5.noarch
+mysql-community-client-5.6.45-2.el7.x86_64
+mysql-community-devel-5.6.45-2.el7.x86_64
+
+-- 删除组件
+[root@DB-Server init.d]# rpm -ev MySQL-devel-5.6.23-1.linux_glibc2.5
+
+-- 查找安装的路径
+[root@bogon admin]# find / -name mysql
+find: ‘/run/user/1000/gvfs’: 权限不够
+/etc/logrotate.d/mysql
+/etc/selinux/targeted/active/modules/100/mysql
+/etc/selinux/targeted/tmp/modules/100/mysql
+/var/lib/docker/overlay2/3754263a4fc203f0bd784e46eed4c525a76e3ff936c69fae3ad7361e279dc14a/diff/etc/mysql
+/var/lib/docker/overlay2/3754263a4fc203f0bd784e46eed4c525a76e3ff936c69fae3ad7361e279dc14a/diff/usr/bin/mysql
+/var/lib/docker/overlay2/3754263a4fc203f0bd784e46eed4c525a76e3ff936c69fae3ad7361e279dc14a/diff/usr/lib/mysql
+/var/lib/docker/overlay2/3754263a4fc203f0bd784e46eed4c525a76e3ff936c69fae3ad7361e279dc14a/diff/var/lib/mysql
+/var/lib/docker/overlay2/ab31ff4990ba4b9ae01be38fd6744704081fa5afccf81293a4a85a47eea8ec1d/diff/etc/mysql
+/var/lib/docker/volumes/8352696bf3ddd9406e6aa0ab0e34bb24e531471b16424d30712ff89a0116a642/_data/mysql
+/var/lib/docker/volumes/c07fde4b12a8080f9c9c659ed6a8f4689b313718464db0539a5808101855ca23/_data/mysql
+/var/lib/mysql
+/var/lib/mysql/mysql
+/usr/bin/mysql
+/usr/lib64/mysql
+/usr/share/mysql
+/usr/include/mysql
+/usr/include/mysql/mysql
+
+-- 删除
+rm -rf  /etc/logrotate.d/mysql
+
+
+1、查找以前是否装有mysql
+命令：rpm -qa|grep -i mysql可以看到如下图的所示：
+显示之前安装了：
+
+     MySQL-client-5.5.25a-1.rhel5
+     MySQL-server-5.5.25a-1.rhel5
+
+2、停止mysql服务、删除之前安装的mysql
+
+删除命令：rpm -e –nodeps 包名
+rpm -ev MySQL-client-5.5.25a-1.rhel5 
+rpm -ev MySQL-server-5.5.25a-1.rhel5
+如果提示依赖包错误，则使用以下命令尝试
+
+
+rpm -ev MySQL-client-5.5.25a-1.rhel5 --nodeps
+如果提示错误：error: %preun(xxxxxx) scriptlet failed, exit status 1
+
+则用以下命令尝试：
+
+rpm -e --noscripts MySQL-client-5.5.25a-1.rhel5
+3、查找之前老版本mysql的目录、并且删除老版本mysql的文件和库
+
+find / -name mysql
+查找结果如下：
+
+find / -name mysql 
+ 
+/var/lib/mysql
+/var/lib/mysql/mysql
+/usr/lib64/mysql
+删除对应的mysql目录
+
+rm -rf /var/lib/mysql
+rm -rf /var/lib/mysql
+rm -rf /usr/lib64/mysql
+具体的步骤如图：查找目录并删除
+注意：卸载后/etc/my.cnf不会删除，需要进行手工删除
+
+rm -rf /etc/my.cnf
+4、再次查找机器是否安装mysql
+
+rpm -qa|grep -i mysql
+
+
+
+{	centos7下解决yum install mysql-server没有可用包
+	第一步：安装从网上下载文件的wget命令
+
+[root@master ~]# yum -y install wget
+
+	第二步：下载mysql的repo源
+
+[root@master ~]# wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm?
+
+	第三步：安装mysql-community-release-el7-5.noarch.rpm包
+
+
+		[root@master ~]# rpm -ivh mysql-community-release-el7-5.noarch.rpm
+
+	第四步：查看下
+		 
+
+[root@master ~]# ls -1 /etc/yum.repos.d/mysql-community*
+/etc/yum.repos.d/mysql-community.repo
+/etc/yum.repos.d/mysql-community-source.repo
+
+		会获得两个mysql的yum repo源：
+		/etc/yum.repos.d/mysql-community.repo，/etc/yum.repos.d/mysql-community-source.repo。
+
+
+	第五步：安装mysql
+
+[root@master ~]# yum install mysql-server
+}
+
+
+-- 查看端口
+[root@test1 local]# netstat -nat 
+
+[root@localhost admin]# lsof -i:3306
+COMMAND     PID USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+docker-pr 18592 root    4u  IPv6 131823      0t0  TCP *:mysql (LISTEN)

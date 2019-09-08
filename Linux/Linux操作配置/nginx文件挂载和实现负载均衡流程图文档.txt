@@ -1,0 +1,159 @@
+使用Docker 下载Nginx镜像
+	docker pull nginx
+	docker images		查询docker中的所有一下载的镜像
+	
+创建挂载目录：
+	mkdir -p /data/nginx/{conf, conf.d, html, logs}
+	
+	-- 启动 普通nginx  
+	docker run --name mynginx -p 80:80 -d nginx
+
+	-- 进入到容器中： 要找到nginx运行的id  使用 docker ps 
+	docker exec -it cc2a59fb2f32 /bin/bash
+
+	--nginx 容器中的默认html 页面位置
+	root@9c15cc3ad708:/usr/share/nginx/html# ls
+	50x.html  index.html
+	--nginx 容器中默认log日志 的位置
+	[root@localhost nginx]# docker exec -it 582e12e336a4 bash
+	root@582e12e336a4:/# cd /var/log/nginx
+	root@582e12e336a4:/var/log/nginx# ls
+	access.log  error.log
+	--nginx 容器中nginx.conf文件的位置
+	/etc/nginx/nginx.conf 
+	--nginx 容器中default.conf 文件的位置
+	/etc/nginx/conf.d/default.conf
+
+	--将nginx容器中的内容拷贝到/data/nginx/* 目录下
+	 docker cp 容器id:/usr/share/nginx/html 	/data/nginx/html
+	 docker cp 容器id:/var/log/nginx/error.log 	/data/nginx/logs/error.log
+	 docker cp 容器id:/var/log/nginx/access.log /data/nginx/logs/access.log
+	 docker cp 容器id:/etc/nginx/nginx.conf  	/data/nginx/conf/nginx.conf
+	 docker cp 容器id:/etc/nginx/conf.d 		/data/nginx/conf.d
+
+	--使用挂载文件  启动nginx
+	docker run  --name mynginx -p 80:80 -d
+		-v /data/nginx/html:/usr/share/nginx/html 
+		-v /data/nginx/conf/nginx.conf:/etc/nginx/nginx.conf 
+		-v /data/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf 
+		-v /data/nginx/logs:/var/log/nginx nginx
+	
+	docker run --name mynginx -d -p 82:80 
+		-v /data/nginx/conf/nginx.conf:/etc/nginx/nginx.conf 
+		-v /data/nginx/conf.d:/etc/nginx/conf.d 
+		-v /data/nginx/logs:/var/log/nginx nginx
+  
+使用docker部署nginx配置负载均衡：
+	[root@localhost nginx]# ls
+	conf  conf.d  html  logs
+	[root@localhost nginx]# cd conf
+	
+	--对nginx.conf 配置文件进行设置
+	[root@localhost conf]# vim nginx.conf 
+	/***
+		user  nginx;
+		worker_processes  1;
+
+		error_log  /var/log/nginx/error.log warn;
+		pid        /var/run/nginx.pid;
+
+
+		events {
+		    worker_connections  1024;
+		}
+
+
+		http {
+		    include       /etc/nginx/mime.types;
+		    default_type  application/octet-stream;
+
+		    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                   	   '$status $body_bytes_sent "$http_referer" '
+                  	    '"$http_user_agent" "$http_x_forwarded_for"';
+
+   	 	   access_log  /var/log/nginx/access.log  main;
+
+    		   sendfile        on;
+    		  #tcp_nopush     on;
+
+    		   keepalive_timeout  65;
+
+   		  #gzip  on;
+
+		 #在此处定义一个‘admin’请求标识，分别开启了两个tomcat， weight：数字越大则访问的可能性就越大！
+    		  upstream admin {
+       		         server 192.168.64.131:4 weight=3;
+        		         server 192.168.64.131:3;
+   		  }
+
+   		  include /etc/nginx/conf.d/*.conf;
+
+	             }
+	***/
+
+	--对default.conf 配置文件进行设置：
+	[root@localhost nginx]# cd conf.d
+	[root@localhost conf.d]# vim default.conf 
+
+             server {
+	listen       80;
+	server_name  localhost;
+
+	#charset koi8-r;
+	#access_log  /var/log/nginx/host.access.log  main;
+
+	location / {
+		proxy_pass http://admin;		#此处调用‘admin’
+		root   /usr/share/nginx/html;
+		index  index.html index.htm;
+	}
+
+	#error_page  404              /404.html;
+
+	# redirect server error pages to the static page /50x.html
+	#
+	error_page   500 502 503 504  /50x.html;
+	location = /50x.html {
+		root   /usr/share/nginx/html;
+	}
+
+	# proxy the PHP scripts to Apache listening on 127.0.0.1:80
+	#
+	#location ~ \.php$ {
+	#    proxy_pass   http://127.0.0.1;
+	#}
+
+	# pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+	#
+	#location ~ \.php$ {
+	#    root           html;
+	#    fastcgi_pass   127.0.0.1:9000;
+	#    fastcgi_index  index.php;
+	#    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+	#    include        fastcgi_params;
+	#}
+
+	# deny access to .htaccess files, if Apache's document root
+	# concurs with nginx's one
+	#
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+	
