@@ -1,0 +1,506 @@
+标准表达式语法
+
+· 简单表达式 （simple expressions）
+
+　　${...}  变量表达式
+
+　　*{...}  选择变量表达式
+
+　　#{...}  消息表达式
+
+　　@{...}  链接url表达式
+
+· 字面量
+
+　　'one text','another one!',...   文本
+
+　　0,34,3.0,12.3,... 数值
+
+　　true false 布尔类型
+
+　　null 空
+
+one,sometext,main 文本字符
+
+· 文本操作
+
+　　+  字符串连接
+
+　　|The name is ${name}|  字符串连接
+
+· 算术运算
+
+　　+ , - , * , / , %  二元运算符
+
+　　-  负号（一元运算符）
+
+· 布尔操作
+
+　　and,or  二元操作符
+
+　　!,not 非（一元操作符）
+
+· 关系操作符
+
+　　> , < , >= , <= (gt , lt , ge , le)
+
+　　== , != (eq, ne)
+
+· 条件判断
+
+(if) ? (then)      if-then
+
+(if) ? (then) : (else)   if-then-else  
+
+<tr th:class="${row.even}? 'even' : 'odd'">
+  ...
+</tr>
+ 
+
+条件表达式中的三个部分自身也可以是表达式，也可以是变量(${...}, *{...}), 消息(#{...}), URL (@{...}) 或字面量 ('...')
+条件表达式也可以使用括号来嵌套：
+
+<tr th:class="${row.even}? (${row.first}? 'first' : 'even') : 'odd'">
+...
+</tr>
+else表达式也可以省略，当条件为false时，会返回null：
+
+<tr th:class="${row.even}? 'alt'">
+...
+</tr>
+ 
+
+(value) ?: (defaultvalue)   Default
+
+只有在第一个表达式返回null时，第二个表达式才会运算
+
+·表达式工具对象
+
+#dates 与java.util.Date对象的方法对应，格式化、日期组件抽取等等
+#calendars 类似#dates，与java.util.Calendar对象对应
+#numbers 格式化数字对象的工具方法
+#strings 与java.lang.String对应的工具方法：contains、startsWith、prepending/appending等等
+#objects 用于对象的工具方法
+#bools 用于布尔运算的工具方法
+#arrays 用于数组的工具方法
+#lists 用于列表的工具方法
+#sets 用于set的工具方法
+#maps 用于map的工具方法
+#aggregates 用于创建数组或集合的聚合的工具方法
+#messages 用于在变量表达式内部获取外化消息的工具方法，与#{…}语法获取的方式相同
+#ids 用于处理可能重复出现（例如，作为遍历的结果）的id属性的工具方法
+·链接URL
+URL在web模板中是一级重要元素，使用@{…}表示
+
+URL的类型：
+
+　　绝对URL：
+
+http://www.thymeleaf.org
+　　相对URL：
+
+页面相对： user/login.html
+上下文相对：/itemdetails?id=3 (服务器上下文名称会被自动添加)
+服务器相对：~/billing/processInvoice（允许调用同一服务器上的另一个上下文中的URL）
+协议相对：//code.jquery.com/jquery-2.0.3.min.js
+Thymeleaf在任何情况下都可以处理绝对URL，对于相对URL，则需要使用一个实现了IWebContext接口的上下文对象，这个对象包含了来自HTTP请求的信息，这些信息用于创建相对链接。
+
+
+<!-- Will produce 'http://localhost:8080/gtvg/order/details?orderId=3' (plus rewriting) -->
+<a href="details.html" th:href="@{http://localhost:8080/gtvg/order/details(orderId=${o.id})}">view</a>
+
+<!-- Will produce '/gtvg/order/details?orderId=3' (plus rewriting) -->
+<a href="details.html" th:href="@{/order/details(orderId=${o.id})}">view</a>
+
+<!-- Will produce '/gtvg/order/3/details' (plus rewriting) -->
+<a href="details.html" th:href="@{/order/{orderId}/details(orderId=${o.id})}">view</a>
+
+ 
+
+· 预处理
+Thymeleaf提供预处理表达式的功能。
+
+它是在表壳式正常执行前执行的操作，允许修改最终将要被执行的表达式。
+
+预处理表达式跟正常的一样，但被两个下划线包围住，例如：__${expression}__
+
+假设有一个i18n消息文件Message_fr.properties，里面有一个条目包含了一个调用具体语言的静态方法的OGNL表达式：
+
+article.text=@myapp.translator.Translator@translateToFrench({0})
+Messages_es.properties中的等价条目：
+
+article.text=@myapp.translator.Translator@translateToSpanish({0})
+可以根据locale先创建用于运算表达式的标记片段，本例中，先通过预处理选择表达式，然后让Thymeleaf处理这个选择出来的表达式：
+
+<p th:text="${__#{article.text('textVar')}__}">Some text here...</p>
+对于locale为French的情况，上面的表达式经过预处理后，得出的等价物如下：
+
+<p th:text="${@myapp.translator.Translator@translateToFrench(textVar)}">Some text here...</p>
+ 
+
+五、 设置属性值
+th:attr 任何属性值
+
+<form action="subscribe.html" th:attr="action=@{/subscribe}">
+　　<fieldset>
+　　　　<input type="text" name="email" />
+　　　　<input type="submit" value="Subscribe me!" th:attr="value=#{subscribe.submit}"/>
+　　</fieldset>
+</form>
+多个属性一起设置，用逗号隔开
+
+<img src="../../images/gtvglogo.png" th:attr="src=@{/images/gtvglogo.png},title=#{logo},alt=#{logo}" />
+设置指定属性
+
+
+th:abbr th:accept th:accept-charset
+th:accesskey th:action th:align
+th:alt th:archive th:audio
+th:autocomplete th:axis th:background
+th:bgcolor th:border th:cellpadding
+th:cellspacing th:challenge th:charset
+th:cite th:class th:classid ...
+
+<input type="submit" value="Subscribe me!" th:value="#{subscribe.submit}"/>
+<form action="subscribe.html" th:action="@{/subscribe}">
+<li><a href="product/list.html" th:href="@{/product/list}">Product List</a></li>
+ 
+
+设置多个属性在同一时间  有两个特殊的属性可以这样设置： th:alt-title 和 th:lang-xmllang
+
+th:alt-title 设置 alt 和 title 
+th:lang-xmllang 设置 lang 和 xml:lang 
+
+<img src="../../images/gtvglogo.png" th:attr="src=@{/images/gtvglogo.png},title=#{logo},alt=#{logo}" />
+
+<img src="../../images/gtvglogo.png"th:src="@{/images/gtvglogo.png}" th:title="#{logo}" th:alt="#{logo}" />
+
+<img src="../../images/gtvglogo.png"th:src="@{/images/gtvglogo.png}" th:alt-title="#{logo}" />
+ 
+
+前置和后置添加属性值  th:attrappend 和 th:attrprepend
+
+<input type="button" value="Do it!" class="btn" th:attrappend="class=${' ' + cssStyle}" />
+编译后：
+
+<input type="button" value="Do it!" class="btn warning" />
+ 
+
+还有两个特定的添加属性 th:classappend 和 th:styleappend
+
+<tr th:each="prod : ${prods}" class="row" th:classappend="${prodStat.odd}? 'odd'">
+修复的布尔属性
+
+<input type="checkbox" name="active" th:checked="${user.active}" />
+所有修复的布尔属性：
+
+
+|th:async |th:autofocus |th:autoplay |
+
+|th:checked |th:controls |th:declare |
+
+|th:default |th:defer |th:disabled |
+
+|th:formnovalidate|th:hidden |th:ismap |
+
+|th:loop |th:multiple |th:novalidate |
+
+|th:nowrap |th:open |th:pubdate |
+
+|th:readonly |th:required |th:reversed |
+
+|th:scoped |th:seamless |th:selected |
+
+HTML5友好的属性及元素名
+
+<table>
+    <tr data-th-each="user : ${users}">
+        <td data-th-text="${user.login}">...</td>
+        <td data-th-text="${user.name}">...</td>
+    </tr>
+</table>
+data-{prefix}-{name}是编写HTML5自定义属性的标准语法，不需要开发者使用th:*这样的命名空间，Thymeleaf让这种语法自动对所有dialect都可用。
+
+
+六、遍历
+
+·基础
+
+<tr th:each="prod : ${prods}">
+　　<td th:text="${prod.name}">Onions</td>
+　　<td th:text="${prod.price}">2.41</td>
+　　<td th:text="${prod.inStock}? #{true} : #{false}">yes</td>
+</tr>
+可遍历的对象：实现java.util.Iterable、java.util.Map（遍历时取java.util.Map.Entry）、array、任何对象都被当作只有对象自身一个元素的列表
+
+·状态
+
+当前遍历索引，从0开始，index属性
+当前遍历索引，从1开始，count属性
+总元素数量，size属性
+每一次遍历的iter变量,current属性
+当前遍历是even还是odd，even/odd布尔属性
+当前遍历是第一个，first布尔属性
+当前遍历是最后一个，last布尔属性
+<tr th:each="prod,iterStat : ${prods}" th:class="${iterStat.odd}? 'odd'">
+　　<td th:text="${prod.name}">Onions</td>
+　　<td th:text="${prod.price}">2.41</td>
+　　<td th:text="${prod.inStock}? #{true} : #{false}">yes</td>
+</tr>
+若不指定状态变量，Thymeleaf会默认生成一个名为“变量名Stat”的状态变量：
+
+<tr th:each="prod : ${prods}" th:class="${prodStat.odd}? 'odd'">
+　　<td th:text="${prod.name}">Onions</td>
+　　<td th:text="${prod.price}">2.41</td>
+　　<td th:text="${prod.inStock}? #{true} : #{false}">yes</td>
+</tr>
+ 
+
+七、条件运算
+
+
+<tr th:each="prod : ${prods}" th:class="${prodStat.odd}? 'odd'">
+　　<td th:text="${prod.name}">Onions</td>
+　　<td th:text="${prod.price}">2.41</td>
+　　<td th:text="${prod.inStock}? #{true} : #{false}">yes</td>
+　　<td>
+　　　　<span th:text="${#lists.size(prod.comments)}">2</span> comment/s
+　　　　<a href="comments.html" th:href="@{/product/comments(prodId=${prod.id})}" th:if="${not #lists.isEmpty(prod.comments)}">view</a>
+　　</td>
+</tr>
+
+<a href="comments.html" th:href="@{/product/comments(prodId=${prod.id})}" th:if="${not #lists.isEmpty(prod.comments)}">view</a>
+th:if 不只运算布尔条件，它对以下情况也运算为true:
+
+·值不为null
+　　值为boolean且为true
+　　值为数字且非0
+　　值为字符且非0
+　　值是字符串且不是：“false”,“off”，“no”
+　　值不是boolean、数字、字符、字符串
+·如果值为null，则th:if运算结果为false
+
+th:if的反面是th:unless
+
+<a href="comments.html" th:href="@{/comments(prodId=${prod.id})}"  th:unless="${#lists.isEmpty(prod.comments)}">view</a>
+th:switch 和 th:case
+
+
+<div th:switch="${user.role}">
+　　<p th:case="'admin'">User is an administrator</p>
+　　<p th:case="#{roles.manager}">User is a manager</p>
+</div>
+
+<div th:switch="${user.role}">
+　　<p th:case="'admin'">User is an administrator</p>
+　　<p th:case="#{roles.manager}">User is a manager</p>
+　　<p th:case="*">User is some other thing</p>
+</div>
+
+
+
+
+
+八、模板布局（Template Layout）
+8.1 包含模板片段（Including template fragments）
+
+定义和引用片段
+
+我们通常想要从别的模板文件中调用一些模板片段，例如 页面的头部、底部和菜单...等
+
+th:fragment
+
+定义一个文件 /WEBINF/templates/footer.html 
+
+
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="copy">
+&copy; 2011 The Good Thymes Virtual Grocery
+</div>
+</body>
+</html>
+
+定义了个名为copy的片段，可以通过用th:include 和 th:replace 放到其他页面中
+
+<body>
+<div th:include="footer::copy"></div>
+</body>
+三种格式：
+
+"templatename::domselector" 或者 templatename::[domselector] ——包含名为templatename的domselector部分，英文原文：Includes the fragment resulting from executing the specified DOM Selector on the template named templatename .
+"templatename" ——包含外部模板文件的整个片段
+"::domselector"或者"this::domselector" ——包含来自自身模板文件的片段
+templatename和domselector部分都可以是其他任何表达式（甚至是条件判断表达式）
+
+<div th:include= "footer::(${user.isAdmin}? #{footer.admin}: #{footer.normaluser})"></div>
+ 
+
+Referencing fragments(引用片段) without th:fragment 
+
+...
+<div id="copy-section">
+&copy; 2011 The Good Thymes Virtual Grocery
+</div>
+...
+通过id属性引用上面的片段
+
+<body>
+...
+    <div th:include="footer:: #copy-section"></div>
+</body>
+th:include和th:replace(也可写成th:substituteby)的区别
+
+前者包含片段的内容到当前标签内，后者是用整个片段（内容和上一层）替换当前标签（不仅仅是标签内容）。
+
+<footer th:fragment="copy">
+&copy; 2011 The Good Thymes Virtual Grocery
+</footer>
+<body>
+...
+<div th:include="footer :: copy"></div>
+<div th:replace="footer :: copy"></div>
+</body>
+编译后：
+
+
+<body>
+...
+    <div>
+        &copy; 2011 The Good Thymes Virtual Grocery
+    </div>
+    <footer>
+        &copy; 2011 The Good Thymes Virtual Grocery
+    </footer>
+</body>        
+
+8.2 可带参数的片段标签（Parameterizable fragment signatures）
+
+<div th:fragment="frag (onevar,twovar)">
+    <p th:text="${onevar}+' - ' +${twovar}">...</p>
+</div>
+<div th:include="::frag(${value1},${value2})">...</div>
+<div th:include="::frag(onevar=${value1},twovalue=${vaule2})"></div>
+<div th:include="::frag(twovalue=${vaule2},onevar=${value1})"></div>
+即使标签没有定义参数,like this:
+
+<div th:fragment="frag">
+...
+</div>
+我们还是可以用这句：
+
+<div th:include="::frag(onevar=${value1},twovar=${value2})"></div>
+//等价于 th:include和th:with
+<div th:include="::frag" th:with="onevar=${value1},twovar=${value2}"></div>
+Note that this specification of local variables for a fragment —no matter whether it has a signature or not— does not cause the context to emptied previously to its execution. Fragments will still be able to access every context variable being used at the calling template like they currently are.
+
+th:assert for in-template assertions
+
+<div th:assert="${onevar},(${twovar} !=43)">...</div>
+要验证参数时会派上用场
+
+<header th:fragment="contentheader(title)" th:assert="${!#string.isEmpty(title)}">...</header>
+8.3 移除模板标签（Removing template fragments）
+
+th:remove
+
+
+<table>
+    <tr>
+        <th>NAME</th>
+        <th>PRICE</th>
+        <th>IN STOCK</th>
+        <th>COMMENTS</th>
+    </tr>
+    <tr th:each="prod : ${prods}" th:class="${prodStat.odd}? 'odd'">
+        <td th:text="${prod.name}">Onions</td>
+        <td th:text="${prod.price}">2.41</td>
+        <td th:text="${prod.inStock}? #{true} : #{false}">yes</td>
+        <td>
+            <span th:text="${#lists.size(prod.comments)}">2</span> comment/s
+            <a href="comments.html"
+th:href="@{/product/comments(prodId=${prod.id})}"
+th:unless="${#lists.isEmpty(prod.comments)}">view</a>
+        </td>
+</tr>
+<tr class="odd" th:remove="all">
+    <td>Blue Lettuce</td>
+    <td>9.55</td>
+    <td>no</td>
+    <td>
+        <span>0</span> comment/s
+    </td>
+</tr>
+<tr th:remove="all">
+    <td>Mild Cinnamon</td>
+    <td>1.99</td>
+    <td>yes</td>
+    <td>
+        <span>3</span> comment/s
+        <a href="comments.html">view</a>
+    </td>
+</tr>
+</table>        
+
+th:remove="all" ——移除整个元素包括全部子元素
+
+th:remove="body" ——不移除本身标签元素，移除全部子元素
+
+th:remove="tag" ——只移除本身标签元素，子元素还存在的
+
+th:remove="all-but-first" ——移除所有子元素除了第一个子元素
+
+th:remove="none" 不做任何移除
+
+ 
+
+我们来看一个all-but-first的应用场景：
+
+
+<table>
+<thead>
+<tr>
+<th>NAME</th>
+<th>PRICE</th>
+<th>IN STOCK</th>
+<th>COMMENTS</th>
+</tr>
+</thead>
+<tbody th:remove="all-but-first">
+<tr th:each="prod : ${prods}" th:class="${prodStat.odd}? 'odd'">
+<td th:text="${prod.name}">Onions</td>
+<td th:text="${prod.price}">2.41</td>
+<td th:text="${prod.inStock}? #{true} : #{false}">yes</td>
+<td>
+<span th:text="${#lists.size(prod.comments)}">2</span> comment/s
+<a href="comments.html"
+th:href="@{/product/comments(prodId=${prod.id})}"
+th:unless="${#lists.isEmpty(prod.comments)}">view</a>
+</td>
+</tr>
+<tr class="odd">
+<td>Blue Lettuce</td>
+<td>9.55</td>
+<td>no</td>
+<td>
+<span>0</span> comment/s
+</td>
+</tr>
+<tr>
+<td>Mild Cinnamon</td>
+<td>1.99</td>
+<td>yes</td>
+<td>
+<span>3</span> comment/s
+<a href="comments.html">view</a>
+</td>
+</tr>
+</tbody>
+</table>
+
+th:remove后面也可以是表达式，只要是返回 ( all , tag , body , all-but-first , none )中的任意一个；th:remove把null看成none，所以也可以返回为null值，所以下面两句话一样。
+
+<a href="/something" th:remove="${condition}? tag">Link text not to be removed</a>
+<a href="/something" th:remove="${condition}? tag : none">Link text not to be removed</a>
