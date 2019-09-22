@@ -1,0 +1,39 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.yfx</groupId>
+    <artifactId>Partent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>partent-dao</artifactId>
+  
+  <dependencies>
+  	<dependency>
+  		<groupId>com.yfx</groupId>
+  		<artifactId>partent-pojo</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  
+		
+  </dependencies>
+  
+  
+  <!-- mapper.xml文件都会被漏掉，  若扫描不到可尝试以下步骤！   。
+  	<build>
+		<resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
+	</build>
+  
+   -->
+	
+
+
+</project>
