@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <title>Home</title>
+    <link rel="shortcut icon" href="http://demo.sc.chinaz.com/Files/DownLoad/moban/201811/moban3382/img/favicon.ico" th:href="@{http://demo.sc.chinaz.com/Files/DownLoad/moban/201811/moban3382/img/favicon.ico}">
+
+    <!-- global stylesheets -->
+    <link href="/Home_files/css" rel="stylesheet" th:href="@{/Home_files/css}">
+    <link rel="stylesheet" href="/Home_files/bootstrap.min.css" th:href="@{/Home_files/bootstrap.min.css}">
+    <link rel="stylesheet" href="/Home_files/font-awesome.min.css" th:href="@{/Home_files/font-awesome.min.css}">
+    <link rel="stylesheet" href="/Home_files/font-icon-style.css" th:href="@{/Home_files/font-icon-style.css}">
+    <link rel="stylesheet" href="/Home_files/style.default.css" id="theme-stylesheet" th:href="@{/Home_files/style.default.css}">
+
+    <!-- Core stylesheets -->
+    <link rel="stylesheet" href="/Home_files/card.css" th:href="@{/Home_files/card.css}">
+    <link rel="stylesheet" href="/Home_files/style.css" th:href="@{/Home_files/style.css}">
+
+    <!-- 弹出框的css -->
+    <link href="/model-from/css/component.css"  rel="stylesheet">
+    <style type="text/css">/* Chart.js */
+    @-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}</style></head>
+
+<body>
+<!-- ----------------------------------引入头部标题栏 ---------------------------------- -->
+<div th:replace="fragment::top"></div>
+
+<!-- 主体包含左右 -->
+<div class="page-content d-flex align-items-stretch">
+
+    <!--***** SIDE NAVBAR 左侧栏 *****-->
+    <div th:replace="fragment::left"></div>
+
+    <!--*****  右半侧 *****-->
+        <div class="content-inner chart-cont">
+
+            <!--***** CONTENT *****-->
+            <div class="row">
+                <table class="table table-hover">
+                    <thead>
+                    <tr class="bg-info text-white">
+                        <th>#</th>
+                        <th>UserName</th>
+                        <th>Password</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>CreateTime</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="user : ${userList}">
+                        <th scope="row">[[${user.uid}]]</th>
+                        <td th:text="${user.uname}">Mark</td>
+                        <td th:text="${user.upwd}">Otto</td>
+                        <td th:text="${user.email}">@mdo</td>
+                        <td th:text="${user.phone}">@mdo</td>
+                        <td th:text="${#dates.format(user.createtime, 'yyyy-MM-dd HH:mm')}">@mdo</td>
+                        <td>
+                            <a href="#" class="md-trigger btn btn-primary btn-sm" data-modal="modal-1" >修改</a>
+                            <a href="#" class="btn btn-danger btn-sm" th:href="@{/user/delete/}+${user.uid}">删除</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        <!--***** FOOTER *****-->
+        <div class="row" id="report1">
+
+            Copyright © 2018.Company name All rights reserved.<a target="_blank" href="http://sc.chinaz.com/moban/">网页模板</a>
+
+        </div>
+
+    </div>
+</div>
+
+
+<!-- 触发  弹出层    -->
+<div class="md-modal md-effect-1" id="modal-1">
+    <div class="md-content">
+        <h3>Modal Dialog</h3>
+        <div>
+            <p>This is a modal window. You can do the following things with it:</p>
+            <ul>
+                <li><strong>Read:</strong> modal windows will probably tell you something important so don't forget to read what they say.</li>
+                <li><strong>Look:</strong> a modal window enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
+                <li><strong>Close:</strong> click on the button below to close the modal.</li>
+            </ul>
+            <button class="md-close btn-sm btn-primary">Close me!</button>
+        </div>
+    </div>
+</div>
+
+<!--  触发   弹出层的遮皁层    -->
+<div class="md-overlay"></div>
+
+
+<!--Global Javascript -->
+<script src="/Home_files/jquery.min.js" th:src="@{/Home_files/jquery.min.js}"></script>
+<script src="/Home_files/popper.min.js" th:src="@{/Home_files/popper.min.js}"></script>
+<script src="/Home_files/tether.min.js" th:src="@{/Home_files/tether.min.js}"></script>
+<script src="/Home_files/bootstrap.min.js" th:src="@{/Home_files/bootstrap.min.js}"></script>
+<script src="/Home_files/jquery.cookie.js" th:src="@{/Home_files/jquery.cookie.js}"></script>
+<script src="/Home_files/jquery.validate.min.js" th:src="@{/Home_files/jquery.validate.min.js}"></script>
+<script src="/Home_files/chart.min.js" th:src="@{/Home_files/chart.min.js}"></script>
+<script src="/Home_files/front.js" th:src="@{/Home_files/front.js}"></script>
+
+<!--Core Javascript -->
+<script src="/Home_files/mychart.js" th:src="@{/Home_files/mychart.js}"></script>
+<!-- 弹出框 js -->
+<script src="/model-from/js/classie.js" th:href="@{/model-from/js/classie.js}"></script>
+<script src="/model-from/js/modalEffects.js" th:href="@{/model-from/js/modalEffects.js}"></script>
+
+
+</body></html>

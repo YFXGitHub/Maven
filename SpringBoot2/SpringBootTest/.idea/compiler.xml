@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="SpringBoot-JPA" />
+        <module name="springboot-JPA1" />
+        <module name="SpringBoot-JPA2" />
+        <module name="SpringBoot-Mybatis" />
+        <module name="SpringBoot-Mybatis2" />
+        <module name="SpringBoot-Mybatis4" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="maven" target="1.8" />
+      <module name="SpringBoot-JPA" target="1.8" />
+      <module name="springboot-JPA1" target="1.8" />
+      <module name="SpringBoot-JPA2" target="1.8" />
+      <module name="SpringBoot-Mybatis" target="1.8" />
+      <module name="SpringBoot-Mybatis2" target="1.8" />
+      <module name="SpringBoot-Mybatis3" target="1.8" />
+      <module name="SpringBoot-Mybatis4" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="SpringBoot-JPA" options="-parameters" />
+      <module name="SpringBoot-JPA2" options="-parameters" />
+      <module name="SpringBoot-Mybatis" options="-parameters" />
+      <module name="SpringBoot-Mybatis2" options="-parameters" />
+      <module name="SpringBoot-Mybatis3" options="-parameters" />
+      <module name="SpringBoot-Mybatis4" options="-parameters" />
+      <module name="springboot-JPA1" options="-parameters" />
+    </option>
+  </component>
+</project>

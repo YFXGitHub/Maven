@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+    <link href="/login_files/style.css" rel="stylesheet" type="text/css" media="all" th:href="@{/login_files/style.css}">
+
+    <script src="/login_files/js/jquery.min.js" th:href="@{/login_files/style.css}"></script>
+    <script src="/login_files/js/easyResponsiveTabs.js" type="text/javascript" th:href="@{/login_files/style.css}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#horizontalTab').easyResponsiveTabs({
+                type: 'default',
+                width: 'auto',
+                fit: true
+            });
+        });
+    </script>
+
+</head>
+<body>
+
+
+<div class="main-info">
+
+    <div class="sap_tabs">
+
+        <div id="horizontalTab" style="display: block; width: 100%; margin: 0px;">
+
+            <ul class="resp-tabs-list">
+                <li class="resp-tab-item resp-tab-active" aria-controls="tab_item-0" role="tab"><h2><span>登录</span></h2></li>
+                <li class="resp-tab-item" aria-controls="tab_item-1" role="tab"><span>注册</span></li>
+                <div class="clear"> </div>
+            </ul>
+
+            <div class="resp-tabs-container">
+
+                <h2 class="resp-accordion resp-tab-active" role="tab" aria-controls="tab_item-0"><span class="resp-arrow"></span>登录</h2><div class="tab-1 resp-tab-content resp-tab-content-active" aria-labelledby="tab_item-0" style="display:block">
+                <div class="login-top">
+                    <!-- 登录 -->
+                    <form action="login.html" method="post" th:action="@{/user/login}">
+                        <input type="text" class="name" name="username" placeholder="用户名" required="">
+                        <input type="password" class="password" name="password" placeholder="密码" required="">
+                        <input type="checkbox" id="brand" value="">
+                        <label for="brand"><span></span> 还记得我吗？</label>
+                    <div class="login-bottom">
+                        <ul>
+                            <li>
+                                <a href="javascript:;">忘记密码了吗？</a>
+                            </li>
+                            <li>
+                                    <input type="submit" value="登录">
+                            </li>
+                            <ul>
+                                <div class="clear"></div>
+                            </ul></ul></div>
+                    </form>
+                </div>
+            </div>
+
+                <h2 class="resp-accordion" role="tab" aria-controls="tab_item-1"><span class="resp-arrow"></span>注册</h2><div class="tab-1 resp-tab-content" aria-labelledby="tab_item-1">
+                <div class="login-top sign-top">
+                    <!-- 注册 -->
+                    <form>
+                        <input type="text" class="name active" placeholder="用户名" required="">
+                        <input type="text" class="email" placeholder="邮箱" required="">
+                        <input type="password" class="password" placeholder="密码" required="">
+                        <input type="checkbox" id="brand1" value="">
+                        <label for="brand1"><span></span> 还记得我吗？</label>
+                    </form>
+                    <div class="login-bottom">
+                        <ul>
+                            <li>
+                                <a href="#">忘记密码了吗？</a>
+                            </li>
+                            <li>
+                                <form>
+                                    <input type="submit" value="注册">
+                                </form>
+                            </li>
+                            <ul>
+                                <div class="clear"></div>
+                            </ul></ul></div>
+                </div>
+            </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="social-icons">
+        <ul>
+            <li><a href="#"><span class="icons"></span><span class="text">Facebook</span></a></li>
+            <li class="twt"><a href="#"><span class="icons"></span><span class="text">Twitter</span></a></li>
+            <li class="ggp"><a href="#"><span class="icons"></span><span class="text">Google+</span></a></li>
+            <li class="pin"><a href="#"><span class="icons"></span><span class="text">Pinterest</span></a></li>
+            <div class="clear"> </div>
+        </ul>
+    </div>
+
+</div>
+
+
+
+
+</body></html>
+

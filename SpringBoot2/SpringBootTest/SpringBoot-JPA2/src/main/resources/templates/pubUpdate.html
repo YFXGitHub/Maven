@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Pub修改</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/bootstarplist/bootstrap.min.css" rel="stylesheet" th:href="@{/bootstarplist/bootstrap.min.css}" >
+</head>
+<body>
+
+<form class="form-horizontal" th:action="@{/pub/update}" method="post">
+    <div class="container">
+        <div class="row" style="padding: 20px 0">
+            <h3>pubUpdate</h3>
+        </div>
+        <input class="form-control" name="id"  type="hidden" th:value="${pub.id}">
+        <div class="row form-group">
+            <label class="control-label col-lg-1" for="name1">名称</label>
+            <div class="col-lg-5 col-md-6">
+                <input class="form-control" name="name" id="name1" type="text" th:value="${pub.name}">
+            </div>
+        </div>
+        <button type="submit">提交</button>
+
+    </div>
+</form>
+
+</body>
+</html>

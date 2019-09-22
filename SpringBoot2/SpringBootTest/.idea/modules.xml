@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/SpringBoot-JPA/SpringBoot-JPA.iml" filepath="$PROJECT_DIR$/SpringBoot-JPA/SpringBoot-JPA.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SpringBoot-JPA2/SpringBoot-JPA2.iml" filepath="$PROJECT_DIR$/SpringBoot-JPA2/SpringBoot-JPA2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SpringBoot-Mybatis/SpringBoot-Mybatis.iml" filepath="$PROJECT_DIR$/SpringBoot-Mybatis/SpringBoot-Mybatis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SpringBoot-Mybatis2/SpringBoot-Mybatis2.iml" filepath="$PROJECT_DIR$/SpringBoot-Mybatis2/SpringBoot-Mybatis2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SpringBoot-Mybatis4/SpringBoot-Mybatis4.iml" filepath="$PROJECT_DIR$/SpringBoot-Mybatis4/SpringBoot-Mybatis4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/SpringBootTest.iml" filepath="$PROJECT_DIR$/.idea/SpringBootTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springboot-JPA1/springboot-JPA1.iml" filepath="$PROJECT_DIR$/springboot-JPA1/springboot-JPA1.iml" />
+    </modules>
+  </component>
+</project>

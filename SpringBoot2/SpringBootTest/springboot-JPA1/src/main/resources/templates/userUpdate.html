@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>UserUpdate修改</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/bootstarplist/bootstrap.min.css" rel="stylesheet" th:href="@{/bootstarplist/bootstrap.min.css}" >
+</head>
+<body>
+
+<form class="form-horizontal" th:action="@{/user/update}" method="post">
+    <div class="container">
+        <div class="row" style="padding: 20px 0">
+            <h3>用户修改</h3>
+        </div>
+        <input class="form-control" name="id"  type="hidden" th:value="${user.id}">
+        <div class="row form-group">
+            <label class="control-label col-lg-1" for="name1">名称</label>
+            <div class="col-lg-5 col-md-6">
+                <input class="form-control" name="name" id="name1" type="text" th:value="${user.name}">
+            </div>
+        </div>
+        <div class="row form-group">
+            <label class="control-label col-lg-1" for="name2">密码</label>
+            <div class="col-lg-5 col-md-6">
+                <input class="form-control" name="pwd" id="name2" type="text" th:value="${user.pwd}">
+            </div>
+        </div>
+        <div class="row form-group">
+            <label class="radio-inline">
+                <input type="radio" name="sex" id="optionsRadios3" value="女" th:checked="${user.sex=='女'}"> 女
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="sex" id="optionsRadios4"  value="男" th:checked="${user.sex=='男'}"> 男
+            </label>
+        </div>
+        <div class="row form-group">
+            <label class="control-label col-lg-1" for="name3">年龄</label>
+            <div class="col-lg-5 col-md-6">
+                <input class="form-control" name="age" id="name3" type="number"  th:value="${user.age}">
+            </div>
+        </div>
+        <div class="row form-group">
+            <label class="control-label col-lg-1" for="name4">创建时间</label>
+            <div class="col-lg-5 col-md-6">
+                <input class="form-control"  id="name4" type="text" readonly="readonly" th:value="${#dates.format(user.createtime, 'yyyy-HH-dd HH:mm')}">
+            </div>
+        </div>
+        <button type="submit">提交</button>
+
+    </div>
+</form>
+
+</body>
+</html>

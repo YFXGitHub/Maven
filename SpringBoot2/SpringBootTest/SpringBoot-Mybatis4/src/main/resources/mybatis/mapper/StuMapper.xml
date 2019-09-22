@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yfx.spring.boot.dao.StuMapper">
+    <!-- 查询所有信息 -->
+    <select id="findAll" resultMap="resultALL">
+        select s.*, c.cname from stu s inner join cls c on s.cid=c.cid
+    </select>
+
+    <resultMap id="resultALL" type="Stu">
+        <id column="sid" property="sid" />
+        <result column="name" property="name" />
+        <result column="sex" property="sex" />
+        <result column="age" property="age" />
+        <result column="cid" property="cid" />
+        <association property="cls" javaType="com.yfx.spring.boot.model.Cls">
+            <id column="cid" property="cid" />
+            <result column="cname" property="cname" />
+        </association>
+    </resultMap>
+    <!-- -->
+
+    <!-- -->
+
+    <!-- -->
+
+    <!-- -->
+    <!-- -->
+    <!-- -->
+
+</mapper>

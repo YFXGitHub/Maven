@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yfx.springboot.dao.RecordMapper">
+
+    <!-- -->
+    <select id="getByid" resultType="com.yfx.springboot.entity.Record">
+        select * from record where id = #{id}
+    </select>
+
+
+
+</mapper>
